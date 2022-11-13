@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyServerOptions } from 'fastify'
 import fp from 'fastify-plugin'
 
-export default fp(async (server: FastifyInstance, opts: FastifyServerOptions, done: Function) => {
+export default fp(async (server: FastifyInstance, opts: FastifyServerOptions, done: () => void) => {
     server.route({
         url: "/ping",
         logLevel: "warn",
