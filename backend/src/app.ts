@@ -13,8 +13,7 @@ const main = async () => {
 
     await server.register(startServer)
 
-    const address = await server.listen({ port: +server.config.API_PORT, host: server.config.API_HOST })
-    server.log.info(`Server running at: ${address}`)
+    await server.listen({ port: +server.config.API_PORT, host: server.config.API_HOST })
 
     for (const signal of ['SIGINT', 'SIGTERM']) {
         // Use once() so that double signals exits the app

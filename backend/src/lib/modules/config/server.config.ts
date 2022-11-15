@@ -2,8 +2,9 @@ import fp from 'fastify-plugin'
 import fastifyEnv from '@fastify/env'
 import { fileURLToPath } from 'node:url'
 import { readFileSync } from 'node:fs'
+import { FastifyInstance, FastifyPluginOptions } from 'fastify'
 
-export async function loadServerConfig() {
+export const loadServerConfig = async () => {
     const __dirname = fileURLToPath(new URL('../../../../', import.meta.url))
     return {
         logger: true,
@@ -14,9 +15,10 @@ export async function loadServerConfig() {
     }
 }
 
-export default fp(async (server) => {
+export const envPlugin = fp((server: FastifyInstance, opts: FastifyPluginOptions, done: () => void) => {
     const options = {
         confKey: 'config',
+        dotenv: true,
         schema: {
             type: 'object',
             required: ['API_PORT', 'API_HOST', 'NODE_ENV'],
@@ -26,7 +28,7 @@ export default fp(async (server) => {
                 NODE_ENV: { type: 'string' }
             },
         },
-        dotenv: true
     }
     fastifyEnv(server, options, () => { server.log.info({ ENV: server.config }, 'plugin env ready') })
+    done()
 })
