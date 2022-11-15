@@ -4,7 +4,6 @@ import cors from '@fastify/cors'
 import formbody from '@fastify/formbody'
 import fp from 'fastify-plugin'
 import { fileURLToPath } from 'node:url'
-// import swagger from 'fastify-swagger'
 
 const __dirname = fileURLToPath(new URL('../', import.meta.url))
 
@@ -16,7 +15,7 @@ export default fp(async function plugin(server, config) {
             options: config
         })
         .register(autoLoad, {
-            dir: join(__dirname, 'lib/plugins'),
+            dir: join(__dirname, 'lib/modules'),
             options: config
         })
 

@@ -13,14 +13,14 @@ const main = async () => {
     const server = fastify({
         logger: true,
         https: {
-            key: readFileSync(__dirname + 'https/localhost-key.pem'),
-            cert: readFileSync(__dirname + 'https/localhost.pem')
+            key: readFileSync(__dirname + 'certificats/localhost-key.pem'),
+            cert: readFileSync(__dirname + 'certificats/localhost.pem')
         }
     })
 
     await server.register(startServer)
 
-    const address = await server.listen({ port: server.config.PORT })
+    const address = await server.listen({ port: +server.config.API_PORT, host: server.config.API_HOST })
     server.log.info(`Server running at: ${address}`)
 
     for (const signal of ['SIGINT', 'SIGTERM']) {

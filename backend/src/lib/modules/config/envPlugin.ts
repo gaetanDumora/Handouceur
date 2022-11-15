@@ -6,13 +6,14 @@ export default fp(async (server) => {
         confKey: 'config',
         schema: {
             type: 'object',
-            required: ['PORT'],
+            required: ['API_PORT', 'API_HOST', 'NODE_ENV'],
             properties: {
-                PORT: { type: 'string' }
-            }
+                API_PORT: { type: 'number' },
+                API_HOST: { type: 'string' },
+                NODE_ENV: { type: 'string' }
+            },
         },
         dotenv: true
     }
-
     fastifyEnv(server, options, () => { server.log.info({ ENV: server.config }, 'plugin env ready') })
 })

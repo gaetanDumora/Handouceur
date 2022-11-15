@@ -1,4 +1,4 @@
-import fastify from 'fastify'
+import { FastifyInstance } from 'fastify'
 
 declare module 'fastify-autoload' { }
 declare module 'fastify-cors' { }
@@ -6,12 +6,12 @@ declare module 'fastify-formbody' { }
 declare module "fastify" {
     interface FastifyInstance {
         config: {
-            PORT: number,
+            NODE_ENV: string,
+            API_HOST: string,
+            API_PORT: number,
             isProduction: boolean,
-            cors: {
-                origin: string
-                credentials: string
-            }
         }
     }
 }
+
+export type FastifyInstanceAugmented = FastifyInstance
