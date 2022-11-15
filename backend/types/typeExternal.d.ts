@@ -1,5 +1,3 @@
-import { FastifyInstance } from 'fastify'
-
 declare module 'fastify-autoload' { }
 declare module 'fastify-cors' { }
 declare module 'fastify-formbody' { }
@@ -14,4 +12,4 @@ declare module "fastify" {
     }
 }
 
-export type FastifyInstanceAugmented = FastifyInstance
+export { }

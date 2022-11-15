@@ -1,7 +1,6 @@
 import startServer from './lib/server.js'
 import fastify from 'fastify'
-import { readFileSync } from 'fs'
-import { fileURLToPath } from 'url'
+import { loadServerConfig } from './lib/modules/config/server.config.js'
 
 const main = async () => {
     process.on('unhandledRejection', (err) => {
@@ -9,14 +8,8 @@ const main = async () => {
         process.exit(1)
     })
 
-    const __dirname = fileURLToPath(new URL('../', import.meta.url))
-    const server = fastify({
-        logger: true,
-        https: {
-            key: readFileSync(__dirname + 'certificats/localhost-key.pem'),
-            cert: readFileSync(__dirname + 'certificats/localhost.pem')
-        }
-    })
+    const serverConfig = await loadServerConfig()
+    const server = fastify(serverConfig)
 
     await server.register(startServer)
 

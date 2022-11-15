@@ -1,5 +1,18 @@
 import fp from 'fastify-plugin'
 import fastifyEnv from '@fastify/env'
+import { fileURLToPath } from 'node:url'
+import { readFileSync } from 'node:fs'
+
+export async function loadServerConfig() {
+    const __dirname = fileURLToPath(new URL('../../../../', import.meta.url))
+    return {
+        logger: true,
+        https: {
+            key: readFileSync(__dirname + 'certificats/localhost-key.pem'),
+            cert: readFileSync(__dirname + 'certificats/localhost.pem')
+        }
+    }
+}
 
 export default fp(async (server) => {
     const options = {
