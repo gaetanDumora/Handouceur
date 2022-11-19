@@ -4,9 +4,8 @@ import { userShemas } from './modules/user/user.shema.js'
 
 
 export default fp(async function plugin(server, config) {
-    server
-        .register(config.environment)
-        .register(userRoutes)
+
+    server.register(userRoutes)
 
     for (const schema of [...userShemas]) {
         server.addSchema(schema)

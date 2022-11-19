@@ -1,5 +1,6 @@
 import fastify from 'fastify'
 import { loadServerConfig } from './lib/modules/config/server.config.js'
+import startServer from './lib/server.js'
 
 const main = async () => {
     process.on('unhandledRejection', (err) => {
@@ -10,6 +11,7 @@ const main = async () => {
     const { env, ...config } = await loadServerConfig()
     const server = fastify(config)
 
+    await server.register(startServer)
     await server.register(env)
 
     await server.listen({ port: +server.config.API_PORT, host: server.config.API_HOST })
