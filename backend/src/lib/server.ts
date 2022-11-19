@@ -1,21 +1,18 @@
-import { join } from 'path'
 import { fileURLToPath } from 'node:url'
 import { envPlugin } from './modules/config/server.config.js'
-import autoLoad from '@fastify/autoload'
-import cors from '@fastify/cors'
-import formbody from '@fastify/formbody'
 import fp from 'fastify-plugin'
+import userRoutes from './modules/user/user.route.js'
+import { userShemas } from './modules/user/user.shema.js'
 
-
-const __dirname = fileURLToPath(new URL('../', import.meta.url))
 
 export default fp(async function plugin(server, config) {
     server
-        .register(autoLoad, {
-            dir: join(__dirname, 'lib/routes'),
-            options: config
-        })
         .register(envPlugin)
+        .register(userRoutes)
+
+    for (const schema of [...userShemas]) {
+        server.addSchema(schema)
+    }
 
     server.addHook('onRequest', async (req) => {
         server.log.info({ req }, 'incoming request')

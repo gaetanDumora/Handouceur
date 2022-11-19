@@ -12,14 +12,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@fastify/autoload": "^4.0.0",
-    "@fastify/cors": "^8.2.0",
     "@fastify/env": "^4.1.0",
-    "@fastify/formbody": "^7.3.0",
     "@prisma/client": "^4.6.1",
     "fastify": "^4.9.2",
     "fastify-plugin": "^4.3.0",
-    "prisma": "^4.6.1"
+    "fastify-zod": "^1.2.0",
+    "prisma": "^4.6.1",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@types/node": "^18.11.9",
