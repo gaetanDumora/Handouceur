@@ -1,4 +1,3 @@
-import startServer from './lib/server.js'
 import fastify from 'fastify'
 import { loadServerConfig } from './lib/modules/config/server.config.js'
 
@@ -8,10 +7,10 @@ const main = async () => {
         process.exit(1)
     })
 
-    const serverConfig = await loadServerConfig()
-    const server = fastify(serverConfig)
+    const { env, ...config } = await loadServerConfig()
+    const server = fastify(config)
 
-    await server.register(startServer)
+    await server.register(env)
 
     await server.listen({ port: +server.config.API_PORT, host: server.config.API_HOST })
 

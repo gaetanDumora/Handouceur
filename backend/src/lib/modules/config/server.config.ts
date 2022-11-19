@@ -11,24 +11,23 @@ export const loadServerConfig = async () => {
         https: {
             key: readFileSync(__dirname + 'certificats/localhost-key.pem'),
             cert: readFileSync(__dirname + 'certificats/localhost.pem')
-        }
+        },
+        env: fp((server: FastifyInstance, opts: FastifyPluginOptions, done: () => void) => {
+            const options = {
+                confKey: 'config',
+                dotenv: true,
+                schema: {
+                    type: 'object',
+                    required: ['API_PORT', 'API_HOST', 'NODE_ENV'],
+                    properties: {
+                        API_PORT: { type: 'number' },
+                        API_HOST: { type: 'string' },
+                        NODE_ENV: { type: 'string' }
+                    },
+                },
+            }
+            fastifyEnv(server, options, () => { server.log.info({ ENV: server.config }, 'plugin env ready') })
+            done()
+        })
     }
 }
-
-export const envPlugin = fp((server: FastifyInstance, opts: FastifyPluginOptions, done: () => void) => {
-    const options = {
-        confKey: 'config',
-        dotenv: true,
-        schema: {
-            type: 'object',
-            required: ['API_PORT', 'API_HOST', 'NODE_ENV'],
-            properties: {
-                API_PORT: { type: 'number' },
-                API_HOST: { type: 'string' },
-                NODE_ENV: { type: 'string' }
-            },
-        },
-    }
-    fastifyEnv(server, options, () => { server.log.info({ ENV: server.config }, 'plugin env ready') })
-    done()
-})

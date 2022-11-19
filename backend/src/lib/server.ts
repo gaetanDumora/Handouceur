@@ -1,5 +1,3 @@
-import { fileURLToPath } from 'node:url'
-import { envPlugin } from './modules/config/server.config.js'
 import fp from 'fastify-plugin'
 import userRoutes from './modules/user/user.route.js'
 import { userShemas } from './modules/user/user.shema.js'
@@ -7,7 +5,7 @@ import { userShemas } from './modules/user/user.shema.js'
 
 export default fp(async function plugin(server, config) {
     server
-        .register(envPlugin)
+        .register(config.environment)
         .register(userRoutes)
 
     for (const schema of [...userShemas]) {
