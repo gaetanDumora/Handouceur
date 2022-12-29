@@ -1,0 +1,46 @@
+<div class="wrapper">
+  <div class="toolbar">
+    <mat-toolbar
+      color="primary"
+      class="shadow p-3 mb-5 d-flex flex-wrap h-auto"
+    >
+      <div
+        class="container-fluid d-flex justify-content-between align-items-center"
+      >
+        <span class="branding spacer d-none d-sm-inline d-md-none">
+          Association Handouceur
+        </span>
+        <span class="branding spacer d-none d-md-inline">
+          Association Handouceur
+        </span>
+        <span class="d-flex flex-wrap mr-2">
+          <button
+            mat-button
+            class="nav-buttond"
+            *ngFor="let item of navItems"
+            [routerLink]="item.link"
+            routerLinkActive="active"
+          >
+            <span *ngIf="item.show">{{ item.title }}</span>
+          </button>
+        </span>
+
+        <span class="separator"></span>
+        <span>
+          <button mat-button>
+            <mat-icon style="font-size: large">login</mat-icon>
+          </button>
+        </span>
+        <span>
+          <mat-icon class="align-bottom">bedtime</mat-icon>
+          <mat-slide-toggle
+            [checked]="isDarkTheme$ | async"
+            (change)="toggleTheme($event.checked)"
+          >
+          </mat-slide-toggle>
+          <mat-icon class="align-bottom">brightness_5</mat-icon>
+        </span>
+      </div>
+    </mat-toolbar>
+  </div>
+</div>

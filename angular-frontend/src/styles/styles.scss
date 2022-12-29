@@ -1,0 +1,20 @@
+@use "@angular/material" as mat;
+
+@import "bootstrap/scss/bootstrap";
+
+@import "./themes/dark-theme.scss";
+@import "./themes/light-theme.scss";
+
+$custom-typography: mat.define-typography-config(
+  $font-family: "Open-sans, Arial, sans-serif",
+);
+
+@include mat.core();
+
+.angular-light-theme {
+  @include mat.all-component-colors($angular-light-theme);
+}
+
+.angular-dark-theme {
+  @include mat.all-component-colors($angular-dark-theme);
+}
