@@ -1,8 +1,7 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ThemeService } from '../../core/service/theme.service';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-nav',
@@ -10,10 +9,6 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
-  @HostBinding('class') className = '';
-
-  toggleControl = new FormControl(false);
-
   public isDarkTheme$: Observable<boolean>;
 
   navItems = [

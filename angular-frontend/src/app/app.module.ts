@@ -9,6 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 
 import { NavComponent } from './layout/nav/nav.component';
+import { LoginDialogComponent } from './layout/nav/register/login-dialog.component';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
 import { FooterComponent } from './layout/footer/footer.component';
 
@@ -16,6 +17,7 @@ import { FooterComponent } from './layout/footer/footer.component';
   declarations: [
     AppComponent,
     NavComponent,
+    LoginDialogComponent,
     ContentLayoutComponent,
     FooterComponent,
   ],
