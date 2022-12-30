@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { themes } from '../../core/constants/themes';
-import { ThemeService } from '../../core/service/theme.service';
+import { ThemeService } from '../../core/services/theme.service';
 
 @Component({
   selector: 'app-content-layout',
