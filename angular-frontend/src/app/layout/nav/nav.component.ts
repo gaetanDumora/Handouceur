@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ThemeService } from '../../core/services/theme.service';
+import { DialogService } from 'src/app/shared/dialog/dialog.service';
+
+import { LoginComponent } from './login/login.component';
 
 @Component({
   selector: 'app-nav',
@@ -9,7 +12,7 @@ import { ThemeService } from '../../core/services/theme.service';
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
-  public isDarkTheme$: Observable<boolean>;
+  public isDarkTheme: Observable<boolean>;
 
   navItems = [
     { link: '/home', title: 'Home', show: true },
@@ -18,13 +21,21 @@ export class NavComponent implements OnInit {
     { link: '/admin', title: 'Admin', show: true },
   ];
 
-  constructor(private themeService: ThemeService) {}
+  constructor(
+    private themeService: ThemeService,
+    private dialogService: DialogService
+  ) {}
 
   ngOnInit() {
-    this.isDarkTheme$ = this.themeService.getDarkTheme();
+    this.isDarkTheme = this.themeService.getDarkTheme();
   }
 
   toggleTheme(checked: boolean) {
     this.themeService.setDarkTheme(checked);
+  }
+  openLoginDialog() {
+    this.dialogService.open(LoginComponent, {
+      title: 'Register/Login',
+    });
   }
 }

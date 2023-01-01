@@ -27,14 +27,14 @@
 
         <span class="separator"></span>
         <span>
-          <button mat-button routerLink="dialog">
+          <button mat-button (click)="openLoginDialog()">
             <mat-icon style="font-size: large">person</mat-icon>
           </button>
         </span>
         <span>
           <mat-icon class="align-bottom">bedtime</mat-icon>
           <mat-slide-toggle
-            [checked]="isDarkTheme$ | async"
+            [checked]="isDarkTheme | async"
             (change)="toggleTheme($event.checked)"
           >
           </mat-slide-toggle>
