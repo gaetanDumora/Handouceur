@@ -1,20 +1,32 @@
-import { FastifyInstance } from 'fastify'
-import { registerUserHandler } from './user.controllers.js'
-import { $ref } from './user.shema.js'
+import { FastifyInstance } from "fastify";
+import { isRegistered, registerUserHandler } from "./user.controllers.js";
+import { $ref } from "./user.shema.js";
 
 async function userRoutes(server: FastifyInstance) {
-    server.post(
-        '/user',
-        {
-            schema: {
-                body: $ref('createUserSchema'),
-                response: {
-                    201: $ref('createUserResponseSchema')
-                }
-            }
+  server.post(
+    "/",
+    {
+      schema: {
+        body: $ref("createUserSchema"),
+        response: {
+          201: $ref("createUserResponseSchema"),
         },
-        registerUserHandler
-    )
+      },
+    },
+    registerUserHandler
+  ),
+    server.post(
+      "/isRegistered",
+      {
+        // schema: {
+        //   body: $ref("createUserSchema"),
+        //   response: {
+        //     201: $ref("createUserResponseSchema"),
+        //   },
+        // },
+      },
+      isRegistered
+    );
 }
 
-export default userRoutes
+export default userRoutes;

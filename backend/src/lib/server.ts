@@ -2,8 +2,8 @@ import fp from "fastify-plugin";
 import userRoutes from "./modules/user/user.route.js";
 import { userShemas } from "./modules/user/user.shema.js";
 
-export default fp(async function plugin(server, config) {
-  server.register(userRoutes);
+export default fp(async function (server, config) {
+  server.register(userRoutes, { prefix: "/user" });
 
   for (const schema of [...userShemas]) {
     server.addSchema(schema);

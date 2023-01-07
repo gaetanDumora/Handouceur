@@ -11,7 +11,9 @@ export class AuthService {
 
   isRegistered({ email }: { email: string }) {
     return this.http
-      .post<{ email: string }>('api/isRegistered', { email })
+      .post<{ email: string }>('https://localhost:8080/user/isRegistered', {
+        email,
+      })
       .pipe(catchError(this.handleError));
   }
 
