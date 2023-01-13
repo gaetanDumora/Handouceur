@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { RegisterComponent } from '../register/register.component';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { AuthService } from 'src/app/modules/user/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -27,13 +27,15 @@ export class LoginComponent {
   tryLogin() {
     if (this.email.status === 'VALID' && this.email.value) {
       this.authService.isRegistered({ email: this.email.value }).subscribe({
-        next: (x) => console.log({ x }),
-        error: (e) => {
-          console.log('nok', e);
-          return this.dialog.open(RegisterComponent, {
+        next: (email) =>
+          this.dialog.open(RegisterComponent, {
+            title: 'Enter Password',
+            email,
+          }),
+        error: () =>
+          this.dialog.open(RegisterComponent, {
             title: 'Create Account',
-          });
-        },
+          }),
       });
     }
   }

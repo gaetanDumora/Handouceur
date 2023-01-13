@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ThemeService } from '../../core/services/theme.service';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from '../../modules/user/authentication/login/login.component';
 
 @Component({
   selector: 'app-nav',

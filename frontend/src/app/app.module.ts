@@ -9,11 +9,11 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 
 import { NavComponent } from './layout/nav/nav.component';
-import { LoginComponent } from './layout/nav/login/login.component';
+import { LoginComponent } from './modules/user/authentication/login/login.component';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { DialogComponent } from './shared/dialog/dialog.component';
-import { RegisterComponent } from './layout/nav/register/register.component';
+import { RegisterComponent } from './modules/user/authentication/register/register.component';
 
 @NgModule({
   declarations: [

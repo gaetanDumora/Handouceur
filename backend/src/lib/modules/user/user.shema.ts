@@ -25,12 +25,7 @@ const createUserResponseSchema = z.object({
 });
 
 const isUserSchema = z.object({
-  email: z
-    .string({
-      required_error: 'Email is required',
-      invalid_type_error: 'Email must be a string',
-    })
-    .email(),
+  email: z.string({ required_error: 'Email is required for authentication' }),
 });
 
 const loginSchema = z.object({
