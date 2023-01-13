@@ -1,6 +1,6 @@
-import { FastifyReply, FastifyRequest } from "fastify";
-import { CreateUserInput, LoginInput } from "./user.shema.js";
-import { createUser, findUserByEmail } from "./user.service.js";
+import { FastifyReply, FastifyRequest } from 'fastify';
+import { CreateUserInput, LoginInput } from './user.shema.js';
+import { createUser, findUserByEmail } from './user.service.js';
 
 export async function registerUserHandler(
   request: FastifyRequest<{ Body: CreateUserInput }>,

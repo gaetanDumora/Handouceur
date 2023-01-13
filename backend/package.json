@@ -2,12 +2,18 @@
   "name": "handouceur-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "type": "module",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc -p tsconfig.json",
-    "start": "node build/app.js"
+    "build": "rm -rf build && tsc -p tsconfig.json",
+    "start": "node build/app.js",
+    "docker:db:seed": "docker exec -it backend npx prisma db seed",
+    "docker:db:up": "docker exec -it backend npm run db:up",
+    "docker:db:down": "docker exec -it backend npm run db:down",
+    "docker:rebuild:be": "cd .. && docker compose build backend && docker compose rm --stop backend && docker compose up -d backend",
+    "db:console": "docker exec -it postgres psql -h localhost -U postgres -d handouceur_dev",
+    "db:up": "npx knex migrate:latest",
+    "db:down": "npx knex migrate:rollback",
+    "start:docker": "npm run build && node --inspect=0.0.0.0 build/app.js"
   },
   "prisma": {
     "seed": "node --loader ts-node/esm prisma/seed.ts"
@@ -16,18 +22,20 @@
   "license": "ISC",
   "dependencies": {
     "@fastify/cors": "^8.2.0",
-    "@fastify/env": "^4.1.0",
-    "@prisma/client": "^4.6.1",
+    "@prisma/client": "^4.8.1",
     "fastify": "^4.9.2",
     "fastify-plugin": "^4.3.0",
     "fastify-zod": "^1.2.0",
-    "prisma": "^4.6.1",
+    "knex": "^2.4.0",
+    "pg": "^8.8.0",
     "zod": "^3.19.1"
   },
   "devDependencies": {
-    "@swc/cli": "^0.1.57",
-    "@swc/core": "^1.3.25",
     "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/parser": "^5.48.0",
+    "eslint": "^8.31.0",
+    "prisma": "^4.8.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
   }

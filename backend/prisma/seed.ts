@@ -1,11 +1,11 @@
-import prisma from "../src/lib/utils/prisma.js";
+import prisma from '../src/lib/utils/prisma';
 
 async function main() {
   return await prisma.user.create({
     data: {
-      email: "test@test.com",
-      password: "12345",
-      salt: "12345",
+      email: 'test@test.com',
+      password: '12345',
+      salt: '12345',
     },
   });
 }

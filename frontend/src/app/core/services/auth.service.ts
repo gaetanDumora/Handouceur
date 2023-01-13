@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class AuthService {
 
   isRegistered({ email }: { email: string }) {
     return this.http
-      .post<{ email: string }>('https://localhost:8080/user/isRegistered', {
+      .post<{ email: string }>(`${environment.apiUrl}/user/isRegistered`, {
         email,
       })
       .pipe(catchError(this.handleError));

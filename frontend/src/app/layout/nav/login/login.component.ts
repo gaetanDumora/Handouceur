@@ -24,10 +24,17 @@ export class LoginComponent {
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
-  async tryLogin() {
-    if (this.email.value) {
-      this.authService.isRegistered({ email: this.email.value }).subscribe();
-      // this.dialog.open(RegisterComponent, { title: 'Create Account' });
+  tryLogin() {
+    if (this.email.status === 'VALID' && this.email.value) {
+      this.authService.isRegistered({ email: this.email.value }).subscribe({
+        next: (x) => console.log({ x }),
+        error: (e) => {
+          console.log('nok', e);
+          return this.dialog.open(RegisterComponent, {
+            title: 'Create Account',
+          });
+        },
+      });
     }
   }
 }

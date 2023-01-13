@@ -1,0 +1,10 @@
+{
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": "backend\/src\/*",
+                "cmd": "docker compose restart backend"
+            }
+        ]
+    }
+}
