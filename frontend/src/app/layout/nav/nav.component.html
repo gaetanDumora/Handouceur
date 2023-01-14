@@ -33,10 +33,10 @@
         </span>
 
         <span class="pill">
-          <button mat-button disableRipple="true" (click)="openLoginDialog()">
+          <button mat-button (click)="openLoginDialog()">
             <mat-icon style="font-size: large">person_outline</mat-icon>
           </button>
-          <button mat-button disableRipple="true" (click)="changeTheme()">
+          <button mat-button (click)="changeTheme()">
             <mat-icon *ngIf="!(isDarkTheme | async)"
               >lightbulbe_outline</mat-icon
             >
