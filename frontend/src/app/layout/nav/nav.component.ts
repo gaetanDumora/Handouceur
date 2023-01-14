@@ -13,6 +13,7 @@ import { LoginComponent } from '../../modules/user/authentication/login/login.co
 })
 export class NavComponent implements OnInit {
   public isDarkTheme: Observable<boolean>;
+  private isActive = true;
 
   navItems = [
     { link: '/home', title: 'Home', show: true },
@@ -30,9 +31,11 @@ export class NavComponent implements OnInit {
     this.isDarkTheme = this.themeService.getDarkTheme();
   }
 
-  toggleTheme(checked: boolean) {
-    this.themeService.setDarkTheme(checked);
+  changeTheme() {
+    this.isActive = !this.isActive;
+    this.themeService.setDarkTheme(this.isActive);
   }
+
   openLoginDialog() {
     this.dialogService.open(LoginComponent, {
       title: 'Register/Login',

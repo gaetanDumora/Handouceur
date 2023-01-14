@@ -8,19 +8,17 @@
         class="container-fluid d-flex justify-content-between align-items-center"
       >
         <img
-          src="../../../assets/logo.jpeg"
+          src="../../../assets/logo-removebg.png"
           width="200"
-          height="80"
+          height="70"
           alt="logo handouceur"
           class="branding spacer d-none d-sm-inline"
         />
         <span class="branding spacer d-none d-sm-inline d-md-none">
-          Association <br />
-          Handouceur
+          Association Handouceur
         </span>
         <span class="branding spacer d-none d-md-inline">
-          Association <br />
-          Handouceur
+          Association Handouceur
         </span>
         <span class="d-flex flex-wrap mr-2">
           <button
@@ -34,20 +32,16 @@
           </button>
         </span>
 
-        <span class="separator"></span>
-        <span>
-          <button mat-button (click)="openLoginDialog()">
-            <mat-icon style="font-size: large">person</mat-icon>
+        <span class="pill">
+          <button mat-button disableRipple="true" (click)="openLoginDialog()">
+            <mat-icon style="font-size: large">person_outline</mat-icon>
           </button>
-        </span>
-        <span>
-          <mat-icon class="align-bottom">bedtime</mat-icon>
-          <mat-slide-toggle
-            [checked]="isDarkTheme | async"
-            (change)="toggleTheme($event.checked)"
-          >
-          </mat-slide-toggle>
-          <mat-icon class="align-bottom">brightness_5</mat-icon>
+          <button mat-button disableRipple="true" (click)="changeTheme()">
+            <mat-icon *ngIf="!(isDarkTheme | async)"
+              >lightbulbe_outline</mat-icon
+            >
+            <mat-icon *ngIf="isDarkTheme | async">bedtime</mat-icon>
+          </button>
         </span>
       </div>
     </mat-toolbar>
