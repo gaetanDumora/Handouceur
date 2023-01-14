@@ -26,11 +26,11 @@ export class LoginComponent {
 
   tryLogin() {
     if (this.email.status === 'VALID' && this.email.value) {
-      this.authService.isRegistered({ email: this.email.value }).subscribe({
-        next: (email) =>
+      this.authService.isUser(this.email.value).subscribe({
+        next: (user) =>
           this.dialog.open(RegisterComponent, {
             title: 'Enter Password',
-            email,
+            user,
           }),
         error: () =>
           this.dialog.open(RegisterComponent, {

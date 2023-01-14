@@ -1,8 +1,18 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map, retry } from 'rxjs/operators';
 import { environment } from 'src/environment/environment';
+
+interface User {
+  id: number;
+  name?: string;
+  email: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -10,12 +20,13 @@ import { environment } from 'src/environment/environment';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  isRegistered({ email }: { email: string }) {
-    return this.http
-      .post<{ email: string }>(`${environment.apiUrl}/user/isRegistered`, {
-        email,
-      })
-      .pipe(catchError(this.handleError));
+  isUser(email: string) {
+    const url = `${environment.apiUrl}/user/isUser`;
+    const params = new HttpParams().set('email', email);
+    return this.http.get<User>(url, { params }).pipe(
+      map((user) => user),
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error: HttpErrorResponse) {

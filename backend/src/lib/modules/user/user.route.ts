@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import { isRegistered, registerUserHandler } from './user.controllers.js';
+import { isUser, registerUserHandler } from './user.controllers.js';
 import { $ref } from './user.shema.js';
 
 async function userRoutes(server: FastifyInstance) {
@@ -15,17 +15,21 @@ async function userRoutes(server: FastifyInstance) {
     },
     registerUserHandler
   ),
-    server.post(
-      '/isRegistered',
+    server.get(
+      '/isUser',
       {
         schema: {
-          body: $ref('isUserSchema'),
-          response: {
-            201: $ref('createUserResponseSchema'),
+          querystring: {
+            type: 'object',
+            properties: {
+              email: {
+                type: 'string',
+              },
+            },
           },
         },
       },
-      isRegistered
+      isUser
     );
 }
 

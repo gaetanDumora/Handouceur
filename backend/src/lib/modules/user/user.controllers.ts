@@ -17,16 +17,18 @@ export async function registerUserHandler(
   }
 }
 
-export async function isRegistered(
-  request: FastifyRequest<{ Body: LoginInput }>,
+export async function isUser(
+  request: FastifyRequest<{ Querystring: { email: string } }>,
   reply: FastifyReply
 ) {
-  const {
-    body: { email },
-  } = request;
+  const { email } = request.query;
   try {
+    let statusCode = 200;
     const maybeUser = await findUserByEmail({ email });
-    return reply.code(201).send(maybeUser);
+    if (!maybeUser) {
+      statusCode = 204;
+    }
+    return reply.code(statusCode).send(maybeUser);
   } catch (error) {
     request.log.info(error);
     return reply.code(500).send(error);
