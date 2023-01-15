@@ -23,10 +23,9 @@ export class AuthService {
   isUser(email: string) {
     const url = `${environment.apiUrl}/user/isUser`;
     const params = new HttpParams().set('email', email);
-    return this.http.get<User>(url, { params }).pipe(
-      map((user) => user),
-      catchError(this.handleError)
-    );
+    return this.http
+      .get<User>(url, { params })
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {

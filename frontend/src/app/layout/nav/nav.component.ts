@@ -5,6 +5,7 @@ import { ThemeService } from '../../core/services/theme.service';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 
 import { LoginComponent } from '../../modules/user/authentication/login/login.component';
+import { RegisterComponent } from 'src/app/modules/user/authentication/register/register.component';
 
 @Component({
   selector: 'app-nav',
@@ -37,7 +38,7 @@ export class NavComponent implements OnInit {
   }
 
   openLoginDialog() {
-    this.dialogService.open(LoginComponent, {
+    this.dialogService.open(RegisterComponent, {
       title: 'Register/Login',
     });
   }
