@@ -5,53 +5,54 @@
       #formDirective="ngForm"
       (ngSubmit)="onSubmit(registerForm, formDirective)"
     >
-      <p class="text-center">
-        <mat-form-field>
-          <mat-icon matPrefix>email</mat-icon>
-          <input
-            autofocus
-            type="email"
-            matInput
-            placeholder="Email *"
-            formControlName="email"
-          />
-        </mat-form-field>
-        <mat-error *ngIf="checkValidation('email')">
-          {{ emaiErrors() }}
-        </mat-error>
-      </p>
+      <div class="text-center">
+        <p>
+          <mat-form-field>
+            <mat-icon matPrefix>email</mat-icon>
+            <input
+              autofocus
+              type="email"
+              matInput
+              placeholder="Email *"
+              formControlName="email"
+            />
+          </mat-form-field>
+          <mat-error *ngIf="checkValidation('email')">
+            {{ emaiErrors() }}
+          </mat-error>
+        </p>
 
-      <p class="text-center">
-        <mat-form-field>
-          <mat-icon matPrefix>person_outline</mat-icon>
-          <input
-            autofocus
-            type="text"
-            matInput
-            placeholder="Username"
-            formControlName="username"
-          />
-        </mat-form-field>
-      </p>
+        <p>
+          <mat-form-field>
+            <mat-icon matPrefix>person_outline</mat-icon>
+            <input
+              autofocus
+              type="text"
+              matInput
+              placeholder="Username"
+              formControlName="username"
+            />
+          </mat-form-field>
+        </p>
 
-      <p class="text-center">
-        <mat-form-field>
-          <mat-icon matPrefix>lock_outline</mat-icon>
-          <input
-            type="password"
-            autocomplete="false"
-            matInput
-            placeholder="Password *"
-            formControlName="password"
-          />
-        </mat-form-field>
-        <mat-error *ngIf="checkValidation('password')">
-          {{ getErrorPassword() }}
-        </mat-error>
-      </p>
+        <p>
+          <mat-form-field>
+            <mat-icon matPrefix>lock_outline</mat-icon>
+            <input
+              type="password"
+              autocomplete="false"
+              matInput
+              placeholder="Password *"
+              formControlName="password"
+            />
+          </mat-form-field>
+          <mat-error *ngIf="checkValidation('password')">
+            {{ getErrorPassword() }}
+          </mat-error>
+        </p>
+      </div>
 
-      <div class="row justify-content-between p-3">
-        <button mat-raised-button mat-dialog-close="true">Close</button>
+      <div class="row row-cols-1 p-3">
         <button
           type="submit"
           [disabled]="registerForm.invalid"
