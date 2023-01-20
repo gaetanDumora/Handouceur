@@ -22,6 +22,7 @@ const createUserSchema = z.object({
 const createUserResponseSchema = z.object({
   id: z.number(),
   ...userCore,
+  admin: z.boolean(),
 });
 
 const isUserSchema = z.object({

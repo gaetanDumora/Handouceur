@@ -2,12 +2,12 @@ import fp from 'fastify-plugin';
 import userRoutes from './modules/user/user.route.js';
 import { userShemas } from './modules/user/user.shema.js';
 
-export default fp(async function (server, config) {
-  server.register(userRoutes, { prefix: '/user' });
-
-  for (const schema of [...userShemas]) {
+export const startServer = fp(async function (server, config) {
+  for (const schema of userShemas) {
     server.addSchema(schema);
   }
+
+  server.register(userRoutes, { prefix: '/user' });
 
   server.addHook('onRequest', async (req) => {
     server.log.info({ req }, 'incoming request');

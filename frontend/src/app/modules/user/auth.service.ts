@@ -28,6 +28,21 @@ export class AuthService {
       .pipe(catchError(this.handleError));
   }
 
+  registerUser({
+    email,
+    username,
+    password,
+  }: {
+    email: string;
+    username?: string;
+    password: string;
+  }) {
+    const url = `${environment.apiUrl}/user/registerUser`;
+    return this.http
+      .post<User>(url, { email, name: username, password })
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.

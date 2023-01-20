@@ -17,7 +17,7 @@ export async function registerUserHandler(
   }
 }
 
-export async function isUser(
+export async function isUserHandler(
   request: FastifyRequest<{ Querystring: { email: string } }>,
   reply: FastifyReply
 ) {

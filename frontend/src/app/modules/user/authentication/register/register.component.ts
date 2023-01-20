@@ -15,7 +15,7 @@ import { AuthService } from '../../auth.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
 
-  constructor(private auth: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.createForm();
@@ -67,8 +67,8 @@ export class RegisterComponent implements OnInit {
     const email = formData.value.email;
     const password = formData.value.password;
     const username = formData.value.username;
-    console.log({ email, password, username });
-    // this.auth.registerUSer(email, password, username);
+
+    this.authService.registerUser({ email, password, username }).subscribe();
     formDirective.resetForm();
     this.registerForm.reset();
   }

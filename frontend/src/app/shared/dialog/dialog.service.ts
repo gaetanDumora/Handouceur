@@ -11,8 +11,8 @@ export class DialogService {
   constructor(public dialog: MatDialog) {}
 
   private defaulConfig: MatDialogConfig = {
-    height: '60%',
-    width: '45%',
+    height: 'auto',
+    width: '400px',
   };
 
   public open<T>(

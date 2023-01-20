@@ -1,6 +1,6 @@
 import fastify from 'fastify';
 import { loadServerConfig } from './lib/modules/config/server.config.js';
-import startServer from './lib/server.js';
+import { startServer } from './lib/server.js';
 
 const main = async () => {
   process.on('unhandledRejection', (err) => {

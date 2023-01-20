@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import { isUser, registerUserHandler } from './user.controllers.js';
+import { isUserHandler, registerUserHandler } from './user.controllers.js';
 import { $ref } from './user.shema.js';
 
 async function userRoutes(server: FastifyInstance) {
@@ -29,7 +29,7 @@ async function userRoutes(server: FastifyInstance) {
           },
         },
       },
-      isUser
+      isUserHandler
     );
 }
 
