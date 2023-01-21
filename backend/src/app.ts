@@ -8,7 +8,7 @@ const main = async () => {
     process.exit(1);
   });
 
-  const { cors, ...config } = await loadServerConfig();
+  const { cors, jwtSecret, ...config } = await loadServerConfig();
   const server = fastify(config);
 
   await server.register(startServer);
@@ -34,6 +34,7 @@ const main = async () => {
         });
     });
   }
+  return server;
 };
 
 main();

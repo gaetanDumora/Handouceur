@@ -14,7 +14,9 @@ export function hashPassword(password: string) {
   /*
    * Create a hash with 1000 iterations
    */
-  const hash = hashFunction(password, salt);
+  const hash = crypto
+    .pbkdf2Sync(password, salt, 1000, 64, 'sha512')
+    .toString('hex');
   return { salt, hash };
 }
 
@@ -31,7 +33,9 @@ export function verifyPassword({
    * Create a hash with the salt from the user and the password
    * the user tried to login with
    */
-  const candidateHash = hashFunction(candidatePassword, salt);
+  const candidateHash = crypto
+    .pbkdf2Sync(candidatePassword, salt, 1000, 64, 'sha512')
+    .toString('hex');
 
   /*
    * If the hash matches the hash we have stored for the user

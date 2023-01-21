@@ -6,6 +6,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../auth.service';
+import { DialogService } from 'src/app/shared/dialog/dialog.service';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +17,10 @@ import { AuthService } from '../../auth.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private dialog: DialogService
+  ) {}
 
   ngOnInit() {
     this.createForm();
@@ -35,7 +40,7 @@ export class RegisterComponent implements OnInit {
       ]),
     });
   }
-  emaiErrors() {
+  getErrorEmail() {
     return this.registerForm.get('email')?.hasError('required')
       ? 'This field is required'
       : this.registerForm.get('email')?.hasError('pattern')
@@ -71,5 +76,8 @@ export class RegisterComponent implements OnInit {
     this.authService.registerUser({ email, password, username }).subscribe();
     formDirective.resetForm();
     this.registerForm.reset();
+  }
+  openLoginForm() {
+    this.dialog.open(LoginComponent, { title: 'Login' });
   }
 }

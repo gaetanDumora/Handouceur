@@ -5,8 +5,8 @@ export async function up(knex: Knex): Promise<void> {
     table.increments('id').primary();
     table.string('email', 60).notNullable().unique();
     table.string('name', 20);
-    table.specificType('password', 'CHAR(512)').notNullable();
-    table.specificType('salt', 'CHAR(512)');
+    table.text('password').notNullable();
+    table.text('salt');
     table.boolean('admin').defaultTo('false');
     table.timestamp('createdAt').notNullable().defaultTo(knex.fn.now());
   });

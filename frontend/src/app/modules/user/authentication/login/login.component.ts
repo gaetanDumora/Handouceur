@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { DialogService } from 'src/app/shared/dialog/dialog.service';
-import { RegisterComponent } from '../register/register.component';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from 'src/app/modules/user/auth.service';
 
 @Component({
@@ -9,34 +12,48 @@ import { AuthService } from 'src/app/modules/user/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
-  email = new FormControl('', [Validators.required, Validators.email]);
+export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
 
-  constructor(
-    private dialog: DialogService,
-    private authService: AuthService
-  ) {}
-  getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'You must enter a value';
-    }
+  constructor(private authService: AuthService) {}
 
-    return this.email.hasError('email') ? 'Not a valid email' : '';
+  ngOnInit(): void {
+    this.createForm();
+  }
+  createForm() {
+    this.loginForm = new FormGroup({
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [Validators.required]),
+    });
+  }
+  getErrorEmail() {
+    return this.loginForm.get('email')?.hasError('required')
+      ? 'This field is required'
+      : this.loginForm.get('email')?.hasError('pattern')
+      ? 'Not a valid emailaddress'
+      : '';
   }
 
-  tryLogin() {
-    if (this.email.status === 'VALID' && this.email.value) {
-      this.authService.isUser(this.email.value).subscribe({
-        next: (user) =>
-          this.dialog.open(RegisterComponent, {
-            title: 'Enter Password',
-            user,
-          }),
-        error: () =>
-          this.dialog.open(RegisterComponent, {
-            title: 'Create Account',
-          }),
-      });
-    }
+  getErrorPassword() {
+    return this.loginForm.get('password')?.hasError('required')
+      ? 'Password is required'
+      : this.loginForm.get('password')?.hasError('requirements')
+      ? 'Password needs to be at least six characters, one uppercase letter and one number'
+      : '';
+  }
+
+  checkValidation(input: string) {
+    const validation =
+      this.loginForm.get(input)?.invalid &&
+      (this.loginForm.get(input)?.dirty || this.loginForm.get(input)?.touched);
+    return validation;
+  }
+
+  onSubmit(formData: FormGroup, formDirective: FormGroupDirective): void {
+    const email = formData.value.email;
+    const password = formData.value.password;
+    this.authService.login({ email, password });
+    formDirective.resetForm();
+    this.loginForm.reset();
   }
 }

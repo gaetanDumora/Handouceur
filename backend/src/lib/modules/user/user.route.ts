@@ -1,5 +1,10 @@
 import { FastifyInstance } from 'fastify';
-import { isUserHandler, registerUserHandler } from './user.controllers.js';
+import {
+  isUserHandler,
+  registerUserHandler,
+  loginHandler,
+  getUsersHandler,
+} from './user.controllers.js';
 import { $ref } from './user.shema.js';
 
 async function userRoutes(server: FastifyInstance) {
@@ -15,6 +20,18 @@ async function userRoutes(server: FastifyInstance) {
     },
     registerUserHandler
   ),
+    server.post(
+      '/login',
+      {
+        schema: {
+          body: $ref('loginSchema'),
+          response: {
+            201: $ref('loginSchemaResponse'),
+          },
+        },
+      },
+      loginHandler
+    ),
     server.get(
       '/isUser',
       {
@@ -31,6 +48,13 @@ async function userRoutes(server: FastifyInstance) {
       },
       isUserHandler
     );
+  server.get(
+    '/',
+    {
+      preHandler: [server.verifyJwtToken],
+    },
+    getUsersHandler
+  );
 }
 
 export default userRoutes;

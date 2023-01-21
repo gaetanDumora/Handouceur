@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { CreateUserInput, LoginInput } from './user.shema.js';
-import { createUser, findUserByEmail } from './user.service.js';
+import { createUser, findUserByEmail, getUsers } from './user.service.js';
+import { verifyPassword } from '../../utils/hash.js';
 
 export async function registerUserHandler(
   request: FastifyRequest<{ Body: CreateUserInput }>,
@@ -24,13 +25,52 @@ export async function isUserHandler(
   const { email } = request.query;
   try {
     let statusCode = 200;
-    const maybeUser = await findUserByEmail({ email });
+    const maybeUser = await findUserByEmail(email);
     if (!maybeUser) {
       statusCode = 204;
     }
     return reply.code(statusCode).send(maybeUser);
   } catch (error) {
-    request.log.info(error);
+    request.log.error(error);
+    return reply.code(500).send(error);
+  }
+}
+
+export async function loginHandler(
+  request: FastifyRequest<{ Body: LoginInput }>,
+  reply: FastifyReply
+) {
+  const { email, password } = request.body;
+  try {
+    const user = await findUserByEmail(email);
+    if (user) {
+      const correctPassword = verifyPassword({
+        candidatePassword: password,
+        salt: user.salt,
+        hash: user.password,
+      });
+      if (correctPassword) {
+        const { salt, password, ...rest } = user;
+        return { accessToken: request.server.jwt.sign(rest) };
+      }
+      reply.code(401).send({ message: 'Invalid email adress or password' });
+    }
+    reply.code(401).send({ message: 'Invalid email adress or password' });
+  } catch (error) {
+    request.log.error(error);
+    return reply.code(500).send(error);
+  }
+}
+
+export async function getUsersHandler(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
+  try {
+    const users = await getUsers();
+    return reply.code(201).send(users);
+  } catch (error) {
+    request.log.error(error);
     return reply.code(500).send(error);
   }
 }

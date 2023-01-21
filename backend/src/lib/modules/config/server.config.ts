@@ -10,6 +10,8 @@ export const loadServerConfig = async () => {
       key: readFileSync('/usr/src/app/certificats/localhost-key.pem'),
       cert: readFileSync('/usr/src/app/certificats/localhost.pem'),
     },
+    jwtSecret: process.env.JWT_SECRET ?? 'mySecret',
+    environment: process.env.ENVIRONMENT ?? 'development',
     cors: fp(
       (
         server: FastifyInstance,

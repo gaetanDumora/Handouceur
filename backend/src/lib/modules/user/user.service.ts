@@ -15,10 +15,24 @@ export const createUser = async (input: CreateUserInput) => {
   });
 };
 
-export const findUserByEmail = async (input: isUserInput) => {
-  const { email } = input;
+export const findUserByEmail = async (email: string) => {
   return await prisma.user.findUnique({
     where: { email },
-    select: { id: true, email: true, name: true },
   });
+};
+
+export const getUsers = async () => {
+  return prisma.user.findMany({
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      admin: true,
+    },
+  });
+};
+
+export const isAdmin = async (email: string) => {
+  const user = await findUserByEmail(email);
+  return user?.admin;
 };

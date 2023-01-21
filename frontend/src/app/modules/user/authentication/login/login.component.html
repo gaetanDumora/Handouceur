@@ -1,28 +1,54 @@
 <div class="container flex-column">
   <div class="d-flex justify-content-center p-2">
-    <mat-form-field>
-      <input
-        style="min-height: 35px"
-        matInput
-        placeholder="me@example.com"
-        [formControl]="email"
-        required
-      />
-      <mat-error style="font-size: small" *ngIf="email.invalid">{{
-        getErrorMessage()
-      }}</mat-error>
-    </mat-form-field>
-  </div>
-
-  <div class="row justify-content-around p-3">
-    <button mat-raised-button mat-dialog-close="true">Close</button>
-    <button
-      disabled="{{ email.invalid }}"
-      mat-raised-button
-      (click)="tryLogin()"
-      mat-dialog-close="true"
+    <form
+      [formGroup]="loginForm"
+      #formDirective="ngForm"
+      (ngSubmit)="onSubmit(loginForm, formDirective)"
     >
-      Login
-    </button>
+      <div class="text-center">
+        <p>
+          <mat-form-field>
+            <mat-icon matPrefix>email</mat-icon>
+            <input
+              autofocus
+              type="email"
+              matInput
+              placeholder="Email *"
+              formControlName="email"
+            />
+          </mat-form-field>
+          <mat-error *ngIf="checkValidation('email')">
+            {{ getErrorEmail() }}
+          </mat-error>
+        </p>
+
+        <p>
+          <mat-form-field>
+            <mat-icon matPrefix>lock_outline</mat-icon>
+            <input
+              type="password"
+              autocomplete="false"
+              matInput
+              placeholder="Password *"
+              formControlName="password"
+            />
+          </mat-form-field>
+          <mat-error *ngIf="checkValidation('password')">
+            {{ getErrorPassword() }}
+          </mat-error>
+        </p>
+      </div>
+
+      <div class="row row-cols-1 p-3">
+        <button
+          type="submit"
+          [disabled]="loginForm.invalid"
+          mat-raised-button
+          mat-dialog-close="true"
+        >
+          Login
+        </button>
+      </div>
+    </form>
   </div>
 </div>
