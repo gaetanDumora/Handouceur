@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 
-import { themes } from '../../core/constants/themes';
-import { ThemeService } from '../../core/services/theme.service';
+import { themes } from '../../constants/themes';
+import { ThemeService } from '../../services/theme.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({

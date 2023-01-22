@@ -4,8 +4,8 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, map, retry } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environment/environment';
 
 interface User {
@@ -20,14 +20,15 @@ interface User {
   providedIn: 'root',
 })
 export class AuthService {
-  currentUser: User = {};
+  currentUser: User;
+
   constructor(private http: HttpClient) {}
 
   isUser(email: string) {
     const url = `${environment.apiUrl}/user/isUser`;
     const params = new HttpParams().set('email', email);
     return this.http
-      .get<User>(url, { params })
+      .get<{ exist: boolean }>(url, { params })
       .pipe(catchError(this.handleError));
   }
 
@@ -50,12 +51,7 @@ export class AuthService {
     const url = `${environment.apiUrl}/user/login`;
     return this.http
       .post<User>(url, { email, password })
-      .subscribe((user: User) => {
-        if (user.accessToken) {
-          localStorage.setItem('access_token', user.accessToken);
-          this.currentUser = user;
-        }
-      });
+      .pipe(catchError(this.handleError));
   }
 
   getToken() {

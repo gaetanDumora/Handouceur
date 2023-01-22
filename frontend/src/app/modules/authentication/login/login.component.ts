@@ -5,7 +5,8 @@ import {
   FormGroupDirective,
   Validators,
 } from '@angular/forms';
-import { AuthService } from 'src/app/modules/user/auth.service';
+import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ import { AuthService } from 'src/app/modules/user/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  success: Boolean;
 
   constructor(private authService: AuthService) {}
 
@@ -23,25 +25,33 @@ export class LoginComponent implements OnInit {
   createForm() {
     this.loginForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required]),
+      password: new FormControl(null, [
+        Validators.required,
+        this.checkPassword,
+      ]),
     });
   }
   getErrorEmail() {
     return this.loginForm.get('email')?.hasError('required')
-      ? 'This field is required'
+      ? ERROR_MESSAGES.email.require
       : this.loginForm.get('email')?.hasError('pattern')
-      ? 'Not a valid emailaddress'
+      ? ERROR_MESSAGES.email.notValid
       : '';
   }
 
   getErrorPassword() {
     return this.loginForm.get('password')?.hasError('required')
-      ? 'Password is required'
+      ? ERROR_MESSAGES.password.require
       : this.loginForm.get('password')?.hasError('requirements')
-      ? 'Password needs to be at least six characters, one uppercase letter and one number'
+      ? ERROR_MESSAGES.password.hint
       : '';
   }
-
+  checkPassword(control: { value: any }) {
+    const enteredPassword = control.value;
+    return !REGEX.passwordCheck.test(enteredPassword) && enteredPassword
+      ? { requirements: true }
+      : null;
+  }
   checkValidation(input: string) {
     const validation =
       this.loginForm.get(input)?.invalid &&
@@ -52,7 +62,12 @@ export class LoginComponent implements OnInit {
   onSubmit(formData: FormGroup, formDirective: FormGroupDirective): void {
     const email = formData.value.email;
     const password = formData.value.password;
-    this.authService.login({ email, password });
+    this.authService.login({ email, password }).subscribe((resp) => {
+      if (resp.accessToken) {
+        localStorage.setItem('access_token', resp.accessToken);
+        this.success = true;
+      }
+    });
     formDirective.resetForm();
     this.loginForm.reset();
   }

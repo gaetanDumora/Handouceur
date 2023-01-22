@@ -24,12 +24,11 @@ export async function isUserHandler(
 ) {
   const { email } = request.query;
   try {
-    let statusCode = 200;
     const maybeUser = await findUserByEmail(email);
     if (!maybeUser) {
-      statusCode = 204;
+      return reply.code(200).send({ exist: false });
     }
-    return reply.code(statusCode).send(maybeUser);
+    return reply.code(200).send({ exist: true });
   } catch (error) {
     request.log.error(error);
     return reply.code(500).send(error);

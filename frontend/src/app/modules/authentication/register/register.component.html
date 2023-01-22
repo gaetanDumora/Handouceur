@@ -15,6 +15,7 @@
               matInput
               placeholder="Email *"
               formControlName="email"
+              (focusout)="checkEmailExist()"
             />
           </mat-form-field>
           <mat-error *ngIf="checkValidation('email')">
@@ -57,10 +58,14 @@
           type="submit"
           [disabled]="registerForm.invalid"
           mat-raised-button
-          mat-dialog-close="true"
         >
           Register
         </button>
+      </div>
+      <div *ngIf="success" class="d-flex justify-content-around p-2">
+        <mat-chip-option disabled="true" color="accent" selected
+          >Success</mat-chip-option
+        >
       </div>
     </form>
   </div>

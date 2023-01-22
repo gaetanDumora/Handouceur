@@ -5,9 +5,10 @@ import {
   FormGroupDirective,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../../auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { LoginComponent } from '../login/login.component';
+import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
 
 @Component({
   selector: 'app-register',
@@ -16,6 +17,7 @@ import { LoginComponent } from '../login/login.component';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
+  success: Boolean;
 
   constructor(
     private authService: AuthService,
@@ -26,13 +28,11 @@ export class RegisterComponent implements OnInit {
     this.createForm();
   }
   createForm() {
-    const emailregex: RegExp =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     this.registerForm = new FormGroup({
       username: new FormControl(null),
       email: new FormControl(null, [
         Validators.required,
-        Validators.pattern(emailregex),
+        Validators.pattern(REGEX.emailCheck),
       ]),
       password: new FormControl(null, [
         Validators.required,
@@ -41,24 +41,26 @@ export class RegisterComponent implements OnInit {
     });
   }
   getErrorEmail() {
-    return this.registerForm.get('email')?.hasError('required')
-      ? 'This field is required'
-      : this.registerForm.get('email')?.hasError('pattern')
-      ? 'Not a valid emailaddress'
+    const emailField = this.registerForm.get('email');
+    return emailField?.hasError('required')
+      ? ERROR_MESSAGES.email.require
+      : emailField?.hasError('pattern')
+      ? ERROR_MESSAGES.email.notValid
+      : emailField?.hasError('exist')
+      ? ERROR_MESSAGES.email.exist
       : '';
   }
   checkPassword(control: { value: any }) {
-    let enteredPassword = control.value;
-    let passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})/;
-    return !passwordCheck.test(enteredPassword) && enteredPassword
+    const enteredPassword = control.value;
+    return !REGEX.passwordCheck.test(enteredPassword) && enteredPassword
       ? { requirements: true }
       : null;
   }
   getErrorPassword() {
     return this.registerForm.get('password')?.hasError('required')
-      ? 'Password is required'
+      ? ERROR_MESSAGES.password.require
       : this.registerForm.get('password')?.hasError('requirements')
-      ? 'Password needs to be at least six characters, one uppercase letter and one number'
+      ? ERROR_MESSAGES.password.hint
       : '';
   }
   checkValidation(input: string) {
@@ -68,12 +70,31 @@ export class RegisterComponent implements OnInit {
         this.registerForm.get(input)?.touched);
     return validation;
   }
+  checkEmailExist() {
+    const emailField = this.registerForm.get('email');
+    if (emailField?.status === 'VALID') {
+      this.authService.isUser(emailField?.value).subscribe({
+        next: ({ exist }) => {
+          if (exist) {
+            emailField?.setErrors({ exist });
+          }
+        },
+      });
+    }
+  }
   onSubmit(formData: FormGroup, formDirective: FormGroupDirective): void {
     const email = formData.value.email;
     const password = formData.value.password;
     const username = formData.value.username;
 
-    this.authService.registerUser({ email, password, username }).subscribe();
+    this.authService.registerUser({ email, password, username }).subscribe({
+      next: () => (this.success = true),
+      error: (err) => {
+        if (err) {
+          this.success = false;
+        }
+      },
+    });
     formDirective.resetForm();
     this.registerForm.reset();
   }

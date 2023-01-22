@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ThemeService } from '../../core/services/theme.service';
+import { ThemeService } from '../../services/theme.service';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 
-import { LoginComponent } from '../../modules/user/authentication/login/login.component';
-import { RegisterComponent } from 'src/app/modules/user/authentication/register/register.component';
+import { LoginComponent } from '../../modules/authentication/login/login.component';
+import { RegisterComponent } from 'src/app/modules/authentication/register/register.component';
 
 @Component({
   selector: 'app-nav',

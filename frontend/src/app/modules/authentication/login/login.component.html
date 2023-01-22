@@ -40,14 +40,14 @@
       </div>
 
       <div class="row row-cols-1 p-3">
-        <button
-          type="submit"
-          [disabled]="loginForm.invalid"
-          mat-raised-button
-          mat-dialog-close="true"
-        >
+        <button type="submit" [disabled]="loginForm.invalid" mat-raised-button>
           Login
         </button>
+      </div>
+      <div *ngIf="success" class="d-flex justify-content-around p-2">
+        <mat-chip-option disabled="true" color="accent" selected
+          >Success</mat-chip-option
+        >
       </div>
     </form>
   </div>
