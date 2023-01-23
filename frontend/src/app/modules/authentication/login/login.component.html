@@ -23,10 +23,12 @@
         </p>
 
         <p>
-          <mat-form-field>
-            <mat-icon matPrefix>lock_outline</mat-icon>
+          <mat-form-field appearance="fill">
+            <mat-icon matPrefix (click)="togglePasswordVisibility()">
+              {{ showPassword ? 'visibility_off' : 'visibility' }}
+            </mat-icon>
             <input
-              type="password"
+              [type]="showPassword ? 'text' : 'password'"
               autocomplete="false"
               matInput
               placeholder="Password *"

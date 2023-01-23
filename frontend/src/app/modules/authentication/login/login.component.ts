@@ -16,7 +16,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   success: Boolean;
-
+  showPassword: Boolean;
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
@@ -51,6 +51,9 @@ export class LoginComponent implements OnInit {
     return !REGEX.passwordCheck.test(enteredPassword) && enteredPassword
       ? { requirements: true }
       : null;
+  }
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
   checkValidation(input: string) {
     const validation =

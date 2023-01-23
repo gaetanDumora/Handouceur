@@ -18,6 +18,7 @@ import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   success: Boolean;
+  showPassword: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -39,6 +40,18 @@ export class RegisterComponent implements OnInit {
         this.checkPassword,
       ]),
     });
+  }
+  checkEmailExist() {
+    const emailField = this.registerForm.get('email');
+    if (emailField?.status === 'VALID') {
+      this.authService.isUser(emailField?.value).subscribe({
+        next: ({ exist }) => {
+          if (exist) {
+            emailField?.setErrors({ exist });
+          }
+        },
+      });
+    }
   }
   getErrorEmail() {
     const emailField = this.registerForm.get('email');
@@ -63,24 +76,15 @@ export class RegisterComponent implements OnInit {
       ? ERROR_MESSAGES.password.hint
       : '';
   }
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
   checkValidation(input: string) {
     const validation =
       this.registerForm.get(input)?.invalid &&
       (this.registerForm.get(input)?.dirty ||
         this.registerForm.get(input)?.touched);
     return validation;
-  }
-  checkEmailExist() {
-    const emailField = this.registerForm.get('email');
-    if (emailField?.status === 'VALID') {
-      this.authService.isUser(emailField?.value).subscribe({
-        next: ({ exist }) => {
-          if (exist) {
-            emailField?.setErrors({ exist });
-          }
-        },
-      });
-    }
   }
   onSubmit(formData: FormGroup, formDirective: FormGroupDirective): void {
     const email = formData.value.email;
