@@ -2,49 +2,23 @@ import fp from 'fastify-plugin';
 import fjwt from '@fastify/jwt';
 import userRoutes from './modules/user/user.route.js';
 import { userShemas } from './modules/user/user.shema.js';
-import { FastifyRequest } from 'fastify/types/request.js';
-import { FastifyReply } from 'fastify/types/reply.js';
 import { FastifyInstance, FastifyPluginOptions } from 'fastify';
-import { User } from '@prisma/client';
-import { isAdmin } from './modules/user/user.service.js';
+import { decorators } from './modules/config/server.decorators.js';
 
 export const startServer = fp(async function (
   server: FastifyInstance,
   config: FastifyPluginOptions
 ) {
-  server.decorate(
-    'verifyJwtToken',
-    async (request: FastifyRequest, reply: FastifyReply) => {
-      try {
-        await request.jwtVerify();
-      } catch (error) {
-        request.log.error({ error });
-        reply.send(error);
-      }
-    }
-  );
-  server.decorate(
-    'verifyAdmin',
-    async (request: FastifyRequest<{ Body: User }>, reply: FastifyReply) => {
-      try {
-        const user = request.body;
-        if (!(await isAdmin(user.email))) {
-          throw new Error('Only admin can access');
-        }
-      } catch (error) {
-        request.log.error({ error });
-        reply.send(error);
-      }
-    }
-  );
-  server.decorate(
-    'verifyEmailPassword',
-    async (request: FastifyRequest, reply: FastifyReply) => {}
-  );
+  // Decorators used in the routes preHandler
+  for (const decorator of decorators) {
+    server.register(fp(decorator));
+  }
+  // Allowed response schema in route handlers
   for (const schema of userShemas) {
     server.addSchema(schema);
   }
   server.register(userRoutes, { prefix: '/user' });
+
   server.register(fjwt, {
     secret: `${process.env.JWT_SECRET || 'mySecret'}`,
   });
