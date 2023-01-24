@@ -63,9 +63,6 @@ export class AuthService {
 
   Logout() {
     let removeToken = localStorage.removeItem('access_token');
-    // if (removeToken == null) {
-    //   this.router.navigate(['log-in']);
-    // }
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -80,7 +77,6 @@ export class AuthService {
         error.error
       );
     }
-    // Return an observable with a user-facing error message.
     return throwError(() => error);
   }
 }
