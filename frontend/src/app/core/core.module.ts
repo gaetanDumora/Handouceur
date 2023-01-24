@@ -5,10 +5,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // import { NoAuthGuard } from './guard/no-auth.guard';
 // import { throwIfAlreadyLoaded } from './guard/module-import.guard';
 
-// import { TokenInterceptor } from './interceptor/token.interceptor';
+import { httpInterceptorProviders } from './interceptors';
 
 @NgModule({
   imports: [HttpClientModule],
-  providers: [],
+  providers: [httpInterceptorProviders],
 })
 export class CoreModule {}
