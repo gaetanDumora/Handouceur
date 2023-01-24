@@ -23,7 +23,7 @@
         </p>
 
         <p>
-          <mat-form-field appearance="fill">
+          <mat-form-field>
             <mat-icon matPrefix (click)="togglePasswordVisibility()">
               {{ showPassword ? 'visibility_off' : 'visibility' }}
             </mat-icon>
@@ -51,6 +51,12 @@
           >Success</mat-chip-option
         >
       </div>
+      <mat-error
+        *ngIf="loginFailReason && !success"
+        class="d-flex justify-content-around p-2"
+      >
+        {{ loginFailReason }}
+      </mat-error>
     </form>
   </div>
 </div>

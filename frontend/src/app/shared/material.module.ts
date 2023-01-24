@@ -20,7 +20,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import {
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
+  MatFormFieldModule,
+} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -72,6 +75,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+  ],
+  providers: [
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: 'outline' },
+    },
   ],
 })
 export class MaterialModule {}

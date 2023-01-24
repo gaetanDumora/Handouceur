@@ -17,6 +17,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   success: Boolean;
   showPassword: Boolean;
+  loginFailReason: string;
+
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
@@ -65,13 +67,19 @@ export class LoginComponent implements OnInit {
   onSubmit(formData: FormGroup, formDirective: FormGroupDirective): void {
     const email = formData.value.email;
     const password = formData.value.password;
-    this.authService.login({ email, password }).subscribe((resp) => {
-      if (resp.accessToken) {
-        localStorage.setItem('access_token', resp.accessToken);
-        this.success = true;
-      }
+
+    this.authService.login({ email, password }).subscribe({
+      next: (user) => {
+        if (user.accessToken) {
+          localStorage.setItem('access_token', user.accessToken);
+          this.success = true;
+          formDirective.resetForm();
+          return this.loginForm.reset();
+        }
+      },
+      error: (error) => {
+        this.loginFailReason = error?.error?.message;
+      },
     });
-    formDirective.resetForm();
-    this.loginForm.reset();
   }
 }

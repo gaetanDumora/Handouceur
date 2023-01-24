@@ -20,8 +20,6 @@ interface User {
   providedIn: 'root',
 })
 export class AuthService {
-  currentUser: User;
-
   constructor(private http: HttpClient) {}
 
   isUser(email: string) {
@@ -57,11 +55,13 @@ export class AuthService {
   getToken() {
     return localStorage.getItem('access_token');
   }
+
   get isLoggedIn(): boolean {
     let authToken = localStorage.getItem('access_token');
     return authToken !== null ? true : false;
   }
-  doLogout() {
+
+  Logout() {
     let removeToken = localStorage.removeItem('access_token');
     // if (removeToken == null) {
     //   this.router.navigate(['log-in']);
@@ -81,8 +81,6 @@ export class AuthService {
       );
     }
     // Return an observable with a user-facing error message.
-    return throwError(
-      () => new Error('Something bad happened; please try again later.')
-    );
+    return throwError(() => error);
   }
 }
