@@ -1,7 +1,7 @@
 import { Injectable, TemplateRef } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/portal';
-import { DialogComponent } from './dialog.component';
+import { DialogComponent } from '../shared/dialog/dialog.component';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class DialogService {
 
   public open<T>(
     component: ComponentType<T> | TemplateRef<T>,
-    inputs: unknown
+    inputs: Record<string, unknown>
   ): Observable<any> {
     this.defaulConfig.data = { component, inputs };
     const dialogRef = this.dialog.open(DialogComponent, this.defaulConfig);

@@ -5,9 +5,7 @@ import {
   FormGroupDirective,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../../../services/auth.service';
-import { DialogService } from 'src/app/shared/dialog/dialog.service';
-import { LoginComponent } from '../login/login.component';
+import { AuthService } from '../../services/auth.service';
 import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
 
 @Component({
@@ -20,10 +18,7 @@ export class RegisterComponent implements OnInit {
   success: Boolean;
   showPassword: boolean = false;
 
-  constructor(
-    private authService: AuthService,
-    private dialog: DialogService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.createForm();
@@ -101,8 +96,5 @@ export class RegisterComponent implements OnInit {
     });
     formDirective.resetForm();
     this.registerForm.reset();
-  }
-  openLoginForm() {
-    this.dialog.open(LoginComponent, { title: 'Login' });
   }
 }

@@ -2,10 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ThemeService } from '../../services/theme.service';
-import { DialogService } from 'src/app/shared/dialog/dialog.service';
-
-import { LoginComponent } from '../../modules/authentication/login/login.component';
-import { RegisterComponent } from 'src/app/modules/authentication/register/register.component';
 
 @Component({
   selector: 'app-nav',
@@ -23,10 +19,7 @@ export class NavComponent implements OnInit {
     { link: '/admin', title: 'Admin', show: true },
   ];
 
-  constructor(
-    private themeService: ThemeService,
-    private dialogService: DialogService
-  ) {}
+  constructor(private themeService: ThemeService) {}
 
   ngOnInit() {
     this.isDarkTheme = this.themeService.getDarkTheme();
@@ -35,11 +28,5 @@ export class NavComponent implements OnInit {
   changeTheme() {
     this.isActive = !this.isActive;
     this.themeService.setDarkTheme(this.isActive);
-  }
-
-  openLoginDialog() {
-    this.dialogService.open(RegisterComponent, {
-      title: 'Register/Login',
-    });
   }
 }
