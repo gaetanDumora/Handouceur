@@ -15,10 +15,9 @@ import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  success: Boolean;
   showPassword: boolean = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(public authService: AuthService) {}
 
   ngOnInit() {
     this.createForm();
@@ -86,15 +85,11 @@ export class RegisterComponent implements OnInit {
     const password = formData.value.password;
     const username = formData.value.username;
 
-    this.authService.registerUser({ email, password, username }).subscribe({
-      next: () => (this.success = true),
-      error: (err) => {
-        if (err) {
-          this.success = false;
-        }
-      },
-    });
-    formDirective.resetForm();
-    this.registerForm.reset();
+    this.authService.registerUser({ email, password, username });
+
+    if (!this.authService.errorMessage) {
+      formDirective.resetForm();
+      this.registerForm.reset();
+    }
   }
 }

@@ -2,27 +2,35 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
 import { DialogLogin, DialogRegister } from './shared/dialog/dialog.component';
+import { HomeComponent } from './modules/home/home.component';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: ContentLayoutComponent,
     children: [
       {
-        path: 'register',
-        component: DialogRegister,
-      },
-      {
-        path: 'login',
-        component: DialogLogin,
+        path: 'home',
+        component: HomeComponent,
+        children: [
+          {
+            path: 'register',
+            component: DialogRegister,
+          },
+          {
+            path: 'login',
+            component: DialogLogin,
+          },
+        ],
       },
     ],
   },
+
   // { path: '**', component: PageNotFoundComponent }, TO DO
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: true })],
+  imports: [RouterModule.forRoot(routes, { enableTracing: false })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

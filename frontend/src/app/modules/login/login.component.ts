@@ -15,11 +15,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  success: Boolean;
   showPassword: Boolean;
-  loginFailReason: string;
 
-  constructor(private authService: AuthService) {}
+  constructor(public authService: AuthService) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -68,18 +66,11 @@ export class LoginComponent implements OnInit {
     const email = formData.value.email;
     const password = formData.value.password;
 
-    this.authService.login({ email, password }).subscribe({
-      next: (user) => {
-        if (user.accessToken) {
-          localStorage.setItem('access_token', user.accessToken);
-          this.success = true;
-          formDirective.resetForm();
-          return this.loginForm.reset();
-        }
-      },
-      error: (error) => {
-        this.loginFailReason = error?.error?.message;
-      },
-    });
+    this.authService.login({ email, password });
+
+    if (this.authService.isLogin()) {
+      formDirective.resetForm();
+      this.loginForm.reset();
+    }
   }
 }

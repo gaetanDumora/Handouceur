@@ -14,6 +14,7 @@ import { ContentLayoutComponent } from './layout/content-layout/content-layout.c
 import { FooterComponent } from './layout/footer/footer.component';
 import { DialogComponent } from './shared/dialog/dialog.component';
 import { RegisterComponent } from './modules/register/register.component';
+import { HomeComponent } from './modules/home/home.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { RegisterComponent } from './modules/register/register.component';
     FooterComponent,
     DialogComponent,
     RegisterComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,12 @@ import { readFileSync } from 'node:fs';
 import { FastifyInstance, FastifyPluginOptions } from 'fastify';
 import { fastifyCors } from '@fastify/cors';
 
+// const transport = pino.transport({
+//   target: 'pino-pretty',
+//   options: { colorize: true },
+// });
+
+// const logger = pino({ level: env.LOG_LEVEL }, transport);
 export const loadServerConfig = {
   logger: true,
   https: {

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewContainerRef } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginComponent } from 'src/app/modules/login/login.component';
 import { RegisterComponent } from 'src/app/modules/register/register.component';

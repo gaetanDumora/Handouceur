@@ -46,16 +46,19 @@
           Login
         </button>
       </div>
-      <div *ngIf="success" class="d-flex justify-content-around p-2">
+      <div
+        *ngIf="this.authService.isLogin()"
+        class="d-flex justify-content-around p-2"
+      >
         <mat-chip-option disabled="true" color="accent" selected
           >Success</mat-chip-option
         >
       </div>
       <mat-error
-        *ngIf="loginFailReason && !success"
+        *ngIf="this.authService.errorMessage && !this.authService.isLogin()"
         class="d-flex justify-content-around p-2"
       >
-        {{ loginFailReason }}
+        {{ this.authService.errorMessage }}
       </mat-error>
     </form>
   </div>

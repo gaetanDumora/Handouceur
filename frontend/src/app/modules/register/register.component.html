@@ -55,7 +55,7 @@
         </p>
       </div>
 
-      <div class="row row-cols-1 p-3">
+      <div *ngIf="!this.authService.registered" class="row row-cols-1 p-3">
         <button
           type="submit"
           [disabled]="registerForm.invalid"
@@ -64,10 +64,11 @@
           Register
         </button>
       </div>
-      <div *ngIf="success" class="d-flex justify-content-around p-2">
-        <mat-chip-option disabled="true" color="accent" selected
-          >Success</mat-chip-option
-        >
+      <div
+        *ngIf="this.authService.registered"
+        class="d-flex justify-content-around p-2"
+      >
+        <p>User created, please login.</p>
       </div>
     </form>
   </div>
