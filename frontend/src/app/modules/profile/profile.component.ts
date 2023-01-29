@@ -10,6 +10,10 @@ export class ProfileComponent implements OnInit {
   user: any;
   constructor(private jwtTokenService: JWTTokenService) {}
   ngOnInit(): void {
-    this.user = this.jwtTokenService.getUser();
+    this.user = this.jwtTokenService.user;
+  }
+  logoutUser() {
+    this.jwtTokenService.removeToken();
+    this.user = null;
   }
 }

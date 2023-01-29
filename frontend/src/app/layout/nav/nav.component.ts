@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { ThemeService } from '../../shared/utils/theme.service';
 import { JWTTokenService } from 'src/app/shared/authentication/jwt.service';
@@ -10,15 +10,8 @@ import { JWTTokenService } from 'src/app/shared/authentication/jwt.service';
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
-  public isDarkTheme: Observable<boolean>;
-  private isActive = true;
-
-  navItems = [
-    { link: '/home', title: 'Home' },
-    { link: '/about', title: 'About' },
-    { link: '/contact', title: 'Contact' },
-    { link: '/admin', title: 'Admin' },
-  ];
+  isDarkTheme: Observable<boolean>;
+  private darkThemeActive = true;
 
   constructor(
     private themeService: ThemeService,
@@ -30,7 +23,7 @@ export class NavComponent implements OnInit {
   }
 
   changeTheme() {
-    this.isActive = !this.isActive;
-    this.themeService.setDarkTheme(this.isActive);
+    this.darkThemeActive = !this.darkThemeActive;
+    this.themeService.setDarkTheme(this.darkThemeActive);
   }
 }

@@ -12,26 +12,36 @@
       />
 
       <span class="d-flex flex-wrap">
+        <button mat-button routerLink="home" routerLinkActive="active">
+          <span class="p-3"> <b>Home</b> </span>
+        </button>
+        <button mat-button routerLink="about" routerLinkActive="active">
+          <span class="p-3"><b>About us</b></span>
+        </button>
+        <button mat-button routerLink="contact" routerLinkActive="active">
+          <span class="p-3"><b>Contact</b> </span>
+        </button>
         <button
+          *ngIf="this.jwtTokenService.user?.admin"
+          routerLink="admin"
           mat-button
-          class="font-weight-bold"
-          *ngFor="let item of navItems"
-          [routerLink]="item.link"
           routerLinkActive="active"
         >
-          <span class="p-3">{{ item.title }}</span>
+          <span class="p-3"><b>Admin</b> </span>
         </button>
       </span>
 
       <span class="pill">
-        <ng-container *ngIf="this.jwtTokenService.getUser(); else elseTemplate">
+        <ng-container
+          *ngIf="this.jwtTokenService.isLogin | async; else elseTemplate"
+        >
           <button
             mat-button
-            routerLink="profile/{{ this.jwtTokenService.getUser().id }}"
+            routerLink="profile/{{ this.jwtTokenService.user.id }}"
           >
             <mat-icon color="warn">account_circle</mat-icon>
             <span class="d-none d-sm-inline">{{
-              this.jwtTokenService.getUser().name ?? ''
+              this.jwtTokenService.user.name ?? 'hello'
             }}</span>
           </button>
         </ng-container>

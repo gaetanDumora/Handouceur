@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!this.jwtTokenService.getUser()) {
+    if (!this.jwtTokenService.user) {
       this.router.navigate(['home/login']);
     }
     return true;

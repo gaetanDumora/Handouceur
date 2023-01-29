@@ -74,7 +74,7 @@ export class AuthService {
     return this._user.value;
   }
 
-  Logout() {
+  logout() {
     this._user.next(null);
     return this.jwtTokenService.removeToken();
   }
