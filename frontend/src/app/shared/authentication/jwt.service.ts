@@ -11,23 +11,20 @@ import { BehaviorSubject } from 'rxjs';
 export class JWTTokenService {
   private jwtToken: Token = { key: TOKEN_TYPES.ACCESS };
   private decodedToken: DecodedJWTToken;
-  private active = new BehaviorSubject<boolean>(false);
 
   constructor(private localStorageService: LocalStorageService) {}
 
   setToken(value: string) {
     this.jwtToken.value = value;
     this.localStorageService.set(this.jwtToken.key, value);
-    this.active.next(true);
   }
 
   removeToken() {
-    this.active.next(false);
     this.localStorageService.remove(this.jwtToken.key);
   }
 
-  get isLogin() {
-    return this.active;
+  isLogin() {
+    return this.localStorageService.get(this.jwtToken.key) !== null;
   }
 
   private decodeToken() {
@@ -45,7 +42,6 @@ export class JWTTokenService {
   isTokenExpired(): boolean {
     const expiryTime = this.decodedToken.iat;
     if (expiryTime) {
-      this.active.next(false);
       return SECOND * expiryTime - new Date().getTime() < TOKEN_LIFE_TIME; // 1 WEEK
     }
     return false;
