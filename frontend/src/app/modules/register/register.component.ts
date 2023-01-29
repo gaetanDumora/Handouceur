@@ -5,7 +5,7 @@ import {
   FormGroupDirective,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../shared/authentication/auth.service';
 import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
 
 @Component({

@@ -1,10 +1,10 @@
 .pill {
   display: flex;
+  font-size: small;
   justify-content: space-evenly;
   border-color: gainsboro;
   border-width: 1px;
   border-style: solid;
   border-radius: 20px;
-  padding: 2px;
-  width: 150px;
+  width: auto;
 }

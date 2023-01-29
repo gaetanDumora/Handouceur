@@ -47,7 +47,7 @@
         </button>
       </div>
       <div
-        *ngIf="this.authService.isLogin()"
+        *ngIf="this.authService.user"
         class="d-flex justify-content-around p-2"
       >
         <mat-chip-option disabled="true" color="accent" selected
@@ -55,7 +55,7 @@
         >
       </div>
       <mat-error
-        *ngIf="this.authService.errorMessage && !this.authService.isLogin()"
+        *ngIf="this.authService.errorMessage && !this.authService.user"
         class="d-flex justify-content-around p-2"
       >
         {{ this.authService.errorMessage }}

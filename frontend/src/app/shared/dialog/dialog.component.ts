@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginComponent } from 'src/app/modules/login/login.component';
 import { RegisterComponent } from 'src/app/modules/register/register.component';
-import { DialogService } from 'src/app/services/dialog.service';
+import { DialogService } from 'src/app/shared/dialog/dialog.service';
 
 @Component({
   selector: 'app-dialog',
@@ -58,7 +58,7 @@ export class DialogLogin {
       .open(LoginComponent, {
         title: 'Login',
       })
-      .subscribe((result) => {
+      .subscribe(() => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });
   }

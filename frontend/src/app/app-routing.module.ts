@@ -10,6 +10,10 @@ const routes: Routes = [
     component: ContentLayoutComponent,
     children: [
       {
+        path: 'profile',
+        component: DialogLogin,
+      },
+      {
         path: 'home',
         component: HomeComponent,
         children: [

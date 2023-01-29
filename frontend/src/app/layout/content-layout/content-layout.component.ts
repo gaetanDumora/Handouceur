@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { themes } from '../../constants/themes';
-import { ThemeService } from '../../services/theme.service';
+import { ThemeService } from '../../shared/theme.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({

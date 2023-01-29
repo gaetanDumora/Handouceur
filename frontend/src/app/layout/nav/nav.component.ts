@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ThemeService } from '../../services/theme.service';
+import { ThemeService } from '../../shared/theme.service';
+import { JWTTokenService } from 'src/app/shared/authentication/jwt.service';
 
 @Component({
   selector: 'app-nav',
@@ -13,13 +14,16 @@ export class NavComponent implements OnInit {
   private isActive = true;
 
   navItems = [
-    { link: '/home', title: 'Home', show: true },
-    { link: '/about', title: 'About', show: true },
-    { link: '/contact', title: 'Contact', show: true },
-    { link: '/admin', title: 'Admin', show: true },
+    { link: '/home', title: 'Home' },
+    { link: '/about', title: 'About' },
+    { link: '/contact', title: 'Contact' },
+    { link: '/admin', title: 'Admin' },
   ];
 
-  constructor(private themeService: ThemeService) {}
+  constructor(
+    private themeService: ThemeService,
+    public jwtTokenService: JWTTokenService
+  ) {}
 
   ngOnInit() {
     this.isDarkTheme = this.themeService.getDarkTheme();

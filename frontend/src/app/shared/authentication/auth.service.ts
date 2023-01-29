@@ -56,7 +56,7 @@ export class AuthService {
   }
 
   login({ email, password }: { email: string; password: string }) {
-    this.http
+    return this.http
       .post<User>(this.baseURL + '/login', { email, password })
       .subscribe({
         next: (logedUser) => {
@@ -72,10 +72,6 @@ export class AuthService {
 
   get user() {
     return this._user.value;
-  }
-
-  isLogin() {
-    return this.user !== null;
   }
 
   Logout() {

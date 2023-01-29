@@ -12,6 +12,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -35,6 +36,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatTabsModule,
     MatInputModule,
+    MatProgressBarModule,
     MatProgressSpinnerModule,
     MatChipsModule,
     MatSidenavModule,
@@ -59,6 +61,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatTabsModule,
     MatInputModule,
+    MatProgressBarModule,
     MatProgressSpinnerModule,
     MatChipsModule,
     MatSidenavModule,

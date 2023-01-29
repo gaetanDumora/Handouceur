@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SharedModule } from './shared/shared.module';
-import { CoreModule } from './core/core.module';
 
 import { NavComponent } from './layout/nav/nav.component';
 import { LoginComponent } from './modules/login/login.component';
@@ -31,7 +30,6 @@ import { HomeComponent } from './modules/home/home.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    CoreModule,
     SharedModule,
   ],
   providers: [],

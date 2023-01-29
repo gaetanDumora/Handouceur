@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/shared/authentication/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +15,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  showPassword: Boolean;
+  showPassword: boolean;
 
   constructor(public authService: AuthService) {}
 
@@ -68,9 +68,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.login({ email, password });
 
-    if (this.authService.isLogin()) {
-      formDirective.resetForm();
-      this.loginForm.reset();
-    }
+    formDirective.resetForm();
+    this.loginForm.reset();
   }
 }
