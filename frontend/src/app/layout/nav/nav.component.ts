@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ThemeService } from '../../shared/theme.service';
+import { ThemeService } from '../../shared/utils/theme.service';
 import { JWTTokenService } from 'src/app/shared/authentication/jwt.service';
 
 @Component({

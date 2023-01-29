@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
 import { DialogLogin, DialogRegister } from './shared/dialog/dialog.component';
 import { HomeComponent } from './modules/home/home.component';
+import { AuthGuard } from './shared/authentication/auth.guard';
+import { ProfileComponent } from './modules/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -10,8 +12,9 @@ const routes: Routes = [
     component: ContentLayoutComponent,
     children: [
       {
-        path: 'profile',
-        component: DialogLogin,
+        path: 'profile/:id',
+        component: ProfileComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'home',

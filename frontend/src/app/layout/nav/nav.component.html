@@ -25,7 +25,10 @@
 
       <span class="pill">
         <ng-container *ngIf="this.jwtTokenService.getUser(); else elseTemplate">
-          <button mat-button routerLink="profile">
+          <button
+            mat-button
+            routerLink="profile/{{ this.jwtTokenService.getUser().id }}"
+          >
             <mat-icon color="warn">account_circle</mat-icon>
             <span class="d-none d-sm-inline">{{
               this.jwtTokenService.getUser().name ?? ''
