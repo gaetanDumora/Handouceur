@@ -3,7 +3,6 @@ import jwt_decode from 'jwt-decode';
 import { DecodedJWTToken, Token } from 'types/types';
 import { LocalStorageService } from '../utils/localStorage.service';
 import { TOKEN_LIFE_TIME, TOKEN_TYPES, SECOND } from '../../constants/tokens';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

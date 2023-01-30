@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 
-import { themes } from '../../constants/themes';
+import { THEMES } from '../../constants/themes';
 import { ThemeService } from '../../shared/utils/theme.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 
@@ -14,9 +14,7 @@ export class ContentLayoutComponent implements OnInit {
   currentTheme: string;
   currentActiveTheme = this.themeService.getDarkTheme().pipe(
     map((isDarkTheme: boolean) => {
-      const [lightTheme, darkTheme] = themes;
-
-      this.currentTheme = isDarkTheme ? lightTheme.name : darkTheme.name;
+      this.currentTheme = isDarkTheme ? THEMES.DARK : THEMES.LIGHT;
 
       if (this.overlayContainer) {
         const overlayContainerClasses =
