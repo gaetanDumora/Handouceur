@@ -22,7 +22,7 @@ export class JWTTokenService {
     this.localStorageService.remove(this.jwtToken.key);
   }
 
-  isLogin() {
+  hasToken() {
     return this.localStorageService.get(this.jwtToken.key) !== null;
   }
 

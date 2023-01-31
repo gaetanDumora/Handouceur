@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
-import { DialogLogin, DialogRegister } from './shared/dialog/dialog.component';
+import { DialogRegister } from './modules/register/register.component';
+import { DialogLogin } from './modules/login/login.component';
 import { HomeComponent } from './modules/home/home.component';
 import { AuthGuard } from './shared/authentication/auth.guard';
 import { ProfileComponent } from './modules/profile/profile.component';

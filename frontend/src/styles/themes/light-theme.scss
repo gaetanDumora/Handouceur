@@ -1,4 +1,4 @@
-@use "@angular/material" as mat;
+@use '@angular/material' as mat;
 
 $angular-light-primary: mat.define-palette(mat.$yellow-palette, 100, 500, 300);
 $angular-light-accent: mat.define-palette(mat.$amber-palette, 400);

@@ -7,6 +7,8 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../shared/authentication/auth.service';
 import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
+import { DialogService } from 'src/app/shared/dialog/dialog.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -91,5 +93,27 @@ export class RegisterComponent implements OnInit {
       formDirective.resetForm();
       this.registerForm.reset();
     }
+  }
+}
+
+@Component({
+  template: '',
+})
+export class DialogRegister {
+  constructor(
+    private dialog: DialogService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.openDialog();
+  }
+  openDialog(): void {
+    this.dialog
+      .open(RegisterComponent, {
+        title: 'Create an account',
+      })
+      .subscribe(() => {
+        this.router.navigate(['../'], { relativeTo: this.route });
+      });
   }
 }

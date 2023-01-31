@@ -5,8 +5,10 @@ import {
   FormGroupDirective,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
 import { AuthService } from 'src/app/shared/authentication/auth.service';
+import { DialogService } from 'src/app/shared/dialog/dialog.service';
 
 @Component({
   selector: 'app-login',
@@ -70,5 +72,27 @@ export class LoginComponent implements OnInit {
 
     formDirective.resetForm();
     this.loginForm.reset();
+  }
+}
+
+@Component({
+  template: '',
+})
+export class DialogLogin {
+  constructor(
+    private dialog: DialogService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.openDialog();
+  }
+  openDialog(): void {
+    this.dialog
+      .open(LoginComponent, {
+        title: 'Login',
+      })
+      .subscribe(() => {
+        this.router.navigate(['../'], { relativeTo: this.route });
+      });
   }
 }
