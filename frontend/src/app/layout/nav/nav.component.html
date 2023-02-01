@@ -22,7 +22,7 @@
           <span class="p-3"><b>Contact</b> </span>
         </button>
         <button
-          *ngIf="this.jwtTokenService.user?.admin"
+          *ngIf="isAdmin"
           routerLink="admin"
           mat-button
           routerLinkActive="active"
@@ -32,17 +32,10 @@
       </span>
 
       <span class="pill">
-        <ng-container
-          *ngIf="this.jwtTokenService.hasToken(); else elseTemplate"
-        >
-          <button
-            mat-button
-            routerLink="profile/{{ this.jwtTokenService.user.id }}"
-          >
+        <ng-container *ngIf="userToken | async; else elseTemplate">
+          <button mat-button routerLink="profile/{{ tokenId }}">
             <mat-icon color="warn">account_circle</mat-icon>
-            <span class="d-none d-sm-inline">{{
-              this.jwtTokenService.user.name ?? 'hello'
-            }}</span>
+            <span class="d-none d-sm-inline">{{ tokenUserName }}</span>
           </button>
         </ng-container>
 

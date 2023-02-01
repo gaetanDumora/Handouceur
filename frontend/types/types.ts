@@ -12,4 +12,4 @@ export interface Token {
   value?: string;
 }
 
-export type DecodedJWTToken = User & { iat: number }; // issued at
+export type AccessToken = (User & { iat: number }) | null; // issued at

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JWTTokenService } from 'src/app/shared/authentication/jwt.service';
+import { AccessToken, User } from 'types/types';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +11,9 @@ export class ProfileComponent implements OnInit {
   user: any;
   constructor(private jwtTokenService: JWTTokenService) {}
   ngOnInit(): void {
-    this.user = this.jwtTokenService.user;
+    this.jwtTokenService
+      .getDecodedToken()
+      .subscribe((user) => (this.user = user));
   }
   logoutUser() {
     this.jwtTokenService.removeToken();
