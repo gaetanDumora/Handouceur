@@ -13,10 +13,15 @@ import { JWTTokenService } from './jwt.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
+  jwtTokenUserId: number | undefined;
   constructor(
     private jwtTokenService: JWTTokenService,
     private router: Router
-  ) {}
+  ) {
+    this.jwtTokenService
+      .getDecodedToken()
+      .subscribe((content) => (this.jwtTokenUserId = content?.id));
+  }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -25,7 +30,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!this.jwtTokenService.getDecodedToken()) {
+    if (!this.jwtTokenUserId) {
       this.router.navigate(['home/login']);
     }
     return true;
