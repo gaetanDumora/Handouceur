@@ -7,12 +7,10 @@ import { DARK_THEME } from 'src/app/constants/themes';
   providedIn: 'root',
 })
 export class ThemeService {
-  private isDarkTheme: BehaviorSubject<boolean>;
+  private isDarkTheme = new BehaviorSubject<boolean>(false);
 
   constructor(private localStorageService: LocalStorageService) {
-    this.isDarkTheme = new BehaviorSubject<boolean>(
-      this.localStorageService.get(DARK_THEME) === 'true'
-    );
+    this.isDarkTheme.next(this.localStorageService.get(DARK_THEME) === 'true');
   }
 
   setDarkTheme(isDarkTheme: boolean) {

@@ -14,7 +14,7 @@ export class ContentLayoutComponent implements OnInit {
   currentTheme: string;
   currentActiveTheme = this.themeService.getDarkTheme().pipe(
     map((isDarkTheme: boolean) => {
-      this.currentTheme = isDarkTheme ? THEMES.DARK : THEMES.LIGHT;
+      this.currentTheme = isDarkTheme ? THEMES.LIGHT : THEMES.DARK;
 
       if (this.overlayContainer) {
         const overlayContainerClasses =
