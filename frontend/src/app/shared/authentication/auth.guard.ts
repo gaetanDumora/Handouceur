@@ -58,7 +58,6 @@ export class AdminGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log(this.isAdmin);
     if (!this.isAdmin) {
       this.router.navigate(['home/login']);
     }
