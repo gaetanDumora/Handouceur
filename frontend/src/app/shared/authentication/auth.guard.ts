@@ -36,3 +36,32 @@ export class AuthGuard implements CanActivate {
     return true;
   }
 }
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AdminGuard implements CanActivate {
+  isAdmin: boolean | undefined;
+  constructor(
+    private jwtTokenService: JWTTokenService,
+    private router: Router
+  ) {
+    this.jwtTokenService
+      .getDecodedToken()
+      .subscribe((content) => (this.isAdmin = content?.admin));
+  }
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    console.log(this.isAdmin);
+    if (!this.isAdmin) {
+      this.router.navigate(['home/login']);
+    }
+    return true;
+  }
+}

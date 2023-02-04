@@ -4,14 +4,20 @@ import { ContentLayoutComponent } from './layout/content-layout/content-layout.c
 import { DialogRegister } from './modules/register/register.component';
 import { DialogLogin } from './modules/login/login.component';
 import { HomeComponent } from './modules/home/home.component';
-import { AuthGuard } from './shared/authentication/auth.guard';
+import { AdminGuard, AuthGuard } from './shared/authentication/auth.guard';
 import { ProfileComponent } from './modules/profile/profile.component';
+import { AdminComponent } from './modules/admin/admin.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ContentLayoutComponent,
     children: [
+      {
+        path: 'admin',
+        component: AdminComponent,
+        canActivate: [AdminGuard],
+      },
       {
         path: 'profile/:id',
         component: ProfileComponent,

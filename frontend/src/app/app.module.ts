@@ -15,6 +15,7 @@ import { DialogComponent } from './shared/dialog/dialog.component';
 import { RegisterComponent } from './modules/register/register.component';
 import { HomeComponent } from './modules/home/home.component';
 import { ProfileComponent } from './modules/profile/profile.component';
+import { AdminComponent } from './modules/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ProfileComponent } from './modules/profile/profile.component';
     RegisterComponent,
     HomeComponent,
     ProfileComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
