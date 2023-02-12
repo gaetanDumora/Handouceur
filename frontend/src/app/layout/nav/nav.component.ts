@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ThemeService } from '../../shared/services/theme.service';
-import { JWTTokenService } from 'src/app/shared/authentication/jwt.service';
-import { AccessToken } from 'types/types';
+import { User } from 'src/app/models/user';
+import { Store } from '@ngrx/store';
+import { getUser } from 'src/app/store/auth/auth.selectors';
 
 @Component({
   selector: 'app-nav',
@@ -13,28 +14,13 @@ import { AccessToken } from 'types/types';
 export class NavComponent implements OnInit {
   private darkThemeActive = true;
   isDarkTheme: Observable<boolean>;
-  userToken: Observable<AccessToken>;
-  tokenId: number;
-  tokenUserName: string | undefined;
-  isAdmin: boolean;
+  user: Observable<User | null>;
 
-  constructor(
-    private themeService: ThemeService,
-    public jwtTokenService: JWTTokenService
-  ) {}
+  constructor(private store: Store, private themeService: ThemeService) {}
 
   ngOnInit() {
+    this.user = this.store.select(getUser);
     this.isDarkTheme = this.themeService.getDarkTheme();
-    this.userToken = this.jwtTokenService.getDecodedToken();
-    this.userToken.subscribe({
-      next: (content) => {
-        if (content) {
-          this.tokenId = content.id;
-          this.tokenUserName = content.name;
-          this.isAdmin = content.admin;
-        }
-      },
-    });
   }
 
   changeTheme() {

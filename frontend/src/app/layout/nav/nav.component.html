@@ -21,16 +21,16 @@
         <button mat-button routerLink="contact" routerLinkActive="active">
           <span class="p-3"><b>Contact</b> </span>
         </button>
-        <button *ngIf="isAdmin" routerLink="admin" mat-button>
+        <button *ngIf="(user | async)?.admin" routerLink="admin" mat-button>
           <span class="p-3"><b>Admin</b> </span>
         </button>
       </span>
 
       <span class="pill">
-        <ng-container *ngIf="userToken | async; else elseTemplate">
-          <button mat-button routerLink="profile/{{ tokenId }}">
+        <ng-container *ngIf="user | async; else elseTemplate">
+          <button mat-button routerLink="profile/{{ (user | async)?.id }}">
             <mat-icon color="warn">account_circle</mat-icon>
-            <span class="d-none d-sm-inline">{{ tokenUserName }}</span>
+            <span class="d-none d-sm-inline">{{ (user | async)?.name }}</span>
           </button>
         </ng-container>
 
