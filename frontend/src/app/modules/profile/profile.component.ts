@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { JWTTokenService } from 'src/app/shared/authentication/jwt.service';
-import { AccessToken, User } from 'types/types';
+import { User } from 'src/app/models/user';
+import { Store } from '@ngrx/store';
+import { getUser } from 'src/app/store/auth/auth.selectors';
+import { Observable } from 'rxjs';
+import { authActions } from 'src/app/store/auth/auth.actions';
 
 @Component({
   selector: 'app-profile',
@@ -8,15 +11,12 @@ import { AccessToken, User } from 'types/types';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  user: any;
-  constructor(private jwtTokenService: JWTTokenService) {}
+  user: Observable<User | null>;
+  constructor(private store: Store) {}
   ngOnInit(): void {
-    this.jwtTokenService
-      .getDecodedToken()
-      .subscribe((user) => (this.user = user));
+    this.user = this.store.select(getUser);
   }
   logoutUser() {
-    this.jwtTokenService.removeToken();
-    this.user = null;
+    this.store.dispatch(authActions.logoutUser());
   }
 }

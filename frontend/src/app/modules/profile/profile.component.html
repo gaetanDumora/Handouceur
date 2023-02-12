@@ -3,19 +3,19 @@
     <mat-card-header>
       <mat-card-title
         ><h3>
-          <b>Welcome {{ user.name }}</b>
+          <b>Welcome {{ (user | async)?.name }}</b>
         </h3></mat-card-title
       >
       <mat-card-subtitle
-        >member since {{ user.createdAt | date }}</mat-card-subtitle
+        >member since {{ (user | async)?.createdAt | date }}</mat-card-subtitle
       >
     </mat-card-header>
     <mat-card-content>
       <div class="p-4">
-        <p *ngFor="let item of user | keyvalue">
-          <b>{{ item.key }}</b
-          >: {{ item.value }}
-        </p>
+        <p><b>Username</b>: {{ (user | async)?.name }}</p>
+        <p><b>@</b>: {{ (user | async)?.email }}</p>
+        <p><b>Admin</b>: {{ (user | async)?.admin }}</p>
+        <p><b>ID</b>: {{ (user | async)?.id }}</p>
       </div>
     </mat-card-content>
     <mat-card-actions class="d-flex justify-content-center">
