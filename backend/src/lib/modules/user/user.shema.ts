@@ -40,6 +40,9 @@ const loginSchema = z.object({
 });
 
 const loginSchemaResponse = z.object({
+  id: z.number(),
+  ...userCore,
+  admin: z.boolean(),
   accessToken: z.string(),
 });
 
