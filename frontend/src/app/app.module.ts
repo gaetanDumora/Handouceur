@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +16,16 @@ import { RegisterComponent } from './modules/register/register.component';
 import { HomeComponent } from './modules/home/home.component';
 import { ProfileComponent } from './modules/profile/profile.component';
 import { AdminComponent } from './modules/admin/admin.component';
+
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import {
+  AUTH_FEATURE_KEY,
+  authReducer,
+  metaReducers,
+} from './store/auth/auth.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AuthEffect } from './store/auth/auth.effects';
 
 @NgModule({
   declarations: [
@@ -35,6 +45,23 @@ import { AdminComponent } from './modules/admin/admin.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
+    StoreModule.forRoot(
+      { [AUTH_FEATURE_KEY]: authReducer },
+      {
+        metaReducers,
+        runtimeChecks: {
+          strictActionTypeUniqueness: true, // Uniq name for Actions.
+          strictActionImmutability: true, // Actions can not be altered in reducers.
+          strictStateImmutability: true, // States can not be altered inside actions.
+        },
+      }
+    ),
+    StoreDevtoolsModule.instrument({
+      name: 'Handouceur',
+      maxAge: 25,
+      logOnly: !isDevMode(),
+    }),
+    EffectsModule.forRoot([AuthEffect]),
   ],
   providers: [],
   bootstrap: [AppComponent],
