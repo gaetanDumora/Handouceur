@@ -6,5 +6,8 @@ export interface User {
   admin: boolean;
   createdAt: string;
 }
-
-export type AccessToken = (User & { iat: number }) | null; // issued at
+export interface Credentials {
+  email: string;
+  password: string;
+  name?: string;
+}

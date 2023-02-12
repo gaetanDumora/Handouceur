@@ -1,7 +1,3 @@
-export const TOKEN_TYPES = {
-  ACCESS: 'access_token',
-};
-
 // Time exprimed in milliseconds
 export const MILLISECOND = 1;
 export const SECOND = 1000 * MILLISECOND;
