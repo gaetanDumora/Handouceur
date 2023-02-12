@@ -6,9 +6,15 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ErrorType } from 'src/app/models/error';
+import { User } from 'src/app/models/user';
+import { Observable } from 'rxjs';
 import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
 import { AuthService } from 'src/app/shared/authentication/auth.service';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
+import { authActions } from 'src/app/store/auth/auth.actions';
+import { getError, getUser } from 'src/app/store/auth/auth.selectors';
 
 @Component({
   selector: 'app-login',
@@ -18,13 +24,14 @@ import { DialogService } from 'src/app/shared/dialog/dialog.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   showPassword: boolean;
+  authError: Observable<ErrorType>;
+  user: Observable<User | null>;
 
-  constructor(public authService: AuthService) {}
+  constructor(private store: Store, public authService: AuthService) {}
 
-  ngOnInit(): void {
-    this.createForm();
-  }
-  createForm() {
+  ngOnInit() {
+    this.authError = this.store.select(getError);
+    this.user = this.store.select(getUser);
     this.loginForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [
@@ -33,6 +40,7 @@ export class LoginComponent implements OnInit {
       ]),
     });
   }
+
   getErrorEmail() {
     return this.loginForm.get('email')?.hasError('required')
       ? ERROR_MESSAGES.email.require
@@ -54,7 +62,7 @@ export class LoginComponent implements OnInit {
       ? { requirements: true }
       : null;
   }
-  togglePasswordVisibility(): void {
+  togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
   checkValidation(input: string) {
@@ -64,14 +72,16 @@ export class LoginComponent implements OnInit {
     return validation;
   }
 
-  onSubmit(formData: FormGroup, formDirective: FormGroupDirective): void {
+  onSubmit(formData: FormGroup, formDirective: FormGroupDirective) {
     const email = formData.value.email;
     const password = formData.value.password;
 
-    this.authService.login({ email, password });
+    this.store.dispatch(authActions.submitCredentials({ email, password }));
 
-    formDirective.resetForm();
-    this.loginForm.reset();
+    if (this.user !== null) {
+      formDirective.resetForm();
+      this.loginForm.reset();
+    }
   }
 }
 

@@ -41,24 +41,19 @@
         </p>
       </div>
 
-      <div class="row row-cols-1 p-3">
+      <div *ngIf="!(user | async)" class="row row-cols-1 p-3">
         <button type="submit" [disabled]="loginForm.invalid" mat-raised-button>
           Login
         </button>
       </div>
-      <div
-        *ngIf="this.authService.user"
-        class="d-flex justify-content-around p-2"
-      >
-        <mat-chip-option disabled="true" color="accent" selected
-          >Success</mat-chip-option
-        >
+      <div *ngIf="user | async" class="d-flex justify-content-around p-2">
+        <mat-chip disabled="true">Success</mat-chip>
       </div>
       <mat-error
-        *ngIf="this.authService.errorMessage && !this.authService.user"
+        *ngIf="authError | async"
         class="d-flex justify-content-around p-2"
       >
-        {{ this.authService.errorMessage }}
+        {{ authError | async }}
       </mat-error>
     </form>
   </div>
