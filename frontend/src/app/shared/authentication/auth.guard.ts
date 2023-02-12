@@ -6,22 +6,16 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
-import { JWTTokenService } from './jwt.service';
+import { Observable, map } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { getAdminStatus, getUser } from 'src/app/store/auth/auth.selectors';
+import { User } from 'src/app/models/user';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
-  jwtTokenUserId: number | undefined;
-  constructor(
-    private jwtTokenService: JWTTokenService,
-    private router: Router
-  ) {
-    this.jwtTokenService
-      .getDecodedToken()
-      .subscribe((content) => (this.jwtTokenUserId = content?.id));
-  }
+export class AdminGuard implements CanActivate {
+  constructor(private store: Store, private router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -30,26 +24,23 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!this.jwtTokenUserId) {
-      this.router.navigate(['home/login']);
-    }
-    return true;
+    return this.store.select(getAdminStatus).pipe(
+      map((isAdmin) => {
+        if (!isAdmin) {
+          this.router.navigate(['home/login']);
+        }
+        return true;
+      })
+    );
   }
 }
 
 @Injectable({
   providedIn: 'root',
 })
-export class AdminGuard implements CanActivate {
-  isAdmin: boolean | undefined;
-  constructor(
-    private jwtTokenService: JWTTokenService,
-    private router: Router
-  ) {
-    this.jwtTokenService
-      .getDecodedToken()
-      .subscribe((content) => (this.isAdmin = content?.admin));
-  }
+export class AuthGuard implements CanActivate {
+  user: Observable<User | null>;
+  constructor(private store: Store, private router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -58,9 +49,13 @@ export class AdminGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!this.isAdmin) {
-      this.router.navigate(['home/login']);
-    }
-    return true;
+    return this.store.select(getUser).pipe(
+      map((user) => {
+        if (!user?.accessToken) {
+          this.router.navigate(['home/login']);
+        }
+        return true;
+      })
+    );
   }
 }

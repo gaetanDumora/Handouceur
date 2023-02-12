@@ -4,25 +4,20 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environment/environment';
-import { User } from 'types/types';
-import { JWTTokenService } from './jwt.service';
+import { User } from 'src/app/models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private baseURL = `${environment.apiUrl}/user`;
-  private _user = new BehaviorSubject<User | null>(null);
   errorMessage: string;
   registered: boolean = false;
 
-  constructor(
-    private http: HttpClient,
-    private jwtTokenService: JWTTokenService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   isUser(email: string) {
     const params = new HttpParams().set('email', email);
@@ -40,43 +35,15 @@ export class AuthService {
     username?: string;
     password: string;
   }) {
-    return this.http
-      .post<User>(this.baseURL + '/registerUser', {
-        email,
-        name: username,
-        password,
-      })
-      .subscribe({
-        next: () => (this.registered = true),
-        error: (error) => {
-          this.handleError(error);
-          this.errorMessage = error?.error?.message;
-        },
-      });
+    return this.http.post<User>(this.baseURL + '/registerUser', {
+      email,
+      name: username,
+      password,
+    });
   }
 
   login({ email, password }: { email: string; password: string }) {
-    return this.http
-      .post<User>(this.baseURL + '/login', { email, password })
-      .subscribe({
-        next: (logedUser) => {
-          this.jwtTokenService.setToken(logedUser.accessToken);
-          this._user.next(logedUser);
-        },
-        error: (error) => {
-          this.handleError(error);
-          this.errorMessage = error?.error?.message;
-        },
-      });
-  }
-
-  get user() {
-    return this._user.value;
-  }
-
-  logout() {
-    this._user.next(null);
-    return this.jwtTokenService.removeToken();
+    return this.http.post(this.baseURL + '/login', { email, password });
   }
 
   private handleError(error: HttpErrorResponse) {
