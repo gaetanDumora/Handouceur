@@ -22,9 +22,6 @@ export class RegisterComponent implements OnInit {
   constructor(public authService: AuthService) {}
 
   ngOnInit() {
-    this.createForm();
-  }
-  createForm() {
     this.registerForm = new FormGroup({
       username: new FormControl(null),
       email: new FormControl(null, [
@@ -37,6 +34,7 @@ export class RegisterComponent implements OnInit {
       ]),
     });
   }
+
   checkEmailExist() {
     const emailField = this.registerForm.get('email');
     if (emailField?.status === 'VALID') {

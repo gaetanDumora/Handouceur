@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { Store } from '@ngrx/store';
-import { getUser } from 'src/app/store/auth/auth.selectors';
+import { getUser } from 'src/app/store/user-store/user.selectors';
 import { Observable } from 'rxjs';
-import { authActions } from 'src/app/store/auth/auth.actions';
+import { USER_ACTIONS } from 'src/app/store/user-store/user.actions';
 
 @Component({
   selector: 'app-profile',
@@ -17,6 +17,6 @@ export class ProfileComponent implements OnInit {
     this.user = this.store.select(getUser);
   }
   logoutUser() {
-    this.store.dispatch(authActions.logoutUser());
+    this.store.dispatch(USER_ACTIONS.logoutUser());
   }
 }

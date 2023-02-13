@@ -8,7 +8,10 @@ import {
 } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { getAdminStatus, getUser } from 'src/app/store/auth/auth.selectors';
+import {
+  getAdminStatus,
+  getUser,
+} from 'src/app/store/user-store/user.selectors';
 import { User } from 'src/app/models/user';
 
 @Injectable({
