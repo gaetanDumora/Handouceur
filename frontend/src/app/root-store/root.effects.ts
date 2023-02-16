@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 
-import { USER_ACTIONS } from './user.actions';
+import { ROOT_ACTIONS } from './root.actions';
 import { mergeMap, map, of, catchError } from 'rxjs';
 import { AuthService } from 'src/app/shared/authentication/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserEffect {
+export class RootEffect {
   submitCredentails = createEffect(() =>
     this.actions.pipe(
-      ofType(USER_ACTIONS.submitCredentials),
+      ofType(ROOT_ACTIONS.submitCredentials),
       mergeMap((credentials) => {
         return this.authService.login(credentials).pipe(
-          map((user: any) => USER_ACTIONS.submitCredentialsSuccess({ user })),
+          map((user: any) => ROOT_ACTIONS.submitCredentialsSuccess({ user })),
           catchError(({ error }) =>
             of(
-              USER_ACTIONS.submitCredentialsFaillure({
-                errorMessage: error.message,
+              ROOT_ACTIONS.submitCredentialsFaillure({
+                error: error.message,
               })
             )
           )
@@ -30,8 +30,8 @@ export class UserEffect {
   logoutUser = createEffect(
     () =>
       this.actions.pipe(
-        ofType(USER_ACTIONS.logoutUser),
-        map(() => USER_ACTIONS.logoutUser())
+        ofType(ROOT_ACTIONS.logoutUser),
+        map(() => ROOT_ACTIONS.logoutUser())
       ),
     { dispatch: false }
   );

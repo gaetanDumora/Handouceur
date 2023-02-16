@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ThemeService } from '../../shared/services/theme.service';
 import { User } from 'src/app/models/user';
 import { Store } from '@ngrx/store';
-import { getUser } from 'src/app/store/user-store/user.selectors';
+import { getUser } from 'src/app/root-store/root.selectors';
 
 @Component({
   selector: 'app-nav',

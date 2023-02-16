@@ -9,13 +9,13 @@ export enum ActionTypes {
   LOGOUT_USER = 'Logout User',
 }
 
-export const USER_ACTIONS = createActionGroup({
-  source: 'User',
+export const ROOT_ACTIONS = createActionGroup({
+  source: 'Root',
   events: {
     [ActionTypes.SUBMIT_CREDENTIALS]: props<Credentials>(),
     [ActionTypes.SUBMIT_CREDENTIALS_SUCCESS]: props<{ user: User }>(),
     [ActionTypes.SUBMIT_CREDENTIALS_FAILURE]: props<{
-      errorMessage: ErrorType;
+      error: ErrorType;
     }>(),
     [ActionTypes.LOGOUT_USER]: emptyProps(),
   },

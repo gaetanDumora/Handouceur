@@ -1,26 +1,24 @@
 import { ErrorType } from 'src/app/models/error';
 import { User } from 'src/app/models/user';
 
-export const USER_FEATURE_KEY = 'userState';
+export const ROOT_FEATURE_KEY = 'root';
 
 export interface State {
+  readonly [ROOT_FEATURE_KEY]: RootState;
+}
+
+export interface RootState {
   appName: string;
+  isDarkMode: boolean;
   isLoading: boolean;
   error: ErrorType;
-  readonly [USER_FEATURE_KEY]: UserState;
-}
-
-export interface UserState {
   user: User | null;
-  errorMessage: ErrorType;
 }
 
-export const initialState: State = {
+export const initialState: RootState = {
   appName: 'Handouceur',
+  isDarkMode: false,
   isLoading: false,
   error: null,
-  [USER_FEATURE_KEY]: {
-    user: null,
-    errorMessage: null,
-  },
+  user: null,
 };

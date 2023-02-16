@@ -17,7 +17,7 @@ import { HomeComponent } from './modules/home/home.component';
 import { ProfileComponent } from './modules/profile/profile.component';
 import { AdminComponent } from './modules/admin/admin.component';
 
-import { RootStoreModule } from './store/root-store.module';
+import { RootStoreModule } from './root-store/root-store.module';
 
 @NgModule({
   declarations: [

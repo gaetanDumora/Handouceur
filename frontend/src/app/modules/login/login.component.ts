@@ -13,8 +13,8 @@ import { Observable } from 'rxjs';
 import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
 import { AuthService } from 'src/app/shared/authentication/auth.service';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
-import { USER_ACTIONS } from 'src/app/store/user-store/user.actions';
-import { getError, getUser } from 'src/app/store/user-store/user.selectors';
+import { ROOT_ACTIONS } from 'src/app/root-store/root.actions';
+import { getError, getUser } from 'src/app/root-store/root.selectors';
 
 @Component({
   selector: 'app-login',
@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
     const email = formData.value.email;
     const password = formData.value.password;
 
-    this.store.dispatch(USER_ACTIONS.submitCredentials({ email, password }));
+    this.store.dispatch(ROOT_ACTIONS.submitCredentials({ email, password }));
 
     if (this.user !== null) {
       formDirective.resetForm();

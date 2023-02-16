@@ -5,17 +5,17 @@ import {
   createReducer,
   on,
 } from '@ngrx/store';
-import { USER_ACTIONS } from './user.actions';
+import { ROOT_ACTIONS } from './root.actions';
 
 import { localStorageSync } from 'ngrx-store-localstorage';
-import { USER_FEATURE_KEY, State, initialState } from './state';
+import { ROOT_FEATURE_KEY, RootState, State, initialState } from './state';
 
 // MetaReducer Functions
 const localStorageSyncReducer = (
   reducer: ActionReducer<any>
 ): ActionReducer<any> => {
   return localStorageSync({
-    keys: [USER_FEATURE_KEY],
+    keys: [ROOT_FEATURE_KEY],
     rehydrate: true,
   })(reducer);
 };
@@ -32,41 +32,31 @@ const log = (reducer: ActionReducer<any>) => {
 
 export const metaReducers: MetaReducer[] = [log, localStorageSyncReducer];
 
-export const userReducer = createReducer(
+export const rootReducer = createReducer<RootState, Action>(
   initialState,
-  on(USER_ACTIONS.submitCredentials, (state: State) => {
+  on(ROOT_ACTIONS.submitCredentials, (state) => {
     return {
       ...state,
     };
   }),
-  on(USER_ACTIONS.submitCredentialsSuccess, (state: State, { user }) => {
+  on(ROOT_ACTIONS.submitCredentialsSuccess, (state, { user }) => {
     return {
       ...state,
-      [USER_FEATURE_KEY]: {
-        user,
-        errorMessage: null,
-      },
+      user,
+      error: null,
     };
   }),
-  on(
-    USER_ACTIONS.submitCredentialsFaillure,
-    (state: State, { errorMessage }) => {
-      return {
-        ...state,
-        [USER_FEATURE_KEY]: {
-          user: state[USER_FEATURE_KEY].user,
-          errorMessage,
-        },
-      };
-    }
-  ),
-  on(USER_ACTIONS.logoutUser, (state: State) => {
+  on(ROOT_ACTIONS.submitCredentialsFaillure, (state, { error }) => {
     return {
       ...state,
-      [USER_FEATURE_KEY]: {
-        user: null,
-        errorMessage: state[USER_FEATURE_KEY].errorMessage,
-      },
+      user: state.user,
+      error,
+    };
+  }),
+  on(ROOT_ACTIONS.logoutUser, (state) => {
+    return {
+      ...state,
+      user: null,
     };
   })
 );
