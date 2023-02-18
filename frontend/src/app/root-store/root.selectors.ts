@@ -19,3 +19,5 @@ export const isDarkTheme = createSelector(
   selectRoot,
   (state) => state.isDarkTheme
 );
+
+export const isLoading = createSelector(selectRoot, (state) => state.isLoading);

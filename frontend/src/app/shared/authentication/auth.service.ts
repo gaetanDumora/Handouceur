@@ -14,8 +14,6 @@ import { User } from 'src/app/models/user';
 })
 export class AuthService {
   private baseURL = `${environment.apiUrl}/user`;
-  errorMessage: string;
-  registered: boolean = false;
 
   constructor(private http: HttpClient) {}
 
@@ -35,17 +33,15 @@ export class AuthService {
     username: string;
     password: string;
   }) {
-    return this.http
-      .post<User>(this.baseURL + '/registerUser', {
-        email,
-        name: username,
-        password,
-      })
-      .subscribe();
+    return this.http.post(this.baseURL + '/registerUser', {
+      email,
+      name: username,
+      password,
+    });
   }
 
   login({ email, password }: { email: string; password: string }) {
-    return this.http.post(this.baseURL + '/login', { email, password });
+    return this.http.post<User>(this.baseURL + '/login', { email, password });
   }
 
   private handleError(error: HttpErrorResponse) {

@@ -10,7 +10,6 @@
           <mat-form-field>
             <mat-icon matPrefix>email</mat-icon>
             <input
-              autofocus
               type="email"
               matInput
               placeholder="Email *"
@@ -27,7 +26,6 @@
           <mat-form-field>
             <mat-icon matPrefix>person_outline</mat-icon>
             <input
-              autofocus
               type="text"
               matInput
               placeholder="Username *"
@@ -58,7 +56,7 @@
         </p>
       </div>
 
-      <div *ngIf="!this.authService.registered" class="row row-cols-1 p-3">
+      <div class="row row-cols-1 p-3">
         <button
           type="submit"
           [disabled]="registerForm.invalid"
@@ -67,8 +65,13 @@
           Register
         </button>
       </div>
+      <mat-progress-bar
+        *ngIf="isLoading | async"
+        color="warn"
+        mode="query"
+      ></mat-progress-bar>
       <div
-        *ngIf="this.authService.registered"
+        *ngIf="(isSubmitted | async) && !(error | async)"
         class="d-flex justify-content-around p-2"
       >
         <p>User created, please login.</p>

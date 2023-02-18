@@ -37,6 +37,7 @@ export const rootReducer = createReducer<RootState, Action>(
   on(ROOT_ACTIONS.submitCredentials, (state) => {
     return {
       ...state,
+      isLoading: true,
     };
   }),
   on(ROOT_ACTIONS.submitCredentialsSuccess, (state, { user }) => {
@@ -44,6 +45,7 @@ export const rootReducer = createReducer<RootState, Action>(
       ...state,
       user,
       error: null,
+      isLoading: false,
     };
   }),
   on(ROOT_ACTIONS.submitCredentialsFaillure, (state, { error }) => {
@@ -51,6 +53,7 @@ export const rootReducer = createReducer<RootState, Action>(
       ...state,
       user: state.user,
       error,
+      isLoading: false,
     };
   }),
   on(ROOT_ACTIONS.logoutUser, (state) => {

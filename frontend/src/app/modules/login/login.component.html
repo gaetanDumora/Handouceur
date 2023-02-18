@@ -55,6 +55,11 @@
       >
         {{ error | async }}
       </mat-error>
+      <mat-progress-bar
+        *ngIf="isLoading | async"
+        color="warn"
+        mode="query"
+      ></mat-progress-bar>
     </form>
   </div>
 </div>

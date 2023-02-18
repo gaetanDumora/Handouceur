@@ -9,6 +9,11 @@ import { AuthService } from '../../shared/authentication/auth.service';
 import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { getError, isLoading } from 'src/app/root-store/root.selectors';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { ROOT_ACTIONS } from 'src/app/root-store/root.actions';
+import { ErrorType } from 'src/app/models/error';
 
 @Component({
   selector: 'app-register',
@@ -18,10 +23,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   showPassword: boolean = false;
-
-  constructor(public authService: AuthService) {}
+  error: Observable<ErrorType>;
+  isLoading: Observable<boolean>;
+  isSubmitted: BehaviorSubject<boolean>;
+  constructor(public authService: AuthService, private store: Store) {}
 
   ngOnInit() {
+    this.error = this.store.select(getError);
+    this.isLoading = this.store.select(isLoading);
+    this.isSubmitted = new BehaviorSubject(false);
     this.registerForm = new FormGroup({
       email: new FormControl(null, [
         Validators.required,
@@ -99,9 +109,13 @@ export class RegisterComponent implements OnInit {
   onSubmit(formData: FormGroup, formDirective: FormGroupDirective): void {
     const email = formData.value.email;
     const password = formData.value.password;
-    const username = formData.value.username;
+    const name = formData.value.username;
 
-    this.authService.registerUser({ email, password, username });
+    this.store.dispatch(
+      ROOT_ACTIONS.submitCredentials({ email, password, name })
+    );
+
+    this.isSubmitted.next(formDirective.submitted);
 
     formDirective.resetForm();
     this.registerForm.reset();

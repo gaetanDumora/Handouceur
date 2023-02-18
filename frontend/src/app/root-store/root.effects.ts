@@ -10,12 +10,32 @@ import { ThemeService } from '../shared/services/theme.service';
   providedIn: 'root',
 })
 export class RootEffect {
-  submitCredentails = createEffect(() =>
+  submitCredentials = createEffect(() =>
     this.actions.pipe(
       ofType(ROOT_ACTIONS.submitCredentials),
+      switchMap(({ email, name, password }) => {
+        return this.authService
+          .registerUser({ email, password, username: name })
+          .pipe(
+            map(() => ROOT_ACTIONS.submitCredentialsSuccess({ user: null })),
+            catchError(({ error }) =>
+              of(
+                ROOT_ACTIONS.submitCredentialsFaillure({
+                  error: error.message,
+                })
+              )
+            )
+          );
+      })
+    )
+  );
+
+  loginUser = createEffect(() =>
+    this.actions.pipe(
+      ofType(ROOT_ACTIONS.loginUser),
       switchMap((credentials) => {
         return this.authService.login(credentials).pipe(
-          map((user: any) => ROOT_ACTIONS.submitCredentialsSuccess({ user })),
+          map((user) => ROOT_ACTIONS.submitCredentialsSuccess({ user })),
           catchError(({ error }) =>
             of(
               ROOT_ACTIONS.submitCredentialsFaillure({

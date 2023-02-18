@@ -14,7 +14,11 @@ import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
 import { AuthService } from 'src/app/shared/authentication/auth.service';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { ROOT_ACTIONS } from 'src/app/root-store/root.actions';
-import { getError, getUser } from 'src/app/root-store/root.selectors';
+import {
+  getError,
+  getUser,
+  isLoading,
+} from 'src/app/root-store/root.selectors';
 
 @Component({
   selector: 'app-login',
@@ -26,10 +30,12 @@ export class LoginComponent implements OnInit {
   showPassword: boolean;
   error: Observable<ErrorType>;
   user: Observable<User | null>;
+  isLoading: Observable<boolean>;
 
   constructor(private store: Store, public authService: AuthService) {}
 
   ngOnInit() {
+    this.isLoading = this.store.select(isLoading);
     this.error = this.store.select(getError);
     this.user = this.store.select(getUser);
     this.loginForm = new FormGroup({
@@ -76,7 +82,7 @@ export class LoginComponent implements OnInit {
     const email = formData.value.email;
     const password = formData.value.password;
 
-    this.store.dispatch(ROOT_ACTIONS.submitCredentials({ email, password }));
+    this.store.dispatch(ROOT_ACTIONS.loginUser({ email, password }));
 
     if (this.user) {
       formDirective.resetForm();

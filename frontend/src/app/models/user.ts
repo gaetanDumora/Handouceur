@@ -1,6 +1,6 @@
 export interface User {
   id: number;
-  name?: string;
+  name: string;
   email: string;
   accessToken: string;
   admin: boolean;
@@ -9,5 +9,5 @@ export interface User {
 export interface Credentials {
   email: string;
   password: string;
-  name?: string;
+  name: string;
 }

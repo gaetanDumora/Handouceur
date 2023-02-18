@@ -7,6 +7,7 @@ export enum ActionTypes {
   SUBMIT_CREDENTIALS_SUCCESS = 'Submit Credentials success',
   SUBMIT_CREDENTIALS_FAILURE = 'Submit Credentials faillure',
   LOGOUT_USER = 'Logout User',
+  LOGIN_USER = 'Login User',
   DARK_THEME = 'Set Dark Theme',
 }
 
@@ -15,10 +16,11 @@ export const ROOT_ACTIONS = createActionGroup({
   events: {
     [ActionTypes.DARK_THEME]: props<{ isDarkTheme: boolean }>(),
     [ActionTypes.SUBMIT_CREDENTIALS]: props<Credentials>(),
-    [ActionTypes.SUBMIT_CREDENTIALS_SUCCESS]: props<{ user: User }>(),
+    [ActionTypes.SUBMIT_CREDENTIALS_SUCCESS]: props<{ user: User | null }>(),
     [ActionTypes.SUBMIT_CREDENTIALS_FAILURE]: props<{
       error: ErrorType;
     }>(),
     [ActionTypes.LOGOUT_USER]: emptyProps(),
+    [ActionTypes.LOGIN_USER]: props<Omit<Credentials, 'name'>>(),
   },
 });
