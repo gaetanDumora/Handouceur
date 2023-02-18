@@ -23,10 +23,13 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = new FormGroup({
-      username: new FormControl(null),
       email: new FormControl(null, [
         Validators.required,
         Validators.pattern(REGEX.emailCheck),
+      ]),
+      username: new FormControl(null, [
+        Validators.required,
+        this.checkUsername,
       ]),
       password: new FormControl(null, [
         Validators.required,
@@ -57,11 +60,9 @@ export class RegisterComponent implements OnInit {
       ? ERROR_MESSAGES.email.exist
       : '';
   }
-  checkPassword(control: { value: any }) {
-    const enteredPassword = control.value;
-    return !REGEX.passwordCheck.test(enteredPassword) && enteredPassword
-      ? { requirements: true }
-      : null;
+  getErrorUsername() {
+    const usernameField = this.registerForm.get('username');
+    return usernameField?.hasError('required') ? 'Please enter a name' : '';
   }
   getErrorPassword() {
     return this.registerForm.get('password')?.hasError('required')
@@ -70,8 +71,19 @@ export class RegisterComponent implements OnInit {
       ? ERROR_MESSAGES.password.hint
       : '';
   }
-  togglePasswordVisibility(): void {
-    this.showPassword = !this.showPassword;
+
+  checkUsername(control: { value: string }) {
+    const enteredUsername = control.value;
+    const validation = enteredUsername ? null : { requirements: true };
+    return validation;
+  }
+  checkPassword(control: { value: string }) {
+    const enteredPassword = control.value;
+    const validation =
+      !REGEX.passwordCheck.test(enteredPassword) && enteredPassword
+        ? { requirements: true }
+        : null;
+    return validation;
   }
   checkValidation(input: string) {
     const validation =
@@ -80,6 +92,11 @@ export class RegisterComponent implements OnInit {
         this.registerForm.get(input)?.touched);
     return validation;
   }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
   onSubmit(formData: FormGroup, formDirective: FormGroupDirective): void {
     const email = formData.value.email;
     const password = formData.value.password;
@@ -87,10 +104,8 @@ export class RegisterComponent implements OnInit {
 
     this.authService.registerUser({ email, password, username });
 
-    if (!this.authService.errorMessage) {
-      formDirective.resetForm();
-      this.registerForm.reset();
-    }
+    formDirective.resetForm();
+    this.registerForm.reset();
   }
 }
 

@@ -13,11 +13,33 @@ datasource db {
 model User {
   id Int @id @default(autoincrement()) 
   email String @unique
-  name String?
+  name String
   password String
   salt String
   admin Boolean @default(false)
-  createdAt DateTime? @default(now())
+  created_at DateTime @default(now())
   
   @@map("users")
+}
+
+model Journey {
+  id Int @id @default(autoincrement()) 
+  title String
+  location String
+  latitude  Float?
+  longitude Float?
+  start_date DateTime?
+  end_date DateTime?
+  price Int?
+  autonomy Boolean[]
+  image_url String
+  optional_url String?
+  main_description String
+  recreation_description String
+  hosting_description String
+  transport_description String
+  group_size Int[]
+  created_at DateTime @default(now())
+
+  @@map("journeys")
 }

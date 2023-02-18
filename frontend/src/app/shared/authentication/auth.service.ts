@@ -32,14 +32,16 @@ export class AuthService {
     password,
   }: {
     email: string;
-    username?: string;
+    username: string;
     password: string;
   }) {
-    return this.http.post<User>(this.baseURL + '/registerUser', {
-      email,
-      name: username,
-      password,
-    });
+    return this.http
+      .post<User>(this.baseURL + '/registerUser', {
+        email,
+        name: username,
+        password,
+      })
+      .subscribe();
   }
 
   login({ email, password }: { email: string; password: string }) {
