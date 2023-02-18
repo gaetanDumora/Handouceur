@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 
 import { ROOT_ACTIONS } from './root.actions';
-import { mergeMap, map, of, catchError } from 'rxjs';
+import { mergeMap, map, of, catchError, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/shared/authentication/auth.service';
+import { ThemeService } from '../shared/services/theme.service';
 
 @Injectable({
   providedIn: 'root',
@@ -36,5 +37,24 @@ export class RootEffect {
     { dispatch: false }
   );
 
-  constructor(private actions: Actions, private authService: AuthService) {}
+  setDarkMode = createEffect(
+    () =>
+      this.actions.pipe(
+        ofType(ROOT_ACTIONS.setDarkTheme),
+        mergeMap(({ isDarkTheme }) => {
+          return this.themeService
+            .setDarkTheme(isDarkTheme)
+            .pipe(
+              map((value) => ROOT_ACTIONS.setDarkTheme({ isDarkTheme: value }))
+            );
+        })
+      ),
+    { dispatch: false }
+  );
+
+  constructor(
+    private actions: Actions,
+    private authService: AuthService,
+    private themeService: ThemeService
+  ) {}
 }

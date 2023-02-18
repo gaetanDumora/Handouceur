@@ -9,7 +9,7 @@ export interface State {
 
 export interface RootState {
   appName: string;
-  isDarkMode: boolean;
+  isDarkTheme: boolean;
   isLoading: boolean;
   error: ErrorType;
   user: User | null;
@@ -17,7 +17,7 @@ export interface RootState {
 
 export const initialState: RootState = {
   appName: 'Handouceur',
-  isDarkMode: false,
+  isDarkTheme: true,
   isLoading: false,
   error: null,
   user: null,

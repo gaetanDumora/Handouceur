@@ -58,5 +58,11 @@ export const rootReducer = createReducer<RootState, Action>(
       ...state,
       user: null,
     };
+  }),
+  on(ROOT_ACTIONS.setDarkTheme, (state, { isDarkTheme }) => {
+    return {
+      ...state,
+      isDarkTheme,
+    };
   })
 );

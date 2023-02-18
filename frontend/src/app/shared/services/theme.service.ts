@@ -1,24 +1,35 @@
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { LocalStorageService } from './localStorage.service';
-import { DARK_THEME } from 'src/app/constants/themes';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ThemeService {
-  private isDarkTheme = new BehaviorSubject<boolean>(false);
+  private isDarkTheme = new BehaviorSubject<boolean>(true);
 
-  constructor(private localStorageService: LocalStorageService) {
-    this.isDarkTheme.next(this.localStorageService.get(DARK_THEME) === 'true');
-  }
+  constructor(private overlayContainer: OverlayContainer) {}
 
   setDarkTheme(isDarkTheme: boolean) {
     this.isDarkTheme.next(isDarkTheme);
-    this.localStorageService.set(DARK_THEME, this.isDarkTheme.value.toString());
+    return this.isDarkTheme;
   }
 
-  getDarkTheme(): Observable<boolean> {
-    return this.isDarkTheme;
+  applyTheme(theme: string) {
+    if (this.overlayContainer) {
+      const overlayContainerClasses =
+        this.overlayContainer.getContainerElement().classList;
+
+      const themeClassesToRemove = Array.from(overlayContainerClasses).filter(
+        (item: string) => item.includes('-theme')
+      );
+
+      if (themeClassesToRemove.length) {
+        overlayContainerClasses.remove(...themeClassesToRemove);
+      }
+      overlayContainerClasses.add(theme);
+    }
+
+    return theme;
   }
 }

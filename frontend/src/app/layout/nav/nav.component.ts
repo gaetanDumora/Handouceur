@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
-import { ThemeService } from '../../shared/services/theme.service';
 import { User } from 'src/app/models/user';
 import { Store } from '@ngrx/store';
-import { getUser } from 'src/app/root-store/root.selectors';
+import { getUser, isDarkTheme } from 'src/app/root-store/root.selectors';
+import { ROOT_ACTIONS } from 'src/app/root-store/root.actions';
 
 @Component({
   selector: 'app-nav',
@@ -12,19 +12,22 @@ import { getUser } from 'src/app/root-store/root.selectors';
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
-  private darkThemeActive = true;
-  isDarkTheme: Observable<boolean>;
+  isDarkTheme: BehaviorSubject<boolean>;
   user: Observable<User | null>;
 
-  constructor(private store: Store, private themeService: ThemeService) {}
+  constructor(private store: Store) {}
 
   ngOnInit() {
+    this.store
+      .select(isDarkTheme)
+      .pipe(map((theme) => (this.isDarkTheme = new BehaviorSubject(theme))))
+      .subscribe();
     this.user = this.store.select(getUser);
-    this.isDarkTheme = this.themeService.getDarkTheme();
   }
 
   changeTheme() {
-    this.darkThemeActive = !this.darkThemeActive;
-    this.themeService.setDarkTheme(this.darkThemeActive);
+    const isDarkTheme = !this.isDarkTheme.value;
+    this.isDarkTheme.next(isDarkTheme);
+    this.store.dispatch(ROOT_ACTIONS.setDarkTheme({ isDarkTheme }));
   }
 }

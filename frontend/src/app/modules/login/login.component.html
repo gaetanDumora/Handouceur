@@ -50,10 +50,10 @@
         <mat-chip disabled="true">Success</mat-chip>
       </div>
       <mat-error
-        *ngIf="authError | async"
+        *ngIf="error | async"
         class="d-flex justify-content-around p-2"
       >
-        {{ authError | async }}
+        {{ error | async }}
       </mat-error>
     </form>
   </div>

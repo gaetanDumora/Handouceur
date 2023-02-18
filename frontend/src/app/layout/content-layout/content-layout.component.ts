@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { THEMES } from '../../constants/themes';
-import { ThemeService } from '../../shared/services/theme.service';
-import { OverlayContainer } from '@angular/cdk/overlay';
+import { Store } from '@ngrx/store';
+import { isDarkTheme } from 'src/app/root-store/root.selectors';
+import { ThemeService } from 'src/app/shared/services/theme.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-content-layout',
@@ -11,37 +13,21 @@ import { OverlayContainer } from '@angular/cdk/overlay';
   styleUrls: ['./content-layout.component.scss'],
 })
 export class ContentLayoutComponent implements OnInit {
-  currentTheme: string;
-  currentActiveTheme = this.themeService.getDarkTheme().pipe(
-    map((isDarkTheme: boolean) => {
-      this.currentTheme = isDarkTheme ? THEMES.LIGHT : THEMES.DARK;
+  currentTheme: BehaviorSubject<string>;
 
-      if (this.overlayContainer) {
-        const overlayContainerClasses =
-          this.overlayContainer.getContainerElement().classList;
-        const themeClassesToRemove = Array.from(overlayContainerClasses).filter(
-          (item: string) => item.includes('-theme')
-        );
-        if (themeClassesToRemove.length) {
-          overlayContainerClasses.remove(...themeClassesToRemove);
-        }
-        overlayContainerClasses.add(this.currentTheme);
-      }
+  constructor(private store: Store, private themeService: ThemeService) {}
 
-      return this.currentTheme;
-    })
-  );
-
-  constructor(
-    private themeService: ThemeService,
-    private overlayContainer: OverlayContainer
-  ) {}
-
-  ngOnInit(): void {
-    if (this.overlayContainer) {
-      this.overlayContainer
-        .getContainerElement()
-        .classList.add(this.currentTheme);
-    }
+  ngOnInit() {
+    this.store
+      .select(isDarkTheme)
+      .pipe(
+        map((isDarkTheme) => {
+          this.currentTheme = new BehaviorSubject(
+            isDarkTheme ? THEMES.LIGHT : THEMES.DARK
+          );
+          return this.themeService.applyTheme(this.currentTheme.value);
+        })
+      )
+      .subscribe();
   }
 }

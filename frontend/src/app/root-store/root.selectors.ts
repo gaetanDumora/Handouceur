@@ -14,3 +14,8 @@ export const getAdminStatus = createSelector(
 );
 
 export const getError = createSelector(selectRoot, (state) => state.error);
+
+export const isDarkTheme = createSelector(
+  selectRoot,
+  (state) => state.isDarkTheme
+);

@@ -24,13 +24,13 @@ import { getError, getUser } from 'src/app/root-store/root.selectors';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   showPassword: boolean;
-  authError: Observable<ErrorType>;
+  error: Observable<ErrorType>;
   user: Observable<User | null>;
 
   constructor(private store: Store, public authService: AuthService) {}
 
   ngOnInit() {
-    this.authError = this.store.select(getError);
+    this.error = this.store.select(getError);
     this.user = this.store.select(getUser);
     this.loginForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
 
     this.store.dispatch(ROOT_ACTIONS.submitCredentials({ email, password }));
 
-    if (this.user !== null) {
+    if (this.user) {
       formDirective.resetForm();
       this.loginForm.reset();
     }
