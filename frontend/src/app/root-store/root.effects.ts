@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 
 import { ROOT_ACTIONS } from './root.actions';
-import { mergeMap, map, of, catchError, switchMap } from 'rxjs';
+import { map, of, catchError, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/shared/authentication/auth.service';
 import { ThemeService } from '../shared/services/theme.service';
 
@@ -13,7 +13,7 @@ export class RootEffect {
   submitCredentails = createEffect(() =>
     this.actions.pipe(
       ofType(ROOT_ACTIONS.submitCredentials),
-      mergeMap((credentials) => {
+      switchMap((credentials) => {
         return this.authService.login(credentials).pipe(
           map((user: any) => ROOT_ACTIONS.submitCredentialsSuccess({ user })),
           catchError(({ error }) =>
@@ -41,7 +41,7 @@ export class RootEffect {
     () =>
       this.actions.pipe(
         ofType(ROOT_ACTIONS.setDarkTheme),
-        mergeMap(({ isDarkTheme }) => {
+        switchMap(({ isDarkTheme }) => {
           return this.themeService
             .setDarkTheme(isDarkTheme)
             .pipe(

@@ -62,7 +62,9 @@ export class RegisterComponent implements OnInit {
   }
   getErrorUsername() {
     const usernameField = this.registerForm.get('username');
-    return usernameField?.hasError('required') ? 'Please enter a name' : '';
+    return usernameField?.hasError('required')
+      ? ERROR_MESSAGES.username.require
+      : '';
   }
   getErrorPassword() {
     return this.registerForm.get('password')?.hasError('required')
@@ -74,23 +76,20 @@ export class RegisterComponent implements OnInit {
 
   checkUsername(control: { value: string }) {
     const enteredUsername = control.value;
-    const validation = enteredUsername ? null : { requirements: true };
-    return validation;
+    return enteredUsername ? null : { requirements: true };
   }
   checkPassword(control: { value: string }) {
     const enteredPassword = control.value;
-    const validation =
-      !REGEX.passwordCheck.test(enteredPassword) && enteredPassword
-        ? { requirements: true }
-        : null;
-    return validation;
+    return !REGEX.passwordCheck.test(enteredPassword) && enteredPassword
+      ? { requirements: true }
+      : null;
   }
   checkValidation(input: string) {
-    const validation =
+    return (
       this.registerForm.get(input)?.invalid &&
       (this.registerForm.get(input)?.dirty ||
-        this.registerForm.get(input)?.touched);
-    return validation;
+        this.registerForm.get(input)?.touched)
+    );
   }
 
   togglePasswordVisibility(): void {
