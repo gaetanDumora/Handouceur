@@ -4,11 +4,24 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material.module';
 import { httpInterceptorProviders } from './interceptors/index';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, RouterModule, MaterialModule, HttpClientModule],
-  exports: [CommonModule, RouterModule, MaterialModule, HttpClientModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MaterialModule,
+    HttpClientModule,
+    NgxSkeletonLoaderModule,
+  ],
+  exports: [
+    CommonModule,
+    RouterModule,
+    MaterialModule,
+    HttpClientModule,
+    NgxSkeletonLoaderModule,
+  ],
   providers: [httpInterceptorProviders],
 })
 export class SharedModule {}

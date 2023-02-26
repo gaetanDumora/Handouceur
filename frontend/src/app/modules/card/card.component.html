@@ -1,0 +1,36 @@
+<mat-card class="card">
+  <mat-card-header class="row justify-content-center text-center">
+    <mat-card-title style="font-family: cursive"
+      ><h5>{{ journey.title }}</h5>
+    </mat-card-title>
+    <mat-card-subtitle>{{ journey.subtitle }}</mat-card-subtitle>
+  </mat-card-header>
+  <img
+    class="p-2"
+    mat-card-image
+    src="{{ journey.imageURL }}"
+    alt="{{ journey.title }}"
+  />
+  <mat-card-content class="font-weight-light">
+    <div class="wrapper">
+      <div class="map">
+        <app-map [mapId]="mapId" [coordinates]="coordinates"></app-map>
+      </div>
+      <p>
+        {{ journey.descriptionText }}
+      </p>
+    </div>
+  </mat-card-content>
+  <mat-accordion>
+    <mat-expansion-panel class="mat-elevation-z0">
+      <mat-expansion-panel-header>
+        <mat-panel-description> En voir plus </mat-panel-description>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-card-actions class="row justify-content-around">
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+</mat-card>
