@@ -15,22 +15,20 @@ export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable('journeys', (table) => {
     table.increments('id').primary();
     table.string('title', 20).notNullable();
+    table.string('subtitle', 20).notNullable();
     table.string('location', 20).notNullable();
-    table.integer('latitude');
-    table.integer('longitude');
+    table.specificType('coordinates', 'FLOAT[]');
     table.dateTime('start_date');
     table.dateTime('end_date');
     table.integer('price');
-    table
-      .specificType('autonomy', 'TEXT[]')
-      .defaultTo("{'true', 'true', 'true'}");
+    table.specificType('autonomy', 'TEXT[]');
     table.string('image_url').notNullable();
     table.string('optional_url');
     table.text('main_description').notNullable();
     table.text('recreation_description').notNullable();
     table.text('hosting_description').notNullable();
     table.text('transport_description').notNullable();
-    table.specificType('group_size', 'INT[]').defaultTo('{0, 0}');
+    table.specificType('group_size', 'INT[]');
     table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
   });
 }
