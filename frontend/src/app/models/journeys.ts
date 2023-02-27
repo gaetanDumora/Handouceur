@@ -4,8 +4,8 @@ export interface Journey {
   subtitle: string;
   location: string;
   coordinates: [number, number];
-  startDate?: Date;
-  endDate?: Date;
+  startDate?: string | Date;
+  endDate?: string | Date;
   price?: number;
   autonomy?: [boolean, boolean, boolean];
   imageURL: string;
@@ -15,5 +15,5 @@ export interface Journey {
   hostingText: string;
   transportText: string;
   groupeSize: [number, number];
-  createdAt: Date;
+  createdAt: string | Date;
 }

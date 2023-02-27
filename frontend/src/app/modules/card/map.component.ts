@@ -58,7 +58,6 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
       layers: [
         tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           opacity: 0.5,
-          maxZoom: 19,
           detectRetina: true,
         }),
       ],
@@ -75,12 +74,11 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
         iconRetinaUrl: 'assets/marker-icon-2x.png',
         shadowUrl: 'assets/marker-shadow.png',
       }),
-    })
-      .addTo(this.map)
-      .bindPopup('Great sejour.<br> Handouceur power!');
+    }).addTo(this.map);
+    //   .bindPopup('Great sejour.<br> Handouceur power!');
 
-    this.map.on('mousemove', () => pointer.openPopup());
-    this.map.on('mouseout', () => pointer.closePopup());
+    // this.map.on('mousemove', () => pointer.openPopup());
+    // this.map.on('mouseout', () => pointer.closePopup());
 
     this.map$.emit(this.map);
     // this.zoom = map.getZoom();
