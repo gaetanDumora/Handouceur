@@ -1,11 +1,17 @@
 <div class="position-relative">
-  <div class="card-label">
-    <small class="font-weight-light">
-      Du: {{ journey.startDate ?? 'A venir' }} <br />
-      Au: {{ journey.endDate ?? 'A venir' }} <br />
-      Prix: {{ journey.price ?? 'A venir' }}
-    </small>
-  </div>
+  <mat-card class="card-label">
+    <mat-card-content class="p-1">
+      <small>
+        <p class="m-0">
+          Du: <u>{{ journey.startDate ?? 'A venir' }}</u>
+        </p>
+        <p>
+          Au: <u>{{ journey.endDate ?? 'A venir' }}</u>
+        </p>
+        <p>Prix: {{ journey.price ?? 'A venir' }}€</p>
+      </small>
+    </mat-card-content>
+  </mat-card>
   <mat-card class="card">
     <mat-card-header class="row justify-content-center text-center">
       <mat-card-title style="font-family: cursive"

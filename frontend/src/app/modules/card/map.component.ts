@@ -57,10 +57,10 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
     this.map = map(`${this.mapId}`, {
       layers: [
         tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          opacity: 0.5,
           detectRetina: true,
         }),
       ],
+      attributionControl: false,
       zoomControl: false,
       zoom: 3,
       center: latLng(latitude, longitude),
