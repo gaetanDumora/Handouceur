@@ -3,9 +3,11 @@ import { ROOT_FEATURE_KEY, RootState } from './state';
 
 const selectRoot = createFeatureSelector<RootState>(ROOT_FEATURE_KEY);
 
-export const getUser = createSelector(
+export const getUser = createSelector(selectRoot, (state) => state.user);
+
+export const getToken = createSelector(
   selectRoot,
-  (state: RootState) => state.user
+  (state) => state.user?.accessToken
 );
 
 export const getAdminStatus = createSelector(

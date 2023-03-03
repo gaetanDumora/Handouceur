@@ -1,18 +1,22 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { Journey } from 'src/app/models/journeys';
+import { getAdminStatus } from 'src/app/root-store/root.selectors';
 
 @Component({
-  selector: 'app-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss'],
+  selector: 'app-journey',
+  templateUrl: './journey.component.html',
+  styleUrls: ['./journey.component.scss'],
 })
-export class CardComponent implements OnInit {
+export class JourneyComponent implements OnInit {
   @Input() journey: Partial<Journey>;
   coordinates: [number, number];
   mapId: number;
-  constructor() {
-    // this.coordinates = [46.1911, -1.3945];
+  isAdmin: Observable<boolean | undefined>;
+
+  constructor(private store: Store) {
+    this.isAdmin = this.store.select(getAdminStatus);
   }
 
   ngOnInit(): void {

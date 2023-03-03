@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
-import { DialogRegister } from './modules/register/register.component';
-import { DialogLogin } from './modules/login/login.component';
-import { HomeComponent } from './modules/home/home.component';
+import { DialogRegister } from './components/register/register.component';
+import { DialogLogin } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
 import { AdminGuard, AuthGuard } from './shared/authentication/auth.guard';
-import { ProfileComponent } from './modules/profile/profile.component';
-import { AdminComponent } from './modules/admin/admin.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { JourneyEditComponent } from './components/journey/journey-edit/journey-edit.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,7 @@ const routes: Routes = [
         canActivate: [AdminGuard],
       },
       {
-        path: 'profile/:id',
+        path: 'profile',
         component: ProfileComponent,
         canActivate: [AuthGuard],
       },
@@ -36,6 +37,11 @@ const routes: Routes = [
             component: DialogLogin,
           },
         ],
+      },
+      {
+        path: 'home/edit/:id',
+        component: JourneyEditComponent,
+        canActivate: [AdminGuard],
       },
     ],
   },

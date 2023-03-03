@@ -3,6 +3,34 @@
     <div
       class="container-fluid d-flex justify-content-between align-items-center font-weight-bold"
     >
+      <mat-menu #appMenu="matMenu" class="d-block nowrap">
+        <ng-template matMenuContent>
+          <button mat-menu-item routerLink="home" routerLinkActive="active">
+            <span> Home</span>
+          </button>
+          <button mat-menu-item routerLink="about" routerLinkActive="active">
+            <span>About us</span>
+          </button>
+          <button mat-menu-item routerLink="contact" routerLinkActive="active">
+            <span>Contact</span>
+          </button>
+          <button
+            *ngIf="(user | async)?.admin"
+            routerLink="admin"
+            mat-menu-item
+          >
+            <span>Admin </span>
+          </button>
+        </ng-template>
+      </mat-menu>
+      <button
+        class="d-md-none d-lg-none"
+        mat-icon-button
+        [matMenuTriggerFor]="appMenu"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+
       <img
         src="../../../assets/logo-removebg.png"
         width="200"
@@ -11,7 +39,7 @@
         class="branding spacer d-none d-sm-inline"
       />
 
-      <span class="d-flex flex-wrap">
+      <span class="d-none d-md-block">
         <button mat-button routerLink="home" routerLinkActive="active">
           <span class="p-3"> <b>Home</b> </span>
         </button>
@@ -28,7 +56,7 @@
 
       <span class="pill">
         <ng-container *ngIf="user | async; else elseTemplate">
-          <button mat-button routerLink="profile/{{ (user | async)?.id }}">
+          <button mat-button routerLink="profile">
             <mat-icon color="warn">account_circle</mat-icon>
             <span class="d-none d-sm-inline">{{ (user | async)?.name }}</span>
           </button>
