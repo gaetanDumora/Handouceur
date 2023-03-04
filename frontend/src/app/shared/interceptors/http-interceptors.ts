@@ -15,11 +15,11 @@ export class TokenInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const root = localStorage.getItem('root');
-    if (root) {
+    const root = JSON.parse(localStorage.getItem('root') as string);
+    if (root.user) {
       const {
         user: { accessToken },
-      } = JSON.parse(root);
+      } = root;
       return next.handle(
         req.clone({
           setHeaders: {
