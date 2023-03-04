@@ -6,13 +6,14 @@
   "scripts": {
     "build": "rm -rf build && swc ./src -d build",
     "start": "node build/app.js",
-    "docker:db:seed": "docker exec -it backend npx prisma db seed",
-    "docker:db:up": "docker exec -it backend npm run db:up",
-    "docker:db:down": "docker exec -it backend npm run db:down",
+    "docker:db:schema": "docker exec -it backend npx prisma generate",
+    "docker:db:up": "docker exec -it backend npm run db:up && npm run db:schema",
+    "docker:db:down": "docker exec -it backend npm run db:down && npm run db:schema",
     "docker:rebuild:be": "docker compose build backend && docker compose rm --stop backend && docker compose up -d backend",
     "db:console": "docker exec -it postgres psql -h localhost -U postgres -d handouceur_dev",
     "db:up": "npx knex migrate:latest",
     "db:down": "npx knex migrate:rollback",
+    "db:schema": "npx prisma generate",
     "start:docker": "npm run build && node --inspect=0.0.0.0 build/app.js"
   },
   "prisma": {
