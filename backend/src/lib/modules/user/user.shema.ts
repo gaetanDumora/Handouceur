@@ -11,6 +11,7 @@ const userCore = {
   name: z
     .string({ required_error: 'Username is required' })
     .max(20, { message: 'Username is 20 characters maximum' }),
+  avatar_url: z.string().optional(),
 };
 
 const createUserSchema = z.object({
@@ -54,10 +55,13 @@ export type LoginInput = z.infer<typeof loginSchema>;
 
 export type isUserInput = z.infer<typeof isUserSchema>;
 
-export const { schemas: userShemas, $ref } = buildJsonSchemas({
-  createUserSchema,
-  createUserResponseSchema,
-  loginSchema,
-  loginSchemaResponse,
-  isUserSchema,
-});
+export const { schemas: userShemas, $ref } = buildJsonSchemas(
+  {
+    createUserSchema,
+    createUserResponseSchema,
+    loginSchema,
+    loginSchemaResponse,
+    isUserSchema,
+  },
+  { $id: 'userShemas' } // id must be uniq to regester multiple schema with server.addSchema
+);

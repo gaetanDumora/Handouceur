@@ -1,7 +1,9 @@
 import fp from 'fastify-plugin';
 import fjwt from '@fastify/jwt';
 import userRoutes from './modules/user/user.route.js';
+import journeyRoutes from './modules/journey/journey.route.js';
 import { userShemas } from './modules/user/user.shema.js';
+import { journeySchemas } from './modules/journey/journey.schema.js';
 import { FastifyInstance, FastifyPluginOptions } from 'fastify';
 import { decorators } from './modules/config/server.decorators.js';
 
@@ -14,10 +16,12 @@ export const startServer = fp(async function (
     server.register(fp(decorator));
   }
   // Allowed response schema in route handlers
-  for (const schema of userShemas) {
+  for (const schema of [...userShemas, ...journeySchemas]) {
     server.addSchema(schema);
   }
+
   server.register(userRoutes, { prefix: '/user' });
+  server.register(journeyRoutes, { prefix: '/journey' });
 
   server.register(fjwt, {
     secret: `${process.env.JWT_SECRET || 'mySecret'}`,
