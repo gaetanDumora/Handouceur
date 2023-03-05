@@ -26,21 +26,27 @@ model User {
 model Journey {
   id Int @id @default(autoincrement()) 
   title String
-  sub_title String
+  subtitle String
   location String
   coordinates Float[]
-  start_date DateTime?
-  end_date DateTime?
+  startDate DateTime? @map("start_date")
+  endDate DateTime? @map("end_date")
   price Int?
-  autonomy Boolean[]
-  image_url String
-  optional_url String?
-  main_description String
-  recreation_description String
-  hosting_description String
-  transport_description String
-  group_size Int[]
-  created_at DateTime @default(now())
+  autonomy AutonomyStatus?  @default(RELATIVE)
+  imageUrl String @map("image_url")
+  optionalUrl String? @map("optional_url")
+  description String @map("main_description")
+  recreation String?  @map("recreation_description")
+  hosting String?  @map("hosting_description" )
+  transport String?  @map("transport_description")
+  groupSize Int[]  @map("group_size")
+  createdAt DateTime @default(now()) @map("created_at")
 
   @@map("journeys")
+}
+
+enum AutonomyStatus {
+  GOOD
+  RELATIVE
+  IMPORTANT
 }
