@@ -1,6 +1,6 @@
 import { hashPassword } from '../../utils/hash.js';
 import prisma from '../../utils/prisma.js';
-import { CreateUserInput, isUserInput } from './user.shema.js';
+import { CreateUserInput } from './user.shema.js';
 
 export const createUser = async (input: CreateUserInput) => {
   const { password, ...rest } = input;
