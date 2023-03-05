@@ -27,10 +27,12 @@ async function verifyAdmin(
 ) {
   return server.decorate(
     verifyAdmin.name,
-    async (request: FastifyRequest<{ Body: User }>, reply: FastifyReply) => {
+    async (request: FastifyRequest, reply: FastifyReply) => {
       try {
-        const user = request.body;
-        if (!(await isAdmin(user.email))) {
+        const {
+          user: { admin },
+        } = request;
+        if (!admin) {
           throw new Error('Only admin can access');
         }
       } catch (error) {
