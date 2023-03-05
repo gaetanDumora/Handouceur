@@ -1,19 +1,25 @@
 export interface Journey {
-  id: number;
-  title: string;
-  subtitle: string;
-  location: string;
-  coordinates: [number, number];
+  id?: number;
+  title?: string;
+  subtitle?: string;
+  location?: string;
+  coordinates?: [number, number];
   startDate?: string | Date;
   endDate?: string | Date;
   price?: number;
-  autonomy?: [boolean, boolean, boolean];
-  imageURL: string;
-  optionalURL?: string;
-  descriptionText: string;
-  recreationText: string;
-  hostingText: string;
-  transportText: string;
-  groupeSize: [number, number];
-  createdAt: string | Date;
+  autonomy?: AutonomyStatus;
+  imageUrl?: string;
+  optionalUrl?: string;
+  description?: string;
+  recreation?: string;
+  hosting?: string;
+  transport?: string;
+  groupSize?: [number, number];
+  createdAt?: string | Date;
+}
+
+export enum AutonomyStatus {
+  GOOD = 'GOOD',
+  RELATIVE = 'RELATIVE',
+  IMPORTANT = 'IMPORTANT',
 }

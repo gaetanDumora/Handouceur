@@ -22,7 +22,7 @@
     <img
       class="p-2"
       mat-card-image
-      src="{{ journey.imageURL }}"
+      src="{{ journey.imageUrl }}"
       alt="{{ journey.title }}"
     />
     <mat-card-content class="font-weight-light">
@@ -31,7 +31,7 @@
           <app-map [mapId]="mapId" [coordinates]="coordinates"></app-map>
         </div>
         <p>
-          {{ journey.descriptionText }}
+          {{ journey.description }}
         </p>
       </div>
     </mat-card-content>
