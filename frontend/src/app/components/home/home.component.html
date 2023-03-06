@@ -1,5 +1,5 @@
 <div class="d-flex flex-wrap justify-content-around">
-  <div class="m-auto p-2" *ngFor="let journey of journeys">
+  <div class="m-auto p-2" *ngFor="let journey of journeys | async">
     <app-journey [journey]="journey"></app-journey>
   </div>
 </div>
