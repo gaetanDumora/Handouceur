@@ -2,13 +2,15 @@
   <mat-card class="journey-label">
     <mat-card-content class="p-1">
       <small>
-        <p class="m-0">
-          Du: <u>{{ journey.startDate ?? 'A venir' }}</u>
+        <p>
+          Du: <br />
+          <u>{{ journey.startDate | date }}</u>
         </p>
         <p>
-          Au: <u>{{ journey.endDate ?? 'A venir' }}</u>
+          Au: <br />
+          <u>{{ journey.endDate | date }}</u>
         </p>
-        <p>Prix: {{ journey.price ?? 'A venir' }}€</p>
+        <p>Prix: {{ journey.price | currency }}</p>
       </small>
     </mat-card-content>
   </mat-card>
