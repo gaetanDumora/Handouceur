@@ -1,5 +1,5 @@
 <div class="position-relative">
-  <mat-card class="journey-label">
+  <mat-card class="journey-label-right">
     <mat-card-content class="p-1">
       <small>
         <p>
@@ -21,16 +21,27 @@
       </mat-card-title>
       <mat-card-subtitle>{{ journey.subtitle }}</mat-card-subtitle>
     </mat-card-header>
+    <ng-container *ngIf="isLoading">
+      <ngx-skeleton-loader
+        class="p-2 w-100"
+        [theme]="{ height: '281px' }"
+      ></ngx-skeleton-loader
+    ></ng-container>
     <img
+      id="{{ 'image-' + journey.id }}"
       class="p-2"
       mat-card-image
+      loading="lazy"
       src="{{ journey.imageUrl }}"
       alt="{{ journey.title }}"
     />
     <mat-card-content class="font-weight-light">
       <div class="description-wrapper">
         <div class="map">
-          <app-map [mapId]="mapId" [coordinates]="coordinates"></app-map>
+          <app-map
+            [mapId]="journey.id || 0"
+            [coordinates]="journey.coordinates || [0, 0]"
+          ></app-map>
         </div>
         <p>
           {{ journey.description }}

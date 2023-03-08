@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Journey } from 'src/app/models/journeys';
 import { JourneyService } from '../journey/journey.service';
-import { Observable, map, of } from 'rxjs';
+import { Observable, share } from 'rxjs';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -38,13 +38,6 @@ export class HomeComponent implements OnInit {
   }
 
   listJourneys() {
-    this.journeyService
-      .getAllJourney()
-      .pipe(
-        map((res) => {
-          this.journeys = of(res);
-        })
-      )
-      .subscribe();
+    this.journeys = this.journeyService.getAllJourney().pipe(share());
   }
 }

@@ -13,7 +13,10 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     RouterModule,
     MaterialModule,
     HttpClientModule,
-    NgxSkeletonLoaderModule,
+    NgxSkeletonLoaderModule.forRoot({
+      theme: { extendsFromRoot: true },
+      animation: false,
+    }),
   ],
   exports: [
     CommonModule,
