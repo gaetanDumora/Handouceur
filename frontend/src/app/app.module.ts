@@ -23,6 +23,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { JourneyEditComponent } from './components/journey/journey-edit/journey-edit.component';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
+import { CarouselComponent } from './components/carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
     JourneyComponent,
     MapComponent,
     JourneyEditComponent,
+    CarouselComponent,
   ],
   imports: [
     BrowserModule,

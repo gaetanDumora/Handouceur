@@ -1,0 +1,27 @@
+<!-- carousel -->
+<div class="carousel">
+  <ng-container>
+    <img
+      mat-card-image
+      loading="lazy"
+      id="{{ 'image-' + journeyId }}"
+      class="slide"
+      [alt]="journeyId"
+      @carouselAnimation
+    />
+
+    <ngx-skeleton-loader
+      *ngIf="isLoading"
+      class="w-100 slide"
+      [theme]="{ height: '281px' }"
+    ></ngx-skeleton-loader>
+  </ng-container>
+
+  <!-- controls -->
+  <button class="control prev" (click)="onPreviousClick()">
+    <mat-icon class="font-weight-bold">arrow_back_ios</mat-icon>
+  </button>
+  <button class="control next" (click)="onNextClick()">
+    <mat-icon class="font-weight-bold">arrow_forward_ios</mat-icon>
+  </button>
+</div>
