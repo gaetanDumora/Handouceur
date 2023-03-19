@@ -8,11 +8,9 @@ const main = async () => {
     process.exit(1);
   });
 
-  const { cors, ...config } = loadServerConfig;
-  const server = fastify(config);
+  const server = fastify(loadServerConfig);
 
   await server.register(startServer);
-  await server.register(cors);
 
   await server.listen({
     port: Number(process.env.PORT) ?? 8080,
