@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { Journey } from 'src/app/models/journeys';
@@ -12,14 +16,25 @@ export class JourneyService {
   constructor(private http: HttpClient) {}
 
   getAllJourney() {
+    return this.http.get<Journey[]>(this.baseURL + '/getAll');
+  }
+
+  getJourneyById(id: number) {
+    const params = new HttpParams().set('id', id);
     return this.http
-      .get<Partial<Journey>[]>(this.baseURL + '/getAll')
+      .get<Journey>(`${this.baseURL}/getById`, { params })
       .pipe(catchError(this.handleError));
   }
 
   postJourney(journey: Journey) {
     return this.http
       .post<Journey>(this.baseURL + '/upsert', journey)
+      .pipe(catchError(this.handleError));
+  }
+
+  uploadFiles(files: FormData) {
+    return this.http
+      .post(this.baseURL + '/upload', files)
       .pipe(catchError(this.handleError));
   }
 

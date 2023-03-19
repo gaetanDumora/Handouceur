@@ -24,6 +24,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { JourneyEditComponent } from './components/journey/journey-edit/journey-edit.component';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { JourneyModule } from './components/journey/journey.module';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     SharedModule,
     RootStoreModule,
     LeafletModule,
+    JourneyModule,
   ],
   providers: [
     {
