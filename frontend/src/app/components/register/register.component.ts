@@ -51,10 +51,10 @@ export class RegisterComponent implements OnInit {
   checkEmailExist() {
     const emailField = this.registerForm.get('email');
     if (emailField?.status === 'VALID') {
-      this.authService.isUser(emailField?.value).subscribe({
+      this.authService.isUser(emailField.value).subscribe({
         next: ({ exist }) => {
           if (exist) {
-            emailField?.setErrors({ exist });
+            emailField.setErrors({ exist });
           }
         },
       });
