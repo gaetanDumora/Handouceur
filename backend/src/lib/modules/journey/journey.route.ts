@@ -2,10 +2,22 @@ import { FastifyInstance } from 'fastify';
 import { $ref } from './journey.schema';
 import {
   getAllJourneyHandler,
+  getJourneyByIdHandler,
+  uploadHandler,
   upsertJourneyHandler,
 } from './journey.controllers';
 
 async function journeyRoutes(server: FastifyInstance) {
+  server.post(
+    '/upload',
+    {
+      preHandler: [server.verifyJwtToken, server.verifyAdmin],
+      schema: {
+        response: { 201: { status: true } },
+      },
+    },
+    uploadHandler
+  );
   server.post(
     '/upsert',
     {
@@ -29,6 +41,25 @@ async function journeyRoutes(server: FastifyInstance) {
       },
     },
     getAllJourneyHandler
+  );
+  server.get(
+    '/getById',
+    {
+      schema: {
+        querystring: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'number',
+            },
+          },
+        },
+        response: {
+          201: $ref('getJourneySchemaResponse'),
+        },
+      },
+    },
+    getJourneyByIdHandler
   );
 }
 

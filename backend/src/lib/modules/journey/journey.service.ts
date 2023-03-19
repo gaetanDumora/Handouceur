@@ -5,6 +5,12 @@ export const getAllJourney = async () => {
   return await prisma.journey.findMany();
 };
 
+export const gerJourney = async (id: number) => {
+  return await prisma.journey.findFirst({
+    where: { id },
+  });
+};
+
 export const upsertJourney = async (input: UpsertJourneyInput) => {
   if (input.id) {
     return await prisma.journey.update({
