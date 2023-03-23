@@ -28,23 +28,24 @@ export class CarouselComponent implements AfterViewInit, OnInit {
   constructor() {}
 
   onPreviousClick() {
-    const previousId = this.currentSlide.id - 1;
-    const previousSlide = this.slides.find(({ id }) => id === previousId);
-    this.currentSlide = previousSlide || this.slides[this.slides.length - 1];
-    return this.loadImage();
+    const prevId = this.currentSlide.id - 1;
+    const prevSlide = this.slides.find(({ id }) => id === prevId);
+    return this.loadSlideImage(
+      prevSlide || this.slides[this.slides.length - 1]
+    );
   }
 
   onNextClick() {
     const nextId = this.currentSlide.id + 1;
     const nextSlide = this.slides.find(({ id }) => id === nextId);
-    this.currentSlide = nextSlide || this.slides[0];
-    return this.loadImage();
+    return this.loadSlideImage(nextSlide || this.slides[0]);
   }
 
-  private loadImage() {
+  private loadSlideImage(slide: Slide) {
     this.img.nativeElement.onload = () => {
       this.isImageLoaded = true;
     };
+    this.currentSlide = slide;
   }
 
   ngOnInit() {
@@ -64,6 +65,6 @@ export class CarouselComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
-    this.loadImage();
+    this.loadSlideImage(this.currentSlide);
   }
 }
