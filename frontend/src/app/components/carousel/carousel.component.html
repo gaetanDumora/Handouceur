@@ -2,15 +2,16 @@
 <div class="carousel">
   <ng-container>
     <img
+      #img
       mat-card-image
       loading="lazy"
-      id="{{ 'image-' + journeyId }}"
       class="slide"
-      [alt]="journeyId"
+      [alt]="journey.title"
+      [src]="currentSlide.src"
     />
 
     <ngx-skeleton-loader
-      *ngIf="isLoading"
+      *ngIf="!isImageLoaded"
       class="w-100 slide"
       [theme]="{ height: '281px' }"
     ></ngx-skeleton-loader>
