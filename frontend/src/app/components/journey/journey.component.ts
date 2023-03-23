@@ -10,7 +10,7 @@ import { getAdminStatus } from 'src/app/root-store/root.selectors';
   styleUrls: ['./journey.component.scss'],
 })
 export class JourneyComponent {
-  @Input() journey: Partial<Journey>;
+  @Input() journey: Journey;
   isAdmin: Observable<boolean | undefined>;
 
   constructor(private store: Store) {

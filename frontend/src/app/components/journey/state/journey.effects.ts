@@ -4,7 +4,9 @@ import { JourneyService } from '../journey.service';
 import { JOURNEY_ACTIONS } from './journey.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class JourneyEffects {
   constructor(
     private actions: Actions,

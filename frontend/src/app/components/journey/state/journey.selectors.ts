@@ -13,3 +13,8 @@ export const getSelectedJourney = createSelector(
   selectJoureyFeature,
   (state) => state.selectedJourney
 );
+
+export const isLoading = createSelector(
+  selectJoureyFeature,
+  (state) => state.isLoading
+);
