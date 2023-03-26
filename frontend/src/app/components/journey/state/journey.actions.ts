@@ -14,6 +14,14 @@ export enum JourneyActionTypes {
   POST_JOURNEY = 'Post Journey',
   POST_JOURNEY_SUCCESS = 'Post Journey Success',
   POST_JOURNEY_FAILURE = 'Post Journey Failure',
+
+  UPSERT_JOURNEY = 'Upsert Journey',
+  UPSERT_JOURNEY_SUCCESS = 'Upsert Journey Success',
+  UPSERT_JOURNEY_FAILURE = 'Upsert Journey Failure',
+
+  UPLOAD_IMAGES = 'Upload Images',
+  UPLOAD_IMAGES_SUCCESS = 'Upload Images Success',
+  UPLOAD_IMAGES_FAILURE = 'Upload Images Failure',
 }
 
 export const JOURNEY_ACTIONS = createActionGroup({
@@ -35,6 +43,12 @@ export const JOURNEY_ACTIONS = createActionGroup({
       error: ErrorType;
     }>(),
 
-    [JourneyActionTypes.POST_JOURNEY]: props<{ journey: Partial<Journey> }>(),
+    [JourneyActionTypes.UPSERT_JOURNEY]: props<{ journey: Partial<Journey> }>(),
+    [JourneyActionTypes.UPSERT_JOURNEY_SUCCESS]: props<{ journey: Journey }>(),
+    [JourneyActionTypes.UPSERT_JOURNEY_FAILURE]: props<{ error: ErrorType }>(),
+
+    [JourneyActionTypes.UPLOAD_IMAGES]: props<{ images: FormData }>(),
+    [JourneyActionTypes.UPLOAD_IMAGES_SUCCESS]: props<{ status: string }>(),
+    [JourneyActionTypes.UPLOAD_IMAGES_FAILURE]: props<{ error: ErrorType }>(),
   },
 });

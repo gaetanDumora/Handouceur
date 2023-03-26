@@ -18,3 +18,8 @@ export const isLoading = createSelector(
   selectJoureyFeature,
   (state) => state.isLoading
 );
+
+export const getError = createSelector(
+  selectJoureyFeature,
+  (state) => state.error
+);
