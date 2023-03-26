@@ -1,1 +1,138 @@
-<p>journey id: {{ journeyId }}</p>
+<form
+  class="form"
+  [formGroup]="editForm"
+  #formDirective="ngForm"
+  (ngSubmit)="onSubmit()"
+>
+  <div class="d-flex flex-column">
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <mat-icon matPrefix>title</mat-icon>
+      <input type="text" matInput formControlName="title" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Subtitle</mat-label>
+      <mat-icon matPrefix>text_fields</mat-icon>
+      <input type="text" matInput formControlName="subtitle" />
+    </mat-form-field>
+    <!-- <mat-error *ngIf="checkValidation('subtitle')">
+            {{ getErrorSubtitle() }}
+          </mat-error> -->
+
+    <mat-form-field>
+      <mat-label>Location</mat-label>
+      <mat-icon matPrefix>location_city</mat-icon>
+      <input type="text" matInput formControlName="location" />
+    </mat-form-field>
+    <!-- <mat-error *ngIf="checkValidation('location')">
+            {{ getErrorLocation() }}
+          </mat-error> -->
+
+    <mat-form-field>
+      <mat-label>Coordinates</mat-label>
+      <mat-icon matPrefix>place</mat-icon>
+      <input type="text" matInput formControlName="coordinates" />
+    </mat-form-field>
+    <!-- <mat-error *ngIf="checkValidation('coordinates')">
+            {{ getErrorCoordinates() }}
+          </mat-error> -->
+
+    <mat-form-field>
+      <mat-icon matPrefix>text_fields</mat-icon>
+      <textarea
+        cdkTextareaAutosize
+        matInput
+        formControlName="description"
+      ></textarea>
+    </mat-form-field>
+    <!-- <mat-error *ngIf="checkValidation('coordinates')">
+            {{ getErrorCoordinates() }}
+          </mat-error> -->
+
+    <mat-form-field>
+      <mat-label>Date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate formControlName="startDate" />
+        <input matEndDate formControlName="endDate" />
+      </mat-date-range-input>
+
+      <mat-datepicker-toggle
+        matIconPrefix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+
+      <!-- <mat-error
+              *ngIf="range.controls.start.hasError('matStartDateInvalid')"
+              >Invalid start date</mat-error
+            >
+            <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')"
+              >Invalid end date</mat-error
+            > -->
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Price</mat-label>
+      <mat-icon matPrefix>euro_symbol</mat-icon>
+      <input type="text" matInput formControlName="price" />
+    </mat-form-field>
+    <!-- <mat-error *ngIf="checkValidation('endDate')">
+            {{ getErrorPrice() }}
+          </mat-error> -->
+
+    <mat-form-field>
+      <mat-label>Autonomy</mat-label>
+      <mat-icon matPrefix>accessible</mat-icon>
+      <mat-select formControlName="autonomy">
+        <option selected></option>
+        <mat-option
+          *ngFor="let item of ['GOOD', 'RELATIVE', 'IMPORTANT']"
+          value="{{ item }}"
+          >{{ item }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <!-- <mat-error *ngIf="checkValidation('autonomy')">
+            {{ getErrorAutonomy() }}
+          </mat-error> -->
+  </div>
+  <input
+    id="file-selector"
+    hidden="true"
+    type="file"
+    multiple
+    accept="image/*"
+    (change)="onFileSelected($event)"
+    #fileUpload
+  />
+
+  <div class="row p-2">
+    <button type="button" mat-button (click)="fileUpload.click()">
+      <u>Add cover images</u>
+    </button>
+    <ul>
+      <li *ngFor="let name of fileNames">
+        {{ name }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="row justify-content-center p-2">
+    <button type="submit" [disabled]="editForm.invalid" mat-raised-button>
+      Update
+    </button>
+    <mat-progress-bar
+      class="p-1"
+      *ngIf="isLoading | async"
+      color="warn"
+      mode="query"
+    ></mat-progress-bar>
+  </div>
+  <!-- <div
+        *ngIf="(isSubmitted | async) && !(error | async)"
+        class="d-flex justify-content-around p-2"
+      >
+        <p>Journey: {{ journeyId }} updated</p>
+      </div> -->
+</form>
