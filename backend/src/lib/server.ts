@@ -21,7 +21,7 @@ export const startServer = fp(async function (server: FastifyInstance) {
 
   // Register plugins, Order matter
   server.register(fastifyCors, { origin: '*', methods: ['GET', 'POST'] });
-  server.register(multipart);
+  server.register(multipart, { limits: { fileSize: 10485760 } }); // 10 MB
   server.register(userRoutes, { prefix: '/user' });
   server.register(journeyRoutes, { prefix: '/journey' });
   server.register(fjwt, { secret: `${process.env.JWT_SECRET || 'mySecret'}` });
@@ -44,7 +44,7 @@ export const startServer = fp(async function (server: FastifyInstance) {
     }
 
     if (reply.statusCode >= 500) {
-      reply.send('An error has occurred');
+      reply.send(err);
     } else {
       reply.send(err);
     }
