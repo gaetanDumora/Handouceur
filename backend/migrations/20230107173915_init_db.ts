@@ -4,12 +4,14 @@ export async function up(knex: Knex): Promise<void> {
   await knex.schema.debug(true).createTable('users', (table) => {
     table.increments('id').primary();
     table.string('email', 60).notNullable().unique();
-    table.string('name', 20).notNullable();
-    table.string('avatar_url');
+    table.string('first_name', 60).notNullable();
+    table.string('last_name', 60).notNullable();
+    table.string('address', 60);
+    table.string('avatar');
     table.text('password').notNullable();
     table.text('salt');
     table.boolean('admin').defaultTo('false');
-    table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
+    table.timestamp('created_at').notNullable();
   });
 
   await knex.schema.debug(true).createTable('journeys', (table) => {
@@ -25,14 +27,15 @@ export async function up(knex: Knex): Promise<void> {
       enumName: 'autonomy_status',
       useNative: true,
     });
-    table.string('image_url').notNullable();
-    table.string('optional_url');
-    table.text('main_description').notNullable();
-    table.text('recreation_description').notNullable();
-    table.text('hosting_description').notNullable();
-    table.text('transport_description').notNullable();
+    table.specificType('images', 'TEXT[]').notNullable();
+    table.string('optional_image');
+    table.text('main_text').notNullable();
+    table.text('recreation_text').notNullable();
+    table.text('hosting_text').notNullable();
+    table.text('transport_text').notNullable();
     table.specificType('group_size', 'INT[]');
-    table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
+    table.timestamp('updated_at').notNullable();
+    table.timestamp('created_at').notNullable();
   });
 }
 
