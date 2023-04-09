@@ -22,6 +22,14 @@ export enum JourneyActionTypes {
   UPLOAD_IMAGES = 'Upload Images',
   UPLOAD_IMAGES_SUCCESS = 'Upload Images Success',
   UPLOAD_IMAGES_FAILURE = 'Upload Images Failure',
+
+  DOWNLOAD_IMAGE = 'Download Image',
+  DOWNLOAD_IMAGE_SUCCESS = 'Download Image Success',
+  DOWNLOAD_IMAGE_FAILURE = 'Download Image Failure',
+
+  DELETE_IMAGES = 'Delete Images',
+  DELETE_IMAGES_SUCCESS = 'Delete Images Success',
+  DELETE_IMAGES_FAILURE = 'Delete Images Failure',
 }
 
 export const JOURNEY_ACTIONS = createActionGroup({
@@ -48,7 +56,15 @@ export const JOURNEY_ACTIONS = createActionGroup({
     [JourneyActionTypes.UPSERT_JOURNEY_FAILURE]: props<{ error: ErrorType }>(),
 
     [JourneyActionTypes.UPLOAD_IMAGES]: props<{ images: FormData }>(),
-    [JourneyActionTypes.UPLOAD_IMAGES_SUCCESS]: props<{ status: string }>(),
+    [JourneyActionTypes.UPLOAD_IMAGES_SUCCESS]: emptyProps(),
     [JourneyActionTypes.UPLOAD_IMAGES_FAILURE]: props<{ error: ErrorType }>(),
+
+    [JourneyActionTypes.DOWNLOAD_IMAGE]: props<{ key: string }>(),
+    [JourneyActionTypes.DOWNLOAD_IMAGE_SUCCESS]: props<{ journey: Journey }>(),
+    [JourneyActionTypes.DOWNLOAD_IMAGE_FAILURE]: props<{ error: ErrorType }>(),
+
+    [JourneyActionTypes.DELETE_IMAGES]: props<{ images: string[] }>(),
+    [JourneyActionTypes.DELETE_IMAGES_SUCCESS]: emptyProps(),
+    [JourneyActionTypes.DELETE_IMAGES_FAILURE]: props<{ error: ErrorType }>(),
   },
 });

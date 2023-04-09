@@ -5,3 +5,19 @@
   margin: auto;
   line-height: 2.2;
 }
+
+.table-container {
+  width: 100%;
+}
+
+/* Column Widths */
+.mat-column-index {
+  max-width: 10px;
+}
+.mat-column-name {
+  white-space: nowrap;
+  max-width: 100px;
+}
+.mat-column-delete {
+  max-width: 50px;
+}

@@ -69,13 +69,37 @@ export class JourneyEffects {
       ofType(JOURNEY_ACTIONS.uploadImages),
       switchMap(({ images }) => {
         return this.journeyService.uploadFiles(images).pipe(
-          map((response) =>
-            JOURNEY_ACTIONS.uploadImagesSuccess({
-              status: response.toString(),
-            })
-          ),
+          map(() => JOURNEY_ACTIONS.uploadImagesSuccess()),
           catchError(({ error }) =>
             of(JOURNEY_ACTIONS.uploadImagesFailure({ error: error.message }))
+          )
+        );
+      })
+    )
+  );
+
+  downloadImages = createEffect(() =>
+    this.actions.pipe(
+      ofType(JOURNEY_ACTIONS.downloadImage),
+      switchMap(({ key }) => {
+        return this.journeyService.downloadFile(key).pipe(
+          map((journey) => JOURNEY_ACTIONS.downloadImageSuccess({ journey })),
+          catchError(({ error }) =>
+            of(JOURNEY_ACTIONS.downloadImageFailure({ error: error.message }))
+          )
+        );
+      })
+    )
+  );
+
+  deleteImages = createEffect(() =>
+    this.actions.pipe(
+      ofType(JOURNEY_ACTIONS.deleteImages),
+      switchMap(({ images }) => {
+        return this.journeyService.deleteFiles(images).pipe(
+          map(() => JOURNEY_ACTIONS.deleteImagesSuccess()),
+          catchError(({ error }) =>
+            of(JOURNEY_ACTIONS.deleteImagesFailure({ error: error.message }))
           )
         );
       })

@@ -8,13 +8,14 @@ export interface Journey {
   endDate?: string | Date;
   price?: number;
   autonomy?: AutonomyStatus;
-  imageUrl?: string;
-  optionalUrl?: string;
+  images?: string[];
+  optionalImage?: string;
   description?: string;
   recreation?: string;
   hosting?: string;
   transport?: string;
   groupSize?: [number, number];
+  updatedAt?: string | Date;
   createdAt?: string | Date;
 }
 

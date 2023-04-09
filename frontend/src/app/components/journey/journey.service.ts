@@ -34,7 +34,20 @@ export class JourneyService {
 
   uploadFiles(files: FormData) {
     return this.http
-      .post(this.baseURL + '/upload', files)
+      .post(`${this.baseURL}/image/upload`, files)
+      .pipe(catchError(this.handleError));
+  }
+
+  deleteFiles(files: string[]) {
+    return this.http
+      .post(`${this.baseURL}/image/delete`, { filesToDelete: files })
+      .pipe(catchError(this.handleError));
+  }
+
+  downloadFile(key: string) {
+    const params = new HttpParams().set('key', key);
+    return this.http
+      .get(`${this.baseURL}/image`, { params })
       .pipe(catchError(this.handleError));
   }
 
