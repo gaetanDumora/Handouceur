@@ -23,21 +23,19 @@ import { ErrorType } from 'src/app/models/error';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   showPassword: boolean = false;
-  error: Observable<ErrorType>;
-  isLoading: Observable<boolean>;
+  error = this.store.select(getError);
+  isLoading = this.store.select(isLoading);
   isSubmitted: BehaviorSubject<boolean>;
   constructor(public authService: AuthService, private store: Store) {}
 
   ngOnInit() {
-    this.error = this.store.select(getError);
-    this.isLoading = this.store.select(isLoading);
     this.isSubmitted = new BehaviorSubject(false);
     this.registerForm = new FormGroup({
       email: new FormControl(null, [
         Validators.required,
         Validators.pattern(REGEX.emailCheck),
       ]),
-      username: new FormControl(null, [
+      firstName: new FormControl(null, [
         Validators.required,
         this.checkUsername,
       ]),
@@ -71,9 +69,9 @@ export class RegisterComponent implements OnInit {
       : '';
   }
   getErrorUsername() {
-    const usernameField = this.registerForm.get('username');
-    return usernameField?.hasError('required')
-      ? ERROR_MESSAGES.username.require
+    const firstNameField = this.registerForm.get('firstName');
+    return firstNameField?.hasError('required')
+      ? ERROR_MESSAGES.firstName.require
       : '';
   }
   getErrorPassword() {
@@ -109,10 +107,11 @@ export class RegisterComponent implements OnInit {
   onSubmit(formData: FormGroup, formDirective: FormGroupDirective): void {
     const email = formData.value.email;
     const password = formData.value.password;
-    const name = formData.value.username;
+    const firstName = formData.value.firstName;
+    const lastName = formData.value.lastName ?? 'unknown';
 
     this.store.dispatch(
-      ROOT_ACTIONS.submitCredentials({ email, password, name })
+      ROOT_ACTIONS.submitCredentials({ email, password, firstName, lastName })
     );
 
     this.isSubmitted.next(formDirective.submitted);

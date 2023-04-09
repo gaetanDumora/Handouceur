@@ -8,10 +8,14 @@ const userCore = {
       invalid_type_error: 'Email must be a string',
     })
     .email(),
-  name: z
-    .string({ required_error: 'Username is required' })
-    .max(20, { message: 'Username is 20 characters maximum' }),
-  avatar_url: z.string().optional(),
+  firstName: z
+    .string({ required_error: 'First name is required' })
+    .max(60, { message: 'First name is 60 characters maximum' }),
+  lastName: z
+    .string({ required_error: 'Last name is required' })
+    .max(60, { message: 'Last name is 60 characters maximum' }),
+  address: z.string().optional(),
+  avatar: z.string().optional(),
 };
 
 const createUserSchema = z.object({

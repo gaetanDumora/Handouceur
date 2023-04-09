@@ -14,7 +14,7 @@ export const ERROR_MESSAGES = {
     require: 'Password is required',
     hint: 'Password needs to be at least six characters, one uppercase letter and one number',
   },
-  username: {
-    require: 'Username is required',
+  firstName: {
+    require: 'First name is required',
   },
 };

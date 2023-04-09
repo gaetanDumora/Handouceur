@@ -1,5 +1,5 @@
-<div class="container flex-column">
-  <div class="d-flex justify-content-center p-2 font-weight-light">
+<div class="flex-column">
+  <div class="d-flex justify-content-center font-weight-light">
     <form
       [formGroup]="registerForm"
       #formDirective="ngForm"
@@ -28,11 +28,11 @@
             <input
               type="text"
               matInput
-              placeholder="Username *"
-              formControlName="username"
+              placeholder="Firstname *"
+              formControlName="firstName"
             />
           </mat-form-field>
-          <mat-error *ngIf="checkValidation('username')">
+          <mat-error *ngIf="checkValidation('firstName')">
             {{ getErrorUsername() }}
           </mat-error>
         </p>
