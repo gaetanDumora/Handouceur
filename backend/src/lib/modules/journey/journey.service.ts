@@ -17,9 +17,18 @@ export const upsertJourney = async (input: UpsertJourneyInput) => {
       data: { ...input },
       where: { id: input.id },
     });
-  } else {
-    return await prisma.journey.create({
-      data: { ...input },
-    });
   }
+  return await prisma.journey.create({
+    data: { ...input },
+  });
+};
+export const updateImages = async (input: {
+  journeyId: number;
+  images: string[];
+}) => {
+  const journey = await prisma.journey.update({
+    where: { id: input.journeyId },
+    data: { images: input.images },
+  });
+  return journey;
 };

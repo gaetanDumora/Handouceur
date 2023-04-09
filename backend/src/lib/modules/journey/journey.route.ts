@@ -3,20 +3,38 @@ import { $ref } from './journey.schema';
 import {
   getAllJourneyHandler,
   getJourneyByIdHandler,
-  uploadHandler,
+  uploadFileHandler,
+  deleteFileHandler,
   upsertJourneyHandler,
+  downloadFileHandler,
 } from './journey.controllers';
 
 async function journeyRoutes(server: FastifyInstance) {
+  server.get('/image/:key', {}, downloadFileHandler);
   server.post(
-    '/upload',
+    '/image/upload',
     {
       preHandler: [server.verifyJwtToken, server.verifyAdmin],
       schema: {
-        response: { 201: { status: true } },
+        response: {
+          200: $ref('uploadImageResponse'),
+        },
       },
     },
-    uploadHandler
+    uploadFileHandler
+  );
+  server.post(
+    '/image/delete',
+    {
+      preHandler: [server.verifyJwtToken, server.verifyAdmin],
+      schema: {
+        body: $ref('deleteImageInput'),
+        response: {
+          200: $ref('deleteImageResponse'),
+        },
+      },
+    },
+    deleteFileHandler
   );
   server.post(
     '/upsert',
@@ -36,7 +54,7 @@ async function journeyRoutes(server: FastifyInstance) {
     {
       schema: {
         response: {
-          201: $ref('getAllJourneySchemaResponse'),
+          200: $ref('getAllJourneySchemaResponse'),
         },
       },
     },
@@ -55,7 +73,7 @@ async function journeyRoutes(server: FastifyInstance) {
           },
         },
         response: {
-          201: $ref('getJourneySchemaResponse'),
+          200: $ref('getJourneySchemaResponse'),
         },
       },
     },

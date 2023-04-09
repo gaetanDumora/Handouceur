@@ -11,7 +11,7 @@ const journeyCore = {
   title: z.string(),
   subtitle: z.string(),
   location: z.string(),
-  imageUrl: z.string(),
+  images: z.array(z.string()),
   description: z.string(),
 };
 
@@ -21,7 +21,7 @@ const journeyOptional = {
   endDate: z.union([z.date(), z.string()]).optional(),
   price: z.number().optional(),
   autonomy: z.nativeEnum(AutonomyStatus).optional(),
-  optionalUrl: z.string().optional(),
+  optionalImage: z.string().optional(),
   groupSize: z.tuple([z.number(), z.number()]).optional(),
   recreation: z.string().optional(),
   hosting: z.string().optional(),
@@ -39,11 +39,20 @@ const getJourneySchemaResponse = z.object({
 });
 const getAllJourneySchemaResponse = z.array(getJourneySchemaResponse);
 
-// As data comming from the front, keys are in camelCase
 const upsertJourneyInput = z.object({
   id: z.number().optional(),
   ...journeyCore,
   ...journeyOptional,
+});
+
+const uploadImageResponse = z.object({
+  uploadSuccess: z.boolean(),
+});
+const deleteImageInput = z.object({
+  filesToDelete: z.array(z.string()),
+});
+const deleteImageResponse = z.object({
+  deleteSuccess: z.boolean(),
 });
 
 export type GetJourneyInput = z.infer<typeof getJourneyInput>;
@@ -59,6 +68,9 @@ export const { schemas: journeySchemas, $ref } = buildJsonSchemas(
     getJourneySchemaResponse,
     getAllJourneySchemaResponse,
     upsertJourneyInput,
+    uploadImageResponse,
+    deleteImageInput,
+    deleteImageResponse,
   },
   { $id: 'journeySchemas' } // id must be uniq to regester multiple schema with server.addSchema
 );
