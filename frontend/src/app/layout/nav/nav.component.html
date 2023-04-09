@@ -58,7 +58,9 @@
         <ng-container *ngIf="user | async; else elseTemplate">
           <button mat-button routerLink="profile">
             <mat-icon color="warn">account_circle</mat-icon>
-            <span class="d-none d-sm-inline">{{ (user | async)?.name }}</span>
+            <span class="d-none d-sm-inline">{{
+              (user | async)?.firstName
+            }}</span>
           </button>
         </ng-container>
 

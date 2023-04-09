@@ -13,9 +13,9 @@ export class RootEffect {
   submitCredentials = createEffect(() =>
     this.actions.pipe(
       ofType(ROOT_ACTIONS.submitCredentials),
-      switchMap(({ email, name, password }) => {
+      switchMap(({ email, firstName, lastName, password }) => {
         return this.authService
-          .registerUser({ email, password, username: name })
+          .registerUser({ email, firstName, lastName, password })
           .pipe(
             map(() => ROOT_ACTIONS.submitCredentialsSuccess({ user: null })),
             catchError(({ error }) =>
