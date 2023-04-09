@@ -27,6 +27,7 @@ import {
 } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [],
@@ -55,6 +56,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatExpansionModule,
+    MatTableModule,
   ],
   exports: [
     MatButtonModule,
@@ -81,6 +83,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatExpansionModule,
+    MatTableModule,
   ],
   providers: [
     {
