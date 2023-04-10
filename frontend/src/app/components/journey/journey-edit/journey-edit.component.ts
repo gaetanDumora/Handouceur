@@ -42,7 +42,7 @@ export class JourneyEditComponent implements OnInit {
   constructor(private route: ActivatedRoute, private store: Store) {}
 
   ngOnInit(): void {
-    this.loadSelectedJourney();
+    this.store.dispatch(JOURNEY_ACTIONS.loadSelectedJourney({ id: this.id }));
     this.selectedJourney.subscribe((journey) => {
       const existingImages = journey?.images?.map((name, index) => ({
         index,
@@ -68,11 +68,7 @@ export class JourneyEditComponent implements OnInit {
       });
     });
   }
-  loadSelectedJourney() {
-    return this.store.dispatch(
-      JOURNEY_ACTIONS.loadSelectedJourney({ id: this.id })
-    );
-  }
+
   checkValidation(input: string) {
     return (
       this.editForm.get(input)?.invalid &&
@@ -101,21 +97,14 @@ export class JourneyEditComponent implements OnInit {
   }
 
   handleChangeDataTable(dataTable: DataTable) {
-    const toUpdate = this.dataSource.value.reduce((acc, curr) => {
-      curr.index === dataTable.index
-        ? this.deletedFromDataSource.push(curr.name)
-        : acc.push(curr);
-      return acc;
-    }, [] as DataTable[]);
-
-    this.formData.append(
-      'filesToDelete',
-      JSON.stringify(this.deletedFromDataSource)
+    this.deletedFromDataSource.push(dataTable.name);
+    const newDataTable = this.dataSource.value.filter(
+      ({ index }) => index !== dataTable.index
     );
-    this.dataSource.next(toUpdate);
-    // Update the FormControl, because it used to upsert images in the DB
+    this.dataSource.next(newDataTable);
+    // Update the FormControl, because it used to upsert image key locations in the DB
     this.editForm.patchValue({
-      images: toUpdate.map(({ name }) => name),
+      images: newDataTable.map(({ name }) => name),
     });
   }
 
@@ -134,6 +123,7 @@ export class JourneyEditComponent implements OnInit {
       this.store.dispatch(
         JOURNEY_ACTIONS.deleteImages({ images: this.deletedFromDataSource })
       );
+      this.deletedFromDataSource = [];
     }
   }
 }
