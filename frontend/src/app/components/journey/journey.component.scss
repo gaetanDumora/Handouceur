@@ -1,16 +1,15 @@
 .journey-label-right {
   position: absolute;
   text-align: center;
-  top: -9px;
-  left: 292px;
-  width: 65px;
-  height: 110px;
+  padding: 0.5em;
+  top: -0.5em;
+  right: 0.5em;
   font-size: x-small;
-  line-height: 1.3;
+  border-radius: 20%;
 }
 .journey {
   position: relative;
-  width: 370px;
+  max-width: 400px;
 }
 .description-wrapper {
   margin-top: 10px;
@@ -23,5 +22,12 @@
 .map {
   float: left;
   shape-outside: circle(50%);
-  margin-right: 15px;
+  margin-right: 25px;
+}
+.mat-mdc-standard-chip {
+  margin: 4px;
+  max-height: 25px;
+  pointer-events: none;
+  font-size: x-small;
+  font-weight: bold;
 }

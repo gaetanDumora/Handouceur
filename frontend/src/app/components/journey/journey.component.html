@@ -1,12 +1,25 @@
 <div class="journey">
   <mat-card>
     <mat-card-header class="row justify-content-center text-center">
-      <mat-card-title style="font-family: cursive"
-        ><h5>{{ journey.title }}</h5>
+      <mat-card-title>
+        {{ journey.title | uppercase }}
       </mat-card-title>
       <mat-card-subtitle>{{ journey.subtitle }}</mat-card-subtitle>
     </mat-card-header>
     <app-carousel [journey]="journey!"></app-carousel>
+
+    <div>
+      <mat-chip-row color="primary" highlighted
+        >Du: {{ journey.startDate | date }}</mat-chip-row
+      >
+      <mat-chip-row color="primary" highlighted
+        >Au: {{ journey.endDate | date }}</mat-chip-row
+      >
+      <mat-chip-row color="primary" highlighted
+        >Prix: {{ journey.price | currency }}</mat-chip-row
+      >
+    </div>
+
     <mat-card-content class="font-weight-light">
       <div class="description-wrapper">
         <div class="map">
@@ -20,13 +33,37 @@
         </p>
       </div>
     </mat-card-content>
-    <mat-accordion>
-      <mat-expansion-panel class="mat-elevation-z0">
-        <mat-expansion-panel-header>
-          <mat-panel-description> En voir plus </mat-panel-description>
-        </mat-expansion-panel-header>
-      </mat-expansion-panel>
-    </mat-accordion>
+
+    <mat-expansion-panel [expanded]="false" class="mat-elevation-z0">
+      <mat-expansion-panel-header>
+        <mat-panel-title>👋 En voir plus</mat-panel-title>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <div class="d-flex justify-content-between description-wrapper">
+          <div>
+            <mat-panel-description> Coup de coeur </mat-panel-description>
+            <img
+              class="rounded"
+              mat-card-md-image
+              loading="lazy"
+              src="https://picsum.photos/200/300"
+              alt="{{ journey.title }}"
+            />
+            <mat-panel-description>Loisirs & Activités:</mat-panel-description>
+            <p>{{ journey.recreation }}</p>
+          </div>
+          <mat-divider [vertical]="true"></mat-divider>
+          <div class="ml-3">
+            <mat-panel-description>Hébergement:</mat-panel-description>
+            <p>{{ journey.hosting }}</p>
+            <mat-panel-description>Transport:</mat-panel-description>
+            <p>{{ journey.transport }}</p>
+            <mat-panel-description>Groupe:</mat-panel-description>
+            <p>{{ journey.groupSize }}</p>
+          </div>
+        </div>
+      </ng-template>
+    </mat-expansion-panel>
 
     <mat-card-actions class="row justify-content-around p-2">
       <button mat-raised-button>SHARE</button>
@@ -39,19 +76,15 @@
       </button>
     </mat-card-actions>
   </mat-card>
-  <mat-card class="journey-label-right">
-    <mat-card-content class="p-1">
-      <small>
-        <p>
-          Du: <br />
-          <u>{{ journey.startDate | date }}</u>
-        </p>
-        <p>
-          Au: <br />
-          <u>{{ journey.endDate | date }}</u>
-        </p>
-        <p>Prix: {{ journey.price | currency }}</p>
-      </small>
-    </mat-card-content>
-  </mat-card>
+  <!-- <mat-card class="journey-label-right">
+    <small>
+      <strong>{{ journey.startDate | date }}</strong
+      ><br />
+      Au: <br />
+      <strong>{{ journey.endDate | date }}</strong
+      ><br />
+      Prix: <br />
+      <strong>{{ journey.price | currency }}</strong>
+    </small>
+  </mat-card> -->
 </div>
