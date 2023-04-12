@@ -7,12 +7,12 @@
       loading="lazy"
       class="slide"
       [alt]="journey.title"
-      [src]="currentSlide.src"
+      [src]="currentSlide.key"
     />
 
     <ngx-skeleton-loader
-      *ngIf="!isImageLoaded"
-      class="w-100 slide"
+      *ngIf="!(isImageLoaded | async)"
+      class="slide"
       [theme]="{ height: '281px' }"
     ></ngx-skeleton-loader>
   </ng-container>
