@@ -55,7 +55,7 @@ import { JourneyModule } from './components/journey/journey.module';
   providers: [
     {
       provide: DATE_PIPE_DEFAULT_OPTIONS,
-      useValue: { dateFormat: 'mediumDate' },
+      useValue: { dateFormat: 'dd-MM-YYYY' },
     },
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR' },
   ],
