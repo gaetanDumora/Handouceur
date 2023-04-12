@@ -1,9 +1,7 @@
-import { User } from '@prisma/client';
 import { FastifyInstance } from 'fastify/types/instance';
 import { FastifyPluginOptions } from 'fastify/types/plugin';
 import { FastifyReply } from 'fastify/types/reply';
 import { FastifyRequest } from 'fastify/types/request';
-import { isAdmin } from '../user/user.service';
 
 async function verifyJwtToken(
   server: FastifyInstance,
