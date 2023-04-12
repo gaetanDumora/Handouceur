@@ -88,20 +88,15 @@ export const journeyReducer = createReducer<JourneyState, Action>(
     };
   }),
   // Download images
-  on(JOURNEY_ACTIONS.downloadImage, (state, { key }) => {
+  on(JOURNEY_ACTIONS.downloadImage, (state) => {
     return {
       ...state,
       isLoading: true,
     };
   }),
-  on(JOURNEY_ACTIONS.downloadImageSuccess, (state, { journey }) => {
-    const updatedJourneys = state.journeys.map((existing) =>
-      existing.id === journey.id ? journey : existing
-    );
+  on(JOURNEY_ACTIONS.downloadImageSuccess, (state) => {
     return {
       ...state,
-      journeys: updatedJourneys,
-      selectedJourney: journey,
       isLoading: false,
     };
   }),

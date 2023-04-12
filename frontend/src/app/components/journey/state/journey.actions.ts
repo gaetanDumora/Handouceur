@@ -60,7 +60,7 @@ export const JOURNEY_ACTIONS = createActionGroup({
     [JourneyActionTypes.UPLOAD_IMAGES_FAILURE]: props<{ error: ErrorType }>(),
 
     [JourneyActionTypes.DOWNLOAD_IMAGE]: props<{ key: string }>(),
-    [JourneyActionTypes.DOWNLOAD_IMAGE_SUCCESS]: props<{ journey: Journey }>(),
+    [JourneyActionTypes.DOWNLOAD_IMAGE_SUCCESS]: emptyProps(),
     [JourneyActionTypes.DOWNLOAD_IMAGE_FAILURE]: props<{ error: ErrorType }>(),
 
     [JourneyActionTypes.DELETE_IMAGES]: props<{ images: string[] }>(),

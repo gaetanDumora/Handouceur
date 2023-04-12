@@ -83,7 +83,7 @@ export class JourneyEffects {
       ofType(JOURNEY_ACTIONS.downloadImage),
       switchMap(({ key }) => {
         return this.journeyService.downloadFile(key).pipe(
-          map((journey) => JOURNEY_ACTIONS.downloadImageSuccess({ journey })),
+          map(() => JOURNEY_ACTIONS.downloadImageSuccess()),
           catchError(({ error }) =>
             of(JOURNEY_ACTIONS.downloadImageFailure({ error: error.message }))
           )
