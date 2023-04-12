@@ -45,9 +45,8 @@ export class JourneyService {
   }
 
   downloadFile(key: string) {
-    const params = new HttpParams().set('key', key);
     return this.http
-      .get(`${this.baseURL}/image`, { params })
+      .get(`${this.baseURL}/image/${key}`)
       .pipe(catchError(this.handleError));
   }
 
