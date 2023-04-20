@@ -16,15 +16,15 @@ export async function up(knex: Knex): Promise<void> {
 
   await knex.schema.debug(true).createTable('journeys', (table) => {
     table.increments('id').primary();
-    table.string('title', 20).notNullable();
-    table.string('subtitle', 20).notNullable();
-    table.string('location', 20).notNullable();
+    table.string('title').notNullable();
+    table.string('subtitle').notNullable();
+    table.string('location').notNullable();
     table.specificType('coordinates', 'FLOAT[]');
     table.dateTime('start_date');
     table.dateTime('end_date');
     table.integer('price');
     table.enu('autonomy', ['GOOD', 'RELATIVE', 'IMPORTANT'], {
-      enumName: 'autonomy_status',
+      enumName: 'enum_autonomy_status',
       useNative: true,
     });
     table.specificType('images', 'TEXT[]').notNullable();
@@ -42,4 +42,5 @@ export async function up(knex: Knex): Promise<void> {
 export async function down(knex: Knex): Promise<void> {
   await knex.schema.dropTable('users');
   await knex.schema.dropTable('journeys');
+  await knex.schema.raw('DROP TYPE enum_autonomy_status');
 }
