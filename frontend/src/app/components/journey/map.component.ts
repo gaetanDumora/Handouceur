@@ -31,9 +31,10 @@ import {
   styles: [
     `
       .mapCircle {
-        height: 120px;
-        width: 120px;
+        height: 130px;
+        width: 130px;
         border-radius: 50%;
+        border: solid 1px grey;
       }
     `,
   ],

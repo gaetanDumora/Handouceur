@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Journey } from 'src/app/models/journeys';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { getAllJourney } from '../journey/state/journey.selectors';
+import { getAllJourney } from '../journey/store/journey.selectors';
 
 @Component({
   selector: 'app-home',

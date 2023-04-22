@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { JOURNEY_ACTIONS } from './components/journey/state/journey.actions';
+import { JOURNEY_ACTIONS } from './components/journey/store/journey.actions';
 
 @Component({
   selector: 'app-root',

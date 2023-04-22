@@ -12,8 +12,8 @@ import {
   getError,
   getSelectedJourney,
   isLoading,
-} from '../state/journey.selectors';
-import { JOURNEY_ACTIONS } from '../state/journey.actions';
+} from '../store/journey.selectors';
+import { JOURNEY_ACTIONS } from '../store/journey.actions';
 import { MatTable } from '@angular/material/table';
 import { JourneyService } from '../journey.service';
 import { SuggestedLocationResult } from 'src/app/models/journeys';
