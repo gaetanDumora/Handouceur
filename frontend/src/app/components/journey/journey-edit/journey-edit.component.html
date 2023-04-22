@@ -1,14 +1,10 @@
-<form
-  class="form"
-  [formGroup]="editForm"
-  #formDirective="ngForm"
-  (ngSubmit)="onSubmit()"
->
+<form class="form" [formGroup]="editForm" #formDirective="ngForm">
   <div class="d-flex flex-column">
     <mat-form-field>
       <mat-label>Title</mat-label>
       <mat-icon matPrefix>title</mat-icon>
       <input type="text" matInput formControlName="title" />
+      <mat-hint>lala</mat-hint>
     </mat-form-field>
 
     <mat-form-field>
@@ -20,23 +16,15 @@
             {{ getErrorSubtitle() }}
           </mat-error> -->
 
-    <mat-form-field>
-      <mat-label>Location</mat-label>
-      <mat-icon matPrefix>location_city</mat-icon>
-      <input type="text" matInput formControlName="location" />
-    </mat-form-field>
-    <!-- <mat-error *ngIf="checkValidation('location')">
-            {{ getErrorLocation() }}
-          </mat-error> -->
-
-    <mat-form-field>
-      <mat-label>Coordinates</mat-label>
-      <mat-icon matPrefix>place</mat-icon>
-      <input type="text" matInput formControlName="coordinates" />
-    </mat-form-field>
-    <!-- <mat-error *ngIf="checkValidation('coordinates')">
-            {{ getErrorCoordinates() }}
-          </mat-error> -->
+    <app-autocomplete
+      isRequired="true"
+      placeholder="Location"
+      showSuggestionsKey="formatted"
+      [defaultValue]="(selectedJourney | async)?.location"
+      [suggestions]="suggestedLocations | async"
+      (onInputChanges)="getLocation($event)"
+      (onSelectedValue)="setNewLocation($event)"
+    ></app-autocomplete>
 
     <mat-form-field>
       <mat-icon matPrefix>text_fields</mat-icon>
@@ -120,7 +108,7 @@
       </button>
     </div>
 
-    <div class="table-container">
+    <div *ngIf="dataSource.getValue().length" class="table-container">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
         <!-- Index Column -->
         <ng-container matColumnDef="index">
@@ -153,34 +141,14 @@
       </table>
     </div>
   </div>
-  <!-- <div class="col p-2">
-    <div>
-      <p>Existing images:</p>
-      <ul>
-        <li>{{ (journey | async)!.imageUrl }}</li>
-      </ul>
-    </div>
-    <input
-      id="file-selector"
-      hidden="true"
-      type="file"
-      multiple
-      accept="image/*"
-      (change)="onFileSelected($event)"
-      #fileUpload
-    />
-    <button type="button" mat-button (click)="fileUpload.click()">
-      <u>Add cover images</u>
-    </button>
-    <ul>
-      <li *ngFor="let name of fileNames">
-        {{ name }}
-      </li>
-    </ul>
-  </div> -->
 
   <div class="row justify-content-center p-2">
-    <button type="submit" [disabled]="editForm.invalid" mat-raised-button>
+    <button
+      type="button"
+      [disabled]="editForm.invalid"
+      mat-raised-button
+      (click)="submitForm()"
+    >
       Update
     </button>
     <mat-progress-bar

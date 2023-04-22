@@ -21,6 +21,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { AutocompleteComponent } from './shared/autocomplete/autocomplete.component';
 import { JourneyEditComponent } from './components/journey/journey-edit/journey-edit.component';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { CarouselComponent } from './components/carousel/carousel.component';
@@ -42,6 +43,7 @@ import { JourneyModule } from './components/journey/journey.module';
     MapComponent,
     JourneyEditComponent,
     CarouselComponent,
+    AutocompleteComponent,
   ],
   imports: [
     BrowserModule,

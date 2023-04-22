@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import {
   getError,
   getSelectedJourney,
@@ -15,6 +15,8 @@ import {
 } from '../state/journey.selectors';
 import { JOURNEY_ACTIONS } from '../state/journey.actions';
 import { MatTable } from '@angular/material/table';
+import { JourneyService } from '../journey.service';
+import { SuggestedLocationResult } from 'src/app/models/journeys';
 
 interface DataTable {
   index: number;
@@ -33,13 +35,18 @@ export class JourneyEditComponent implements OnInit {
   editForm: FormGroup;
   formData = new FormData();
   selectedJourney = this.store.select(getSelectedJourney);
+  suggestedLocations: Observable<any>;
 
   displayedColumns: string[] = ['index', 'name', 'delete'];
   deletedFromDataSource: string[] = [];
-  dataSource: BehaviorSubject<DataTable[]>; // Make it as an Observable to avoid to call renderRows() manually
+  dataSource: BehaviorSubject<DataTable[] | []>; // Make it as an Observable to avoid to call renderRows() manually
   @ViewChild(MatTable) table: MatTable<DataTable>;
 
-  constructor(private route: ActivatedRoute, private store: Store) {}
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store,
+    private journeyService: JourneyService
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(JOURNEY_ACTIONS.loadSelectedJourney({ id: this.id }));
@@ -48,7 +55,7 @@ export class JourneyEditComponent implements OnInit {
         index,
         name,
       }));
-      this.dataSource = new BehaviorSubject(existingImages!);
+      this.dataSource = new BehaviorSubject(existingImages || []);
       this.editForm = new FormGroup({
         id: new FormControl(journey?.id ?? null),
         title: new FormControl(journey?.title ?? null),
@@ -76,6 +83,18 @@ export class JourneyEditComponent implements OnInit {
     );
   }
 
+  getLocation(input: string) {
+    this.journeyService.searchLocation(input).subscribe(({ results }) => {
+      this.suggestedLocations = of(results);
+    });
+  }
+  setNewLocation(value: SuggestedLocationResult) {
+    this.editForm.patchValue({
+      location: value.formatted,
+      coordinates: [value.geometry.lat, value.geometry.lng],
+    });
+    this.suggestedLocations = of(null);
+  }
   onFileSelected(event: any) {
     const files: File[] = Array.from(event.target?.files);
     files.forEach((file) => {
@@ -108,7 +127,7 @@ export class JourneyEditComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  submitForm() {
     this.store.dispatch(
       JOURNEY_ACTIONS.upsertJourney({ journey: this.editForm.value })
     );

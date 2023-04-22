@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { Journey } from 'src/app/models/journeys';
+import { Journey, SuggestedLocations } from 'src/app/models/journeys';
 import { environment } from 'src/environment/environment';
 
 @Injectable({
@@ -50,6 +50,13 @@ export class JourneyService {
       .pipe(catchError(this.handleError));
   }
 
+  searchLocation(val: string) {
+    return this.http
+      .get<SuggestedLocations>(
+        `https://api.opencagedata.com/geocode/v1/json?q=${val}&key=${environment.openCageToken}&language=fr&pretty=1&limit=10`
+      )
+      .pipe(catchError(this.handleError));
+  }
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.

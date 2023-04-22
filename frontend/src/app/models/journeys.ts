@@ -24,3 +24,11 @@ export enum AutonomyStatus {
   RELATIVE = 'RELATIVE',
   IMPORTANT = 'IMPORTANT',
 }
+
+export type SuggestedLocationResult = {
+  formatted: string;
+  geometry: { lat: number; lng: number };
+};
+export interface SuggestedLocations {
+  results: SuggestedLocationResult[];
+}

@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatChipsModule } from '@angular/material/chips';
@@ -38,6 +39,7 @@ import { MatTableModule } from '@angular/material/table';
     MatSelectModule,
     MatTabsModule,
     MatInputModule,
+    MatAutocompleteModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatChipsModule,
@@ -65,6 +67,7 @@ import { MatTableModule } from '@angular/material/table';
     MatSelectModule,
     MatTabsModule,
     MatInputModule,
+    MatAutocompleteModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatChipsModule,
