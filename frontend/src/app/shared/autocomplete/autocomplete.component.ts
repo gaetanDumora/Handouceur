@@ -18,16 +18,16 @@ import { debounceTime } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteComponent implements OnInit, OnChanges {
-  @Input() isRequired: string | undefined;
-  @Input() defaultValue: string | undefined;
-  @Input() placeholder: string | undefined;
-  @Input() showSuggestionsKey: string | undefined;
+  @Input() isRequired?: string;
+  @Input() initialValue?: string | null;
+  @Input() placeholder?: string;
+  @Input() showSuggestionsKey?: string;
   @Input() suggestions: Record<string, any>[] | null;
   @Output() onInputChanges = new EventEmitter<string>();
   @Output() onSelectedValue = new EventEmitter<any>();
   // Inner form control to link input text changes to mat autocomplete
   lengthToTriggerSearch = 3;
-  inputControl = new FormControl(null);
+  inputControl = new FormControl('');
   noResults = false;
   isSearching = false;
 
@@ -52,6 +52,11 @@ export class AutocompleteComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if (this.initialValue) {
+      this.inputControl.setValue(this.initialValue);
+      this.initialValue = null;
+      return;
+    }
     if (changes.suggestions && this.isSearching) {
       this.isSearching = false;
       if (
@@ -64,6 +69,7 @@ export class AutocompleteComponent implements OnInit, OnChanges {
     }
     return;
   }
+
   handleSelectedOption(value: any) {
     this.onSelectedValue.emit(value);
     if (this.showSuggestionsKey) {

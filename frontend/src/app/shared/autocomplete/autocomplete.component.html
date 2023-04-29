@@ -5,8 +5,7 @@
     [matAutocomplete]="auto"
     matAutocompletePosition="below"
     [formControl]="inputControl"
-    [placeholder]="placeholder ?? ''"
-    [value]="defaultValue"
+    [placeholder]="placeholder ?? 'Search'"
   />
   <mat-icon matPrefix>search</mat-icon>
   <mat-error *ngIf="inputControl.hasError('required')">
