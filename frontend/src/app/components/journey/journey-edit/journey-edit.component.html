@@ -20,7 +20,7 @@
       isRequired="true"
       placeholder="Location"
       showSuggestionsKey="formatted"
-      [defaultValue]="(selectedJourney | async)?.location"
+      [initialValue]="(selectedJourney | async)?.location"
       [suggestions]="suggestedLocations | async"
       (onInputChanges)="getLocation($event)"
       (onSelectedValue)="setNewLocation($event)"

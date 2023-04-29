@@ -20,71 +20,71 @@
       >
     </div>
 
-    <mat-card-content class="font-weight-light">
-      <div class="description-wrapper">
-        <div class="map">
+    <mat-card-content class="description-wrapper">
+      <div>
+        <span class="d-flex justify-content-center border rounded bg-light"
+          >Description:</span
+        >
+        <div class="map p-2">
           <app-map
             [mapId]="journey.id!"
             [coordinates]="journey.coordinates!"
           ></app-map>
         </div>
-        <p>
+        <p class="p-2">
           {{ journey.description }}
         </p>
       </div>
+
+      <div class="row m-0">
+        <div class="col p-0 rounded">
+          <span class="d-flex justify-content-center border rounded bg-light">
+            Hébergement:
+          </span>
+          <p class="p-2">
+            {{ journey.hosting }}
+          </p>
+        </div>
+        <div class="col p-0 rounded text-center ml-1">
+          <span class="d-flex justify-content-center border rounded bg-light">
+            Coup de coeur
+          </span>
+          <img
+            style="width: 100%; object-fit: cover"
+            mat-card-md-image
+            loading="lazy"
+            src="https://picsum.photos/400"
+          />
+        </div>
+      </div>
+
+      <div class="row mt-1 m-0">
+        <div class="col p-0 rounded">
+          <span class="d-flex justify-content-center border rounded bg-light"
+            >Loisirs & Activités:</span
+          >
+          <p class="p-2">{{ journey.recreation }}</p>
+        </div>
+        <div class="col p-0 rounded ml-1">
+          <span class="d-flex justify-content-center border rounded bg-light"
+            >Transport:</span
+          >
+          <p class="p-2">{{ journey.transport }}</p>
+        </div>
+      </div>
     </mat-card-content>
 
-    <mat-expansion-panel [expanded]="false" class="mat-elevation-z0">
-      <mat-expansion-panel-header>
-        <mat-panel-title>👋 En voir plus</mat-panel-title>
-      </mat-expansion-panel-header>
-      <ng-template matExpansionPanelContent>
-        <div class="d-flex justify-content-between description-wrapper">
-          <div>
-            <mat-panel-description> Coup de coeur </mat-panel-description>
-            <img
-              class="rounded"
-              mat-card-md-image
-              loading="lazy"
-              src="https://picsum.photos/200/300"
-              alt="{{ journey.title }}"
-            />
-            <mat-panel-description>Loisirs & Activités:</mat-panel-description>
-            <p>{{ journey.recreation }}</p>
-          </div>
-          <mat-divider [vertical]="true"></mat-divider>
-          <div class="ml-3">
-            <mat-panel-description>Hébergement:</mat-panel-description>
-            <p>{{ journey.hosting }}</p>
-            <mat-panel-description>Transport:</mat-panel-description>
-            <p>{{ journey.transport }}</p>
-            <mat-panel-description>Groupe:</mat-panel-description>
-            <p>{{ journey.groupSize }}</p>
-          </div>
-        </div>
-      </ng-template>
-    </mat-expansion-panel>
+    <mat-card-actions class="flex justify-content-around">
+      <button mat-raised-button color="primary">Réservation</button>
 
-    <mat-card-actions class="row justify-content-around p-2">
-      <button mat-raised-button>SHARE</button>
       <button
+        color="primary"
         *ngIf="isAdmin | async"
         mat-raised-button
         routerLink="edit/{{ journey.id }}"
       >
-        EDIT
+        Editer
       </button>
     </mat-card-actions>
   </mat-card>
-  <!-- <mat-card class="journey-label-right">
-    <small>
-      <strong>{{ journey.startDate | date }}</strong
-      ><br />
-      Au: <br />
-      <strong>{{ journey.endDate | date }}</strong
-      ><br />
-      Prix: <br />
-      <strong>{{ journey.price | currency }}</strong>
-    </small>
-  </mat-card> -->
 </div>

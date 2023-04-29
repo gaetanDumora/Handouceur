@@ -18,11 +18,12 @@
 .description-wrapper p {
   line-height: 1.4;
   font-size: small;
+  font-weight: 300;
 }
 .map {
   float: left;
   shape-outside: circle(50%);
-  margin-right: 25px;
+  margin-right: 10px;
 }
 .mat-mdc-standard-chip {
   margin: 4px;
