@@ -1,16 +1,18 @@
 <form class="form" [formGroup]="editForm" #formDirective="ngForm">
   <div class="d-flex flex-column">
     <mat-form-field>
-      <mat-label>Title</mat-label>
       <mat-icon matPrefix>title</mat-icon>
-      <input type="text" matInput formControlName="title" />
-      <mat-hint>lala</mat-hint>
+      <input type="text" matInput placeholder="Title" formControlName="title" />
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Subtitle</mat-label>
       <mat-icon matPrefix>text_fields</mat-icon>
-      <input type="text" matInput formControlName="subtitle" />
+      <input
+        type="text"
+        matInput
+        placeholder="Subtitle"
+        formControlName="subtitle"
+      />
     </mat-form-field>
     <!-- <mat-error *ngIf="checkValidation('subtitle')">
             {{ getErrorSubtitle() }}
@@ -29,6 +31,7 @@
     <mat-form-field>
       <mat-icon matPrefix>text_fields</mat-icon>
       <textarea
+        placeholder="Description"
         cdkTextareaAutosize
         matInput
         formControlName="description"
@@ -39,10 +42,13 @@
           </mat-error> -->
 
     <mat-form-field>
-      <mat-label>Date range</mat-label>
       <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate formControlName="startDate" />
-        <input matEndDate formControlName="endDate" />
+        <input
+          placeholder="Start Date"
+          matStartDate
+          formControlName="startDate"
+        />
+        <input placeholder="End Date" matEndDate formControlName="endDate" />
       </mat-date-range-input>
 
       <mat-datepicker-toggle
@@ -61,18 +67,16 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Price</mat-label>
       <mat-icon matPrefix>euro_symbol</mat-icon>
-      <input type="text" matInput formControlName="price" />
+      <input placeholder="Price" type="text" matInput formControlName="price" />
     </mat-form-field>
     <!-- <mat-error *ngIf="checkValidation('endDate')">
             {{ getErrorPrice() }}
           </mat-error> -->
 
     <mat-form-field>
-      <mat-label>Autonomy</mat-label>
       <mat-icon matPrefix>accessible</mat-icon>
-      <mat-select formControlName="autonomy">
+      <mat-select placeholder="Autonomy" formControlName="autonomy">
         <option selected></option>
         <mat-option
           *ngFor="let item of ['GOOD', 'RELATIVE', 'IMPORTANT']"
@@ -89,7 +93,6 @@
   <!-- Images table -->
   <div>
     <input
-      id="file-selector"
       hidden="true"
       type="file"
       multiple
@@ -98,12 +101,7 @@
       #fileUpload
     />
     <div class="p-2">
-      <button
-        mat-raised-button
-        type="button"
-        (click)="fileUpload.click()"
-        class="demo-button"
-      >
+      <button mat-raised-button type="button" (click)="fileUpload.click()">
         Add images
       </button>
     </div>
@@ -145,7 +143,7 @@
   <div class="row justify-content-center p-2">
     <button
       type="button"
-      [disabled]="editForm.invalid"
+      [disabled]="editForm.invalid || (isLoading | async)"
       mat-raised-button
       (click)="submitForm()"
     >
