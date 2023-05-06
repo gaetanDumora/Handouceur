@@ -1,8 +1,16 @@
 @use '@angular/material' as mat;
 
-$angular-light-primary: mat.define-palette(mat.$yellow-palette, 100, 500, 300);
-$angular-light-accent: mat.define-palette(mat.$amber-palette, 400);
-$angular-light-warn: mat.define-palette(mat.$deep-orange-palette, 200);
+@import './variables.scss';
+
+$angular-dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $angular-dark-primary,
+      accent: $angular-dark-accent,
+      warn: $angular-dark-warn,
+    ),
+  )
+);
 
 $angular-light-theme: mat.define-light-theme(
   (

@@ -36,6 +36,7 @@
             ],
             "styles": [
               "src/styles/styles.scss",
+              "src/styles/variables.scss",
               "./node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": []

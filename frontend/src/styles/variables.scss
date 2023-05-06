@@ -1,0 +1,9 @@
+@use '@angular/material' as mat;
+
+$angular-light-primary: mat.define-palette(mat.$yellow-palette, 100, 500, 300);
+$angular-light-accent: mat.define-palette(mat.$amber-palette, 400);
+$angular-light-warn: mat.define-palette(mat.$deep-orange-palette, 200);
+
+$angular-dark-primary: mat.define-palette(mat.$grey-palette, 700, 300, 900);
+$angular-dark-accent: mat.define-palette(mat.$blue-grey-palette, 400);
+$angular-dark-warn: mat.define-palette(mat.$red-palette, 500);
