@@ -1,12 +1,10 @@
-.journey-label-right {
-  position: absolute;
-  text-align: center;
-  padding: 0.5em;
-  top: -0.5em;
-  right: 0.5em;
-  font-size: x-small;
-  border-radius: 20%;
-}
+@use '@angular/material' as mat;
+@import '../../../styles/variables.scss';
+
+// $color-config: mat.get-color-config($angular-light-theme);
+// // get the chosen palette : primary, accent, warn
+// $primary-palette: map.get($color-config, 'primary');
+
 .journey {
   position: relative;
   max-width: 400px;
@@ -27,8 +25,18 @@
 }
 .mat-mdc-standard-chip {
   margin: 4px;
-  max-height: 25px;
+  height: 20px;
   pointer-events: none;
   font-size: x-small;
+  font-weight: bold;
+}
+
+.chips {
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: mat.get-color-from-palette($angular-light-primary);
+  color: grey;
+  font-size: small;
   font-weight: bold;
 }

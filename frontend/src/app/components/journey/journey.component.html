@@ -9,22 +9,14 @@
     <app-carousel [journey]="journey!"></app-carousel>
 
     <div>
-      <mat-chip-row color="primary" highlighted
-        >Du: {{ journey.startDate | date }}</mat-chip-row
-      >
-      <mat-chip-row color="primary" highlighted
-        >Au: {{ journey.endDate | date }}</mat-chip-row
-      >
-      <mat-chip-row color="primary" highlighted
-        >Prix: {{ journey.price | currency }}</mat-chip-row
-      >
+      <mat-chip-row>Du: {{ journey.startDate | date }}</mat-chip-row>
+      <mat-chip-row>Au: {{ journey.endDate | date }}</mat-chip-row>
+      <mat-chip-row>Prix: {{ journey.price | currency }}</mat-chip-row>
     </div>
 
     <mat-card-content class="description-wrapper">
       <div>
-        <span class="d-flex justify-content-center border rounded bg-light"
-          >Description:</span
-        >
+        <span class="chips">Description:</span>
         <div class="map p-2">
           <app-map
             [mapId]="journey.id!"
@@ -36,21 +28,43 @@
         </p>
       </div>
 
+      <div class="row mt-1 m-0">
+        <div class="col p-0">
+          <span class="chips">Loisirs & Activités:</span>
+          <p class="p-2">
+            {{ journey.recreation }}
+          </p>
+        </div>
+      </div>
       <div class="row m-0">
+        <div class="col p-0">
+          <span class="chips"> Hébergement: </span>
+          <p class="p-2">
+            {{ journey.hosting }}
+          </p>
+        </div>
+        <div class="col p-0 ml-1">
+          <span class="chips">Transport:</span>
+          <p class="p-2">{{ journey.transport }}</p>
+        </div>
+      </div>
+
+      <!-- <div class="row m-0">
         <div class="col p-0 rounded">
-          <span class="d-flex justify-content-center border rounded bg-light">
-            Hébergement:
-          </span>
+          <span class="chips"> Hébergement: </span>
           <p class="p-2">
             {{ journey.hosting }}
           </p>
         </div>
         <div class="col p-0 rounded text-center ml-1">
-          <span class="d-flex justify-content-center border rounded bg-light">
-            Coup de coeur
-          </span>
+          <span class="chips"> Coup de coeur </span>
           <img
-            style="width: 100%; object-fit: cover"
+            style="
+              width: 90%;
+              object-fit: cover;
+              border-radius: 5px;
+              margin-top: 4px;
+            "
             mat-card-md-image
             loading="lazy"
             src="https://picsum.photos/400"
@@ -60,25 +74,21 @@
 
       <div class="row mt-1 m-0">
         <div class="col p-0 rounded">
-          <span class="d-flex justify-content-center border rounded bg-light"
-            >Loisirs & Activités:</span
-          >
+          <span class="chips">Loisirs & Activités:</span>
           <p class="p-2">{{ journey.recreation }}</p>
         </div>
         <div class="col p-0 rounded ml-1">
-          <span class="d-flex justify-content-center border rounded bg-light"
-            >Transport:</span
-          >
+          <span class="chips">Transport:</span>
           <p class="p-2">{{ journey.transport }}</p>
         </div>
-      </div>
+      </div> -->
     </mat-card-content>
 
     <mat-card-actions class="flex justify-content-around">
-      <button mat-raised-button color="primary">Réservation</button>
+      <button style="width: 8em" mat-raised-button>Réservation</button>
 
       <button
-        color="primary"
+        style="width: 8em"
         *ngIf="isAdmin | async"
         mat-raised-button
         routerLink="edit/{{ journey.id }}"
