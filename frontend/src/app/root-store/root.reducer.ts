@@ -30,7 +30,7 @@ const log = (reducer: ActionReducer<any>) => {
   };
 };
 
-export const metaReducers: MetaReducer[] = [log, localStorageSyncReducer];
+export const metaReducers: MetaReducer[] = [localStorageSyncReducer];
 
 export const rootReducer = createReducer<RootState, Action>(
   initialState,

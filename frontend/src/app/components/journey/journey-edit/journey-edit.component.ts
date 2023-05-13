@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
+  UntypedFormGroup,
   FormControl,
   FormGroup,
   FormGroupDirective,
@@ -16,12 +17,7 @@ import {
 import { JOURNEY_ACTIONS } from '../store/journey.actions';
 import { MatTable } from '@angular/material/table';
 import { JourneyService } from '../journey.service';
-import { SuggestedLocationResult } from 'src/app/models/journeys';
-
-interface DataTable {
-  index: number;
-  name: string;
-}
+import { Journey, SuggestedLocationResult } from 'src/app/models/journeys';
 
 @Component({
   selector: 'app-journey-edit',
@@ -29,18 +25,33 @@ interface DataTable {
   styleUrls: ['./journey-edit.component.scss'],
 })
 export class JourneyEditComponent implements OnInit {
-  id = Number(this.route.snapshot.paramMap.get('id')!);
+  id = this.route.snapshot.paramMap.get('id');
   isLoading = this.store.select(isLoading);
   error = this.store.select(getError);
-  editForm: FormGroup;
+  editForm = new UntypedFormGroup({
+    title: new FormControl(),
+    subtitle: new FormControl(),
+    location: new FormControl(),
+    coordinates: new FormControl(),
+    startDate: new FormControl(),
+    endDate: new FormControl(),
+    price: new FormControl(),
+    description: new FormControl(),
+    images: new FormControl(),
+    autonomy: new FormControl(),
+    recreation: new FormControl(),
+    hosting: new FormControl(),
+    transport: new FormControl(),
+    groupeSize: new FormControl(),
+  });
   formData = new FormData();
-  selectedJourney = this.store.select(getSelectedJourney);
+  formdataLength = 0;
+  selectedJourney: Observable<Journey | null>;
   suggestedLocations: Observable<any>;
 
-  displayedColumns: string[] = ['index', 'name', 'delete'];
-  deletedFromDataSource: string[] = [];
-  dataSource: BehaviorSubject<DataTable[] | []>; // Make it as an Observable to avoid to call renderRows() manually
-  @ViewChild(MatTable) table: MatTable<DataTable>;
+  deletedFromDataSource: Set<string> = new Set();
+  dataSource = new BehaviorSubject<string[]>([]); // Make it as an Observable to avoid to call renderRows() manually
+  @ViewChild(MatTable) table: MatTable<string>;
 
   constructor(
     private route: ActivatedRoute,
@@ -49,33 +60,29 @@ export class JourneyEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store.dispatch(JOURNEY_ACTIONS.loadSelectedJourney({ id: this.id }));
+    if (this.id !== 'new') {
+      this.store.dispatch(
+        JOURNEY_ACTIONS.loadSelectedJourney({ id: Number(this.id) })
+      );
+      this.selectedJourney = this.store.select(getSelectedJourney);
+      this.preFillForm();
+    }
+  }
+  private preFillForm() {
+    this.editForm.addControl('id', new FormControl());
     this.selectedJourney.subscribe((journey) => {
-      const existingImages = journey?.images?.map((name, index) => ({
-        index,
-        name,
-      }));
-      this.dataSource = new BehaviorSubject(existingImages || []);
-      this.editForm = new FormGroup({
-        id: new FormControl(journey?.id ?? null),
-        title: new FormControl(journey?.title ?? null),
-        subtitle: new FormControl(journey?.subtitle ?? null),
-        location: new FormControl(journey?.location ?? null),
-        coordinates: new FormControl(journey?.coordinates ?? null),
-        startDate: new FormControl(journey?.startDate ?? null),
-        endDate: new FormControl(journey?.endDate ?? null),
-        price: new FormControl(journey?.price ?? null),
-        description: new FormControl(journey?.description ?? null),
-        images: new FormControl(journey?.images ?? null),
-        autonomy: new FormControl(journey?.autonomy ?? null),
-        recreation: new FormControl(journey?.recreation ?? null),
-        hosting: new FormControl(journey?.hosting ?? null),
-        transport: new FormControl(journey?.transport ?? null),
-        groupeSize: new FormControl(journey?.groupSize ?? null),
-      });
+      if (journey?.images?.length) {
+        this.dataSource.next(journey.images);
+      }
+      if (journey) {
+        Object.keys(this.editForm.value).forEach((formKey) => {
+          this.editForm.patchValue({
+            [formKey]: journey[formKey as keyof Journey] ?? null,
+          });
+        });
+      }
     });
   }
-
   checkValidation(input: string) {
     return (
       this.editForm.get(input)?.invalid &&
@@ -96,35 +103,25 @@ export class JourneyEditComponent implements OnInit {
     this.suggestedLocations = of(null);
   }
   onFileSelected(event: any) {
-    const files: File[] = Array.from(event.target?.files);
-    files.forEach((file) => {
-      // Update the FormControl
-      this.editForm.patchValue({
-        images: [...this.editForm.get('images')?.value, file.name],
-      });
-      // Uptade Table
-      this.dataSource.next([
-        ...this.dataSource.value,
-        {
-          index: this.dataSource.value.length,
-          name: file.name,
-        },
-      ]);
-      // Set Multipart File
-      this.formData.append('files', file);
-    });
+    const existingFileNames = this.editForm.get('images')?.value ?? [];
+    const selectedFiles: File[] = Array.from(event.target?.files);
+    const selectedFilesNames = selectedFiles.map((f) => f.name);
+
+    const images = [...existingFileNames, ...selectedFilesNames];
+    this.editForm.patchValue({ images });
+    this.dataSource.next([...this.dataSource?.value, ...selectedFilesNames]);
+
+    selectedFiles.forEach((file) => this.formData.append(file.name, file));
+    this.formdataLength = selectedFiles.length;
   }
 
-  handleChangeDataTable(dataTable: DataTable) {
-    this.deletedFromDataSource.push(dataTable.name);
-    const newDataTable = this.dataSource.value.filter(
-      ({ index }) => index !== dataTable.index
-    );
-    this.dataSource.next(newDataTable);
-    // Update the FormControl, because it used to upsert image key locations in the DB
-    this.editForm.patchValue({
-      images: newDataTable.map(({ name }) => name),
-    });
+  removeRow(input: string) {
+    this.deletedFromDataSource.add(input);
+    const images = this.dataSource.value.filter((name) => name !== input);
+    this.dataSource.next(images);
+    this.editForm.patchValue({ images });
+    this.formData.delete(input);
+    this.formdataLength--;
   }
 
   submitForm() {
@@ -132,17 +129,19 @@ export class JourneyEditComponent implements OnInit {
       JOURNEY_ACTIONS.upsertJourney({ journey: this.editForm.value })
     );
 
-    if (this.formData.has('files')) {
+    if (this.formdataLength) {
       this.store.dispatch(
         JOURNEY_ACTIONS.uploadImages({ images: this.formData })
       );
-      this.formData.delete('files');
+      this.formData = new FormData();
     }
-    if (this.deletedFromDataSource.length) {
+    if (this.deletedFromDataSource.size) {
       this.store.dispatch(
-        JOURNEY_ACTIONS.deleteImages({ images: this.deletedFromDataSource })
+        JOURNEY_ACTIONS.deleteImages({
+          images: [...this.deletedFromDataSource],
+        })
       );
-      this.deletedFromDataSource = [];
+      this.deletedFromDataSource.clear();
     }
   }
 }

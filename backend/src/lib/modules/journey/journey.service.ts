@@ -12,7 +12,7 @@ export const gerJourney = async (id: number) => {
 };
 
 export const upsertJourney = async (input: UpsertJourneyInput) => {
-  if (input.id) {
+  if (input.id !== undefined) {
     return await prisma.journey.update({
       data: { ...input },
       where: { id: input.id },
@@ -22,6 +22,7 @@ export const upsertJourney = async (input: UpsertJourneyInput) => {
     data: { ...input },
   });
 };
+
 export const updateImages = async (input: {
   journeyId: number;
   images: string[];

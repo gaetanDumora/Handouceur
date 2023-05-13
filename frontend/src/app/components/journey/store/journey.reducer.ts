@@ -32,12 +32,15 @@ export const journeyReducer = createReducer<JourneyState, Action>(
     };
   }),
   on(JOURNEY_ACTIONS.upsertJourneySuccess, (state, { journey }) => {
-    const updatedJourneys = state.journeys.map((existing) =>
-      existing.id === journey.id ? journey : existing
-    );
+    const exist = state.journeys.some(({ id }) => journey.id === id);
+    const journeys = exist
+      ? state.journeys.map((existing) =>
+          existing.id === journey.id ? journey : existing
+        )
+      : [...state.journeys, journey];
     return {
       ...state,
-      journeys: updatedJourneys,
+      journeys,
       selectedJourney: journey,
       isLoading: false,
     };
