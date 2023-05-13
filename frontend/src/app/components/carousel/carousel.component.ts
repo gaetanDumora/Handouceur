@@ -30,7 +30,7 @@ export class CarouselComponent implements AfterViewInit, OnInit {
   public currentSlide: Slide;
   public isImageLoaded = new BehaviorSubject(false);
 
-  constructor(private store: Store) {}
+  constructor() {}
 
   onPreviousClick() {
     const prevId = this.currentSlide.id - 1;

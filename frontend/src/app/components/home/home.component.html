@@ -3,7 +3,7 @@
     <app-journey [journey]="journey"></app-journey>
   </div>
   <div style="left: 0" class="p-2 position-absolute">
-    <button mat-fab routerLink="edit/new" color="warn">
+    <button *ngIf="isAdmin | async" mat-fab routerLink="edit/new" color="warn">
       <mat-icon>add</mat-icon>
     </button>
   </div>
