@@ -37,7 +37,7 @@ export class JourneyEditComponent implements OnInit {
     endDate: new FormControl(),
     price: new FormControl(),
     description: new FormControl(),
-    images: new FormControl(),
+    images: new FormControl([]),
     autonomy: new FormControl(),
     recreation: new FormControl(),
     hosting: new FormControl(),
