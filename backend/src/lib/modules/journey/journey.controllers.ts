@@ -1,6 +1,11 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { gerJourney, getAllJourney, upsertJourney } from './journey.service';
-import { UpsertJourneyInput } from './journey.schema';
+import {
+  deleteJourney,
+  gerJourney,
+  getAllJourney,
+  upsertJourney,
+} from './journey.service';
+import { UpsertJourneyInput, DeleteJourneyInput } from './journey.schema';
 import { getObjectFromS3, deleteFiles, uploadFiles } from '../../utils/s3';
 
 export async function downloadFileHandler(
@@ -90,6 +95,22 @@ export async function upsertJourneyHandler(
   try {
     const journey = await upsertJourney(body);
     return reply.code(201).send(journey);
+  } catch (error) {
+    request.log.info(error);
+    return reply.code(500).send(error);
+  }
+}
+
+export async function deleteJourneyHandler(
+  request: FastifyRequest<{ Body: DeleteJourneyInput }>,
+  reply: FastifyReply
+) {
+  const { body } = request;
+  const { id: toDelete } = body;
+  try {
+    const { id } = await deleteJourney({ id: toDelete });
+    request.log.info({ id }, 'Delete journey');
+    return reply.code(200).send({ id });
   } catch (error) {
     request.log.info(error);
     return reply.code(500).send(error);

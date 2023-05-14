@@ -7,6 +7,7 @@ import {
   deleteFileHandler,
   upsertJourneyHandler,
   downloadFileHandler,
+  deleteJourneyHandler,
 } from './journey.controllers';
 
 async function journeyRoutes(server: FastifyInstance) {
@@ -48,6 +49,19 @@ async function journeyRoutes(server: FastifyInstance) {
       },
     },
     upsertJourneyHandler
+  );
+  server.post(
+    '/delete',
+    {
+      preHandler: [server.verifyJwtToken, server.verifyAdmin],
+      schema: {
+        body: $ref('deleteJourneyInput'),
+        response: {
+          202: $ref('deleteJourneyResponse'),
+        },
+      },
+    },
+    deleteJourneyHandler
   );
   server.get(
     '/getAll',

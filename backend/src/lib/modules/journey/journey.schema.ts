@@ -45,6 +45,13 @@ const upsertJourneyInput = z.object({
   ...journeyOptional,
 });
 
+const deleteJourneyInput = z.object({
+  id: z.number(),
+});
+const deleteJourneyResponse = z.object({
+  id: z.number(),
+});
+
 const uploadImageResponse = z.object({
   uploadSuccess: z.boolean(),
 });
@@ -61,6 +68,7 @@ export type GetAllJourneySchemaResponse = z.infer<
   typeof getAllJourneySchemaResponse
 >;
 export type UpsertJourneyInput = z.infer<typeof upsertJourneyInput>;
+export type DeleteJourneyInput = z.infer<typeof deleteJourneyInput>;
 
 export const { schemas: journeySchemas, $ref } = buildJsonSchemas(
   {
@@ -71,6 +79,8 @@ export const { schemas: journeySchemas, $ref } = buildJsonSchemas(
     uploadImageResponse,
     deleteImageInput,
     deleteImageResponse,
+    deleteJourneyInput,
+    deleteJourneyResponse,
   },
   { $id: 'journeySchemas' } // id must be uniq to regester multiple schema with server.addSchema
 );

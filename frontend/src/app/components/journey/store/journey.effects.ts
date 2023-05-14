@@ -64,6 +64,20 @@ export class JourneyEffects {
     )
   );
 
+  deleteJourney = createEffect(() =>
+    this.actions.pipe(
+      ofType(JOURNEY_ACTIONS.deleteJourney),
+      switchMap(({ id }) => {
+        return this.journeyService.deleteJourney(id).pipe(
+          map((id) => JOURNEY_ACTIONS.deleteJourneySuccess(id)),
+          catchError(({ error }) =>
+            of(JOURNEY_ACTIONS.deleteJourneyFailure({ error: error.message }))
+          )
+        );
+      })
+    )
+  );
+
   uploadImages = createEffect(() =>
     this.actions.pipe(
       ofType(JOURNEY_ACTIONS.uploadImages),

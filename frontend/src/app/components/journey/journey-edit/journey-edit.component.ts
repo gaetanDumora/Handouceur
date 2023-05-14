@@ -1,12 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import {
-  UntypedFormGroup,
-  FormControl,
-  FormGroup,
-  FormGroupDirective,
-  Validators,
-} from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { UntypedFormGroup, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import {
@@ -18,6 +12,7 @@ import { JOURNEY_ACTIONS } from '../store/journey.actions';
 import { MatTable } from '@angular/material/table';
 import { JourneyService } from '../journey.service';
 import { Journey, SuggestedLocationResult } from 'src/app/models/journeys';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-journey-edit',
@@ -33,12 +28,15 @@ export class JourneyEditComponent implements OnInit {
     subtitle: new FormControl(),
     location: new FormControl(),
     coordinates: new FormControl(),
-    startDate: new FormControl(),
-    endDate: new FormControl(),
-    price: new FormControl(),
+    startDate: new FormControl('', Validators.required),
+    endDate: new FormControl('', Validators.required),
+    price: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[0-9]+'),
+    ]),
     description: new FormControl(),
     images: new FormControl([]),
-    autonomy: new FormControl(),
+    autonomy: new FormControl('', Validators.required),
     recreation: new FormControl(),
     hosting: new FormControl(),
     transport: new FormControl(),
@@ -54,9 +52,11 @@ export class JourneyEditComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<string>;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private store: Store,
-    private journeyService: JourneyService
+    private journeyService: JourneyService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -83,6 +83,7 @@ export class JourneyEditComponent implements OnInit {
       }
     });
   }
+
   checkValidation(input: string) {
     return (
       this.editForm.get(input)?.invalid &&
@@ -143,5 +144,28 @@ export class JourneyEditComponent implements OnInit {
       );
       this.deletedFromDataSource.clear();
     }
+
+    this.snackBar.open(
+      `Update journey: "${this.editForm.get('title')?.value}" `,
+      'OK',
+      {
+        duration: 2000,
+      }
+    );
+    // setTimeout(() => this.redirectHome(), 2000);
+    // this.redirectHome();
+  }
+
+  deleteJourney() {
+    const images = this.editForm.get('images')?.value;
+    this.store.dispatch(JOURNEY_ACTIONS.deleteJourney({ id: Number(this.id) }));
+    if (images.length) {
+      this.store.dispatch(JOURNEY_ACTIONS.deleteImages({ images }));
+    }
+    this.redirectHome();
+  }
+
+  private redirectHome() {
+    this.router.navigate(['/home']);
   }
 }

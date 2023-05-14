@@ -33,3 +33,12 @@ export const updateImages = async (input: {
   });
   return journey;
 };
+
+export const deleteJourney = async (input: { id: number }) => {
+  const { id } = await prisma.journey.delete({
+    where: {
+      id: input.id,
+    },
+  });
+  return { id };
+};

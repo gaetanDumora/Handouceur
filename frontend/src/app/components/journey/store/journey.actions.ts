@@ -19,6 +19,10 @@ export enum JourneyActionTypes {
   UPSERT_JOURNEY_SUCCESS = 'Upsert Journey Success',
   UPSERT_JOURNEY_FAILURE = 'Upsert Journey Failure',
 
+  DELETE_JOURNEY = 'Delete Journey',
+  DELETE_JOURNEY_SUCCESS = 'Delete Journey Success',
+  DELETE_JOURNEY_FAILURE = 'Delete Journey Failure',
+
   UPLOAD_IMAGES = 'Upload Images',
   UPLOAD_IMAGES_SUCCESS = 'Upload Images Success',
   UPLOAD_IMAGES_FAILURE = 'Upload Images Failure',
@@ -54,6 +58,10 @@ export const JOURNEY_ACTIONS = createActionGroup({
     [JourneyActionTypes.UPSERT_JOURNEY]: props<{ journey: Partial<Journey> }>(),
     [JourneyActionTypes.UPSERT_JOURNEY_SUCCESS]: props<{ journey: Journey }>(),
     [JourneyActionTypes.UPSERT_JOURNEY_FAILURE]: props<{ error: ErrorType }>(),
+
+    [JourneyActionTypes.DELETE_JOURNEY]: props<{ id: number }>(),
+    [JourneyActionTypes.DELETE_JOURNEY_SUCCESS]: props<{ id: number }>(),
+    [JourneyActionTypes.DELETE_JOURNEY_FAILURE]: props<{ error: ErrorType }>(),
 
     [JourneyActionTypes.UPLOAD_IMAGES]: props<{ images: FormData }>(),
     [JourneyActionTypes.UPLOAD_IMAGES_SUCCESS]: emptyProps(),

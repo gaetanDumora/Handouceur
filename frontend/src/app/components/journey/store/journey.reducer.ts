@@ -24,6 +24,7 @@ export const journeyReducer = createReducer<JourneyState, Action>(
       error,
     };
   }),
+
   // Post Journey
   on(JOURNEY_ACTIONS.upsertJourney, (state) => {
     return {
@@ -51,6 +52,30 @@ export const journeyReducer = createReducer<JourneyState, Action>(
       error,
     };
   }),
+
+  // Delete Journey
+  on(JOURNEY_ACTIONS.deleteJourney, (state) => {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }),
+  on(JOURNEY_ACTIONS.deleteJourneySuccess, (state, { id: toDelete }) => {
+    const journeys = state.journeys.filter(({ id }) => id !== toDelete);
+    return {
+      ...state,
+      journeys,
+      selectedJourney: null,
+      isLoading: false,
+    };
+  }),
+  on(JOURNEY_ACTIONS.upsertJourneyFailure, (state, { error }) => {
+    return {
+      ...state,
+      error,
+    };
+  }),
+
   // Selected Journey
   on(JOURNEY_ACTIONS.loadSelectedJourney, (state) => {
     return {
@@ -71,6 +96,7 @@ export const journeyReducer = createReducer<JourneyState, Action>(
       error,
     };
   }),
+
   // Upload images
   on(JOURNEY_ACTIONS.uploadImages, (state) => {
     return {
@@ -90,6 +116,7 @@ export const journeyReducer = createReducer<JourneyState, Action>(
       error,
     };
   }),
+
   // Download images
   on(JOURNEY_ACTIONS.downloadImage, (state) => {
     return {
@@ -106,10 +133,10 @@ export const journeyReducer = createReducer<JourneyState, Action>(
   on(JOURNEY_ACTIONS.downloadImageFailure, (state, { error }) => {
     return {
       ...state,
-      isLoading: true,
       error,
     };
   }),
+
   // Delete images
   on(JOURNEY_ACTIONS.deleteImages, (state) => {
     return {

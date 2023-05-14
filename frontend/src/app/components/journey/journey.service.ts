@@ -32,6 +32,12 @@ export class JourneyService {
       .pipe(catchError(this.handleError));
   }
 
+  deleteJourney(id: number) {
+    return this.http
+      .post<{ id: number }>(this.baseURL + '/delete', { id })
+      .pipe(catchError(this.handleError));
+  }
+
   uploadFiles(files: FormData) {
     return this.http
       .post(`${this.baseURL}/image/upload`, files)
