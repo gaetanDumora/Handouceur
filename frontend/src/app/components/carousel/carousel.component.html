@@ -18,10 +18,12 @@
   </ng-container>
 
   <!-- controls -->
-  <button class="control prev" (click)="onPreviousClick()">
-    <mat-icon class="font-weight-bold">arrow_back_ios</mat-icon>
-  </button>
-  <button class="control next" (click)="onNextClick()">
-    <mat-icon class="font-weight-bold">arrow_forward_ios</mat-icon>
-  </button>
+  <div *ngIf="journey.images && journey.images.length > 1">
+    <button class="control prev" (click)="onPreviousClick()">
+      <mat-icon class="font-weight-bold">arrow_back_ios</mat-icon>
+    </button>
+    <button class="control next" (click)="onNextClick()">
+      <mat-icon class="font-weight-bold">arrow_forward_ios</mat-icon>
+    </button>
+  </div>
 </div>

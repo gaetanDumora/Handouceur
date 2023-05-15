@@ -6,7 +6,6 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import { Journey } from 'src/app/models/journeys';
 import { environment } from 'src/environment/environment';
@@ -48,20 +47,24 @@ export class CarouselComponent implements AfterViewInit, OnInit {
   }
 
   private loadSlideImage(slide: Slide) {
-    this.img.nativeElement.onload = () => this.isImageLoaded.next(true);
-    this.img.nativeElement.onerror = () => this.isImageLoaded.next(false);
     this.currentSlide = slide;
+    this.isImageLoaded.next(false);
   }
 
   ngOnInit() {
-    this.slides = this.journey.images!.map((key, id) => ({
-      id,
-      key: this.baseURL + key,
-    }));
+    if (this.journey.images?.length) {
+      this.slides = this.journey.images.map((key, id) => ({
+        id,
+        key: this.baseURL + key,
+      }));
+    }
+
     this.currentSlide = this.slides[0] || this.defaultSlide;
   }
 
   ngAfterViewInit() {
+    this.img.nativeElement.onload = () => this.isImageLoaded.next(true);
+    this.img.nativeElement.onerror = () => this.isImageLoaded.next(false);
     this.loadSlideImage(this.currentSlide);
   }
 }
