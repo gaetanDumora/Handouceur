@@ -2,7 +2,7 @@ import prisma from '../../utils/prisma';
 import { UpsertJourneyInput } from './journey.schema';
 
 export const getAllJourney = async () => {
-  return await prisma.journey.findMany();
+  return await prisma.journey.findMany({ orderBy: { startDate: 'desc' } });
 };
 
 export const gerJourney = async (id: number) => {

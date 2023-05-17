@@ -14,7 +14,7 @@ export async function downloadFileHandler(
 ) {
   try {
     const { key } = request.params;
-    const image = await getObjectFromS3(key);
+    const image = await getObjectFromS3(key, 'journey_images/');
     return reply.code(200).send(image);
   } catch (error) {
     request.log.error(error);
@@ -28,7 +28,10 @@ export async function deleteFileHandler(
 ) {
   const { filesToDelete } = request.body;
   try {
-    const { deleteSuccess } = await deleteFiles(filesToDelete);
+    const { deleteSuccess } = await deleteFiles(
+      filesToDelete,
+      'journey_images/'
+    );
     request.log.info({ deleteSuccess }, 'S3 delete files');
     return reply.code(200).send({ deleteSuccess });
   } catch (error) {
@@ -48,7 +51,7 @@ export async function uploadFileHandler(
   }
   try {
     const files = request.files();
-    const { uploadSuccess } = await uploadFiles(files);
+    const { uploadSuccess } = await uploadFiles(files, 'journey_images/');
     request.log.info({ uploadSuccess }, 'S3 upload files');
     return reply.code(200).send({ uploadSuccess });
   } catch (error) {
