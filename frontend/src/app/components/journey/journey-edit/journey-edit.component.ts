@@ -71,9 +71,9 @@ export class JourneyEditComponent implements OnInit {
   private preFillForm() {
     this.editForm.addControl('id', new FormControl());
     this.selectedJourney.subscribe((journey) => {
-      if (journey?.images?.length) {
-        this.dataSource.next(journey.images);
-      }
+      const images = journey?.images?.length ? journey?.images : [];
+      this.dataSource.next(images);
+
       if (journey) {
         Object.keys(this.editForm.value).forEach((formKey) => {
           this.editForm.patchValue({
