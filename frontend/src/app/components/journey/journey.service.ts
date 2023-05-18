@@ -26,7 +26,7 @@ export class JourneyService {
       .pipe(catchError(this.handleError));
   }
 
-  postJourney(journey: Journey) {
+  postJourney(journey: Partial<Journey>) {
     return this.http
       .post<Journey>(this.baseURL + '/upsert', journey)
       .pipe(catchError(this.handleError));

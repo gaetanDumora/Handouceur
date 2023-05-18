@@ -7,42 +7,42 @@ enum AutonomyStatus {
   IMPORTANT = 'IMPORTANT',
 }
 
-const journeyCore = {
+const getJourneyInput = z.object({
+  id: z.number(),
+});
+
+const getJourneySchemaResponse = z.object({
+  id: z.number(),
   title: z.string(),
   subtitle: z.string(),
   location: z.string(),
   images: z.array(z.string()),
   description: z.string(),
-};
-
-const journeyOptional = {
-  coordinates: z.tuple([z.number(), z.number()]).optional(),
-  startDate: z.union([z.date(), z.string()]).optional(),
-  endDate: z.union([z.date(), z.string()]).optional(),
-  price: z.number().optional(),
-  autonomy: z.nativeEnum(AutonomyStatus).optional(),
-  optionalImage: z.string().optional(),
-  groupSize: z.tuple([z.number(), z.number()]).optional(),
-  recreation: z.string().optional(),
-  hosting: z.string().optional(),
-  transport: z.string().optional(),
-};
-
-const getJourneyInput = z.object({
-  id: z.number(),
-});
-const getJourneySchemaResponse = z.object({
-  id: z.number(),
-  ...journeyCore,
-  ...journeyOptional,
+  coordinates: z.tuple([z.number(), z.number()]),
+  startDate: z.union([z.date(), z.string()]),
+  endDate: z.union([z.date(), z.string()]),
+  price: z.number(),
+  autonomy: z.nativeEnum(AutonomyStatus),
+  groupSize: z.tuple([z.number(), z.number()]),
+  recreation: z.string(),
+  hosting: z.string(),
+  transport: z.string(),
   createdAt: z.union([z.date(), z.string()]),
 });
 const getAllJourneySchemaResponse = z.array(getJourneySchemaResponse);
 
 const upsertJourneyInput = z.object({
   id: z.number().optional(),
-  ...journeyCore,
-  ...journeyOptional,
+  title: z.string().optional(),
+  subtitle: z.string().optional(),
+  location: z.string().optional(),
+  images: z.array(z.string()).optional(),
+  description: z.string().optional(),
+  price: z.number().optional(),
+  groupSize: z.tuple([z.number(), z.number()]).optional(),
+  recreation: z.string().optional(),
+  hosting: z.string().optional(),
+  transport: z.string().optional(),
 });
 
 const deleteJourneyInput = z.object({
