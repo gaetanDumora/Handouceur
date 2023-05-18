@@ -1,0 +1,25 @@
+# data
+data
+
+# dependencies
+node_modules
+certificats
+
+# build
+build
+
+# misc
+.DS_Store
+.env
+environment
+
+# Visual Studio Code
+.vscode/**/*
+
+# Miscellaneous
+cache
+assets
+
+# System Files  
+.DS_Store  
+Thumbs.db 

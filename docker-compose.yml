@@ -27,9 +27,8 @@ services:
     environment:
       POSTGRES_DB: handouceur_dev
       POSTGRES_HOST_AUTH_METHOD: trust
-    # FIXME: persist data
-    # volumes:
-    #   - ./postgres-data:/var/lib/postgresql/data
+    volumes:
+      - ./data:/var/lib/postgresql/data # when container will be deleted, data will still exist in the local folder ./data
 
   frontend:
     container_name: frontend
@@ -43,6 +42,5 @@ services:
     environment:
       BACKEND_URL: https://localhost:8000
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
       - ./frontend:/project
-      - /project/node_modules
+      - /usr/src/app/node_modules
