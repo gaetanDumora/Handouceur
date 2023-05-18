@@ -42,5 +42,5 @@ services:
     environment:
       BACKEND_URL: https://localhost:8000
     volumes:
-      - ./frontend:/project
+      - ./frontend:/usr/src/app
       - /usr/src/app/node_modules
