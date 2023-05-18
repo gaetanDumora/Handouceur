@@ -29,19 +29,19 @@ model User {
 
 model Journey {
   id Int @id @default(autoincrement()) 
-  title String
-  subtitle String
-  location String
+  title String?
+  subtitle String?
+  location String?
   coordinates Float[] @default([48.86,2.35]) // Paris
-  startDate DateTime @default(now()) @map("start_date") 
-  endDate DateTime @default(now()) @map("end_date")
-  price Int @default(0)
-  autonomy AutonomyStatus  @default(RELATIVE)
+  startDate DateTime? @default(now()) @map("start_date") 
+  endDate DateTime? @default(now()) @map("end_date")
+  price Int? @default(0)
+  autonomy AutonomyStatus?  @default(RELATIVE)
   images String[] @default([])
-  description String @map("main_text")
-  recreation String  @map("recreation_text")
-  hosting String  @map("hosting_text" )
-  transport String  @map("transport_text")
+  description String? @map("main_text")
+  recreation String?  @map("recreation_text")
+  hosting String?  @map("hosting_text" )
+  transport String?  @map("transport_text")
   groupSize Int[] @default([0,0])  @map("group_size")
   candidates User[]
   updatedAt DateTime @updatedAt @map("updated_at")
