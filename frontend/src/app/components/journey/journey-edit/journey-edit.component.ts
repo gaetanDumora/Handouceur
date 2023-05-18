@@ -11,7 +11,11 @@ import {
 import { JOURNEY_ACTIONS } from '../store/journey.actions';
 import { MatTable } from '@angular/material/table';
 import { JourneyService } from '../journey.service';
-import { Journey, SuggestedLocationResult } from 'src/app/models/journeys';
+import {
+  AutonomyStatus,
+  Journey,
+  SuggestedLocationResult,
+} from 'src/app/models/journeys';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -27,16 +31,13 @@ export class JourneyEditComponent implements OnInit {
     title: new FormControl(),
     subtitle: new FormControl(),
     location: new FormControl(),
-    coordinates: new FormControl(),
-    startDate: new FormControl('', Validators.required),
-    endDate: new FormControl('', Validators.required),
-    price: new FormControl('', [
-      Validators.required,
-      Validators.pattern('[0-9]+'),
-    ]),
+    coordinates: new FormControl([48.86, 2.35]),
+    startDate: new FormControl(new Date()),
+    endDate: new FormControl(new Date()),
+    price: new FormControl(0, Validators.pattern('[0-9]+')),
     description: new FormControl(),
     images: new FormControl([]),
-    autonomy: new FormControl('', Validators.required),
+    autonomy: new FormControl(AutonomyStatus.RELATIVE),
     recreation: new FormControl(),
     hosting: new FormControl(),
     transport: new FormControl(),
