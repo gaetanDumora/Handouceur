@@ -24,7 +24,7 @@ export const startServer = fp(async function (server: FastifyInstance) {
   server.register(multipart, { limits: { fileSize: 10485760 } }); // 10 MB
   server.register(userRoutes, { prefix: '/user' });
   server.register(journeyRoutes, { prefix: '/journey' });
-  server.register(fjwt, { secret: `${process.env.JWT_SECRET || 'mySecret'}` });
+  server.register(fjwt, { secret: `${process.env.JWT_SECRET}` });
 
   // Hooks
   server.addHook('onRequest', async (request) => {

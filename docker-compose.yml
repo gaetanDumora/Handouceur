@@ -17,8 +17,13 @@ services:
       - postgres
     environment:
       NODE_ENV: development
-      DATABASE_URL: postgres://user:password@postgres/handouceur_dev
       PORT: 8000
+      DATABASE_URL: ${DATABASE_URL}
+      AWS_S3_BUCKET_URL: ${AWS_S3_BUCKET_URL}
+      AWS_S3_LOCATION: ${AWS_S3_LOCATION}
+      AWS_S3_KEY: ${AWS_S3_KEY}
+      AWS_S3_SECRET: ${AWS_S3_SECRET}
+      JWT_SECRET: ${JWT_SECRET}
 
   postgres:
     container_name: postgres
@@ -26,9 +31,9 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: handouceur_dev
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - db:/var/lib/postgresql/data
 

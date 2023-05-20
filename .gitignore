@@ -19,6 +19,7 @@ environment
 # Miscellaneous
 cache
 assets
+docker_secrets
 
 # System Files  
 .DS_Store  

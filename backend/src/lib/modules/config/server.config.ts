@@ -31,11 +31,7 @@ export const loadServerConfig = {
     : true,
   http2: true,
   https: {
-    key:
-      process.env.HTTPS_KEY ||
-      readFileSync('/usr/src/app/certificats/localhost-key.pem'),
-    cert:
-      process.env.HTTPS_CERT ||
-      readFileSync('/usr/src/app/certificats/localhost.pem'),
+    key: readFileSync('/usr/src/app/certificats/localhost-key.pem'),
+    cert: readFileSync('/usr/src/app/certificats/localhost.pem'),
   },
 };
