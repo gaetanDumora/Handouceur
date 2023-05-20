@@ -34,7 +34,8 @@ export async function up(knex: Knex): Promise<void> {
     table.text('recreation_text');
     table.text('hosting_text');
     table.text('transport_text');
-    table.specificType('group_size', 'INT[]');
+    table.integer('group_size');
+    table.integer('companions');
     table.specificType('candidates', 'TEXT[]');
     table.timestamp('updated_at').notNullable();
     table.timestamp('created_at').notNullable();

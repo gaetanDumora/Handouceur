@@ -41,7 +41,8 @@ export class JourneyEditComponent implements OnInit {
     recreation: new FormControl(),
     hosting: new FormControl(),
     transport: new FormControl(),
-    groupeSize: new FormControl(),
+    groupSize: new FormControl(0),
+    companions: new FormControl(0),
   });
   formData = new FormData();
   formdataLength = 0;

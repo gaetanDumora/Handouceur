@@ -1,9 +1,9 @@
 export interface Journey {
-  id?: number;
+  id: number;
   title?: string;
   subtitle?: string;
   location?: string;
-  coordinates?: [number, number];
+  coordinates: [number, number];
   startDate?: string | Date;
   endDate?: string | Date;
   price?: number;
@@ -14,7 +14,8 @@ export interface Journey {
   recreation?: string;
   hosting?: string;
   transport?: string;
-  groupSize?: [number, number];
+  groupSize?: number;
+  companions?: number;
   updatedAt?: string | Date;
   createdAt?: string | Date;
 }

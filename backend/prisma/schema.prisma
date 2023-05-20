@@ -42,7 +42,8 @@ model Journey {
   recreation String?  @map("recreation_text")
   hosting String?  @map("hosting_text" )
   transport String?  @map("transport_text")
-  groupSize Int[] @default([0,0])  @map("group_size")
+  groupSize Int @default(0)  @map("group_size")
+  companions Int @default(0)
   candidates User[]
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
