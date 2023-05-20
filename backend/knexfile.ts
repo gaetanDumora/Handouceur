@@ -1,9 +1,6 @@
-import type { Knex } from 'knex';
+import { Knex } from 'knex';
 
-// Update with your config settings.
-//ts-ignore
-
-const config: { [key: string]: unknown } = {
+const config: Knex.Config = {
   client: 'pg',
   connection: process.env.DATABASE_URL,
   migrations: {
@@ -11,4 +8,4 @@ const config: { [key: string]: unknown } = {
   },
 };
 
-module.exports = config;
+export default config;

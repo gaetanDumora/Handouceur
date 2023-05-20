@@ -16,7 +16,7 @@ services:
     depends_on:
       - postgres
     environment:
-      DATABASE_URL: postgres://postgres@postgres/handouceur_dev
+      DATABASE_URL: postgres://user:password@postgres/handouceur_dev
       PORT: 8000
 
   postgres:
@@ -26,9 +26,10 @@ services:
       - 5432:5432
     environment:
       POSTGRES_DB: handouceur_dev
-      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
     volumes:
-      - ./data:/var/lib/postgresql/data # when container will be deleted, data will still exist in the local folder ./data
+      - db:/var/lib/postgresql/data
 
   frontend:
     container_name: frontend
@@ -44,3 +45,7 @@ services:
     volumes:
       - ./frontend:/usr/src/app
       - /usr/src/app/node_modules
+
+volumes:
+  db:
+    driver: local
