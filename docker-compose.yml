@@ -16,6 +16,7 @@ services:
     depends_on:
       - postgres
     environment:
+      NODE_ENV: development
       DATABASE_URL: postgres://user:password@postgres/handouceur_dev
       PORT: 8000
 
