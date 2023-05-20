@@ -24,19 +24,23 @@
   margin-right: 10px;
 }
 .mat-mdc-standard-chip {
-  margin: 4px;
-  height: 20px;
+  max-height: 24px;
   pointer-events: none;
   font-size: x-small;
   font-weight: bold;
+  opacity: 85%;
+  margin: 2px;
 }
 
 .chips {
+  height: 24px;
   display: flex;
   justify-content: center;
+  align-items: center;
   border-radius: 10px;
   background-color: mat.get-color-from-palette($angular-light-primary);
-  color: grey;
+  color: rgb(73, 73, 73);
   font-size: small;
   font-weight: bold;
+  opacity: 85%;
 }

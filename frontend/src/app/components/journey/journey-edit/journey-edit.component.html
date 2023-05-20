@@ -94,7 +94,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-icon matPrefix>accessible</mat-icon>
+      <mat-icon matPrefix>accessibility</mat-icon>
       <mat-select placeholder="Autonomy" formControlName="autonomy">
         <option selected></option>
         <mat-option
@@ -104,6 +104,27 @@
         >
       </mat-select>
     </mat-form-field>
+
+    <div class="row">
+      <mat-form-field class="col">
+        <mat-icon matPrefix>accessible_forward</mat-icon>
+        <input
+          type="number"
+          placeholder="Group size"
+          matInput
+          formControlName="groupSize"
+        />
+      </mat-form-field>
+      <mat-form-field class="col">
+        <mat-icon matPrefix>group</mat-icon>
+        <input
+          type="number"
+          placeholder="Companions"
+          matInput
+          formControlName="companions"
+        />
+      </mat-form-field>
+    </div>
   </div>
 
   <!-- Images table -->
