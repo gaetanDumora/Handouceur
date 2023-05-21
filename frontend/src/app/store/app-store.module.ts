@@ -2,19 +2,28 @@ import { CommonModule } from '@angular/common';
 import { NgModule, isDevMode } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { rootReducer, metaReducers } from './root.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { RootEffect } from './root.effects';
-import { ROOT_FEATURE_KEY } from './state';
+
+import { UserStoreModule } from './user/user-store.module';
+import { RootStoreModule } from './root/root-store.module';
+import { JourneyStoreModule } from './journey/journey-store.module';
+import { userMetareducer } from './user/user.reducer';
+import { rootMetareducer } from './root/root.reducer';
+
+export const featureStores = [
+  UserStoreModule,
+  RootStoreModule,
+  JourneyStoreModule,
+];
 
 @NgModule({
   imports: [
     CommonModule,
-    EffectsModule.forRoot([RootEffect]),
+    EffectsModule.forRoot([]),
     StoreModule.forRoot(
-      { [ROOT_FEATURE_KEY]: rootReducer },
+      {},
       {
-        metaReducers,
+        metaReducers: [userMetareducer, rootMetareducer],
         runtimeChecks: {
           strictActionTypeUniqueness: true, // Uniq name for Actions.
           strictActionImmutability: true, // Actions can not be altered in reducers.
@@ -25,9 +34,10 @@ import { ROOT_FEATURE_KEY } from './state';
     StoreDevtoolsModule.instrument({
       name: 'Handouceur',
       maxAge: 25,
-      logOnly: !isDevMode(),
+      logOnly: isDevMode(),
     }),
+    ...featureStores,
   ],
   declarations: [],
 })
-export class RootStoreModule {}
+export class AppStoreModule {}

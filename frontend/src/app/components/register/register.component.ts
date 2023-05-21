@@ -10,10 +10,9 @@ import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { getError, isLoading } from 'src/app/root-store/root.selectors';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { ROOT_ACTIONS } from 'src/app/root-store/root.actions';
-import { ErrorType } from 'src/app/models/error';
+import { getError, isLoading } from 'src/app/store/user/user.selectors';
+import { BehaviorSubject } from 'rxjs';
+import { USER_ACTIONS } from 'src/app/store/user/user.actions';
 
 @Component({
   selector: 'app-register',
@@ -111,7 +110,7 @@ export class RegisterComponent implements OnInit {
     const lastName = formData.value.lastName ?? 'unknown';
 
     this.store.dispatch(
-      ROOT_ACTIONS.submitCredentials({ email, password, firstName, lastName })
+      USER_ACTIONS.submitCredentials({ email, password, firstName, lastName })
     );
 
     this.isSubmitted.next(formDirective.submitted);

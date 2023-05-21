@@ -1,23 +1,19 @@
 import { ErrorType } from 'src/app/models/error';
 import { User } from 'src/app/models/user';
 
-export const ROOT_FEATURE_KEY = 'root';
+export const USER_FEATURE_KEY = 'user';
 
 export interface State {
-  readonly [ROOT_FEATURE_KEY]: RootState;
+  readonly [USER_FEATURE_KEY]: UserState;
 }
 
-export interface RootState {
-  appName: string;
-  isDarkTheme: boolean;
+export interface UserState {
   isLoading: boolean;
   error: ErrorType;
   user: User | null;
 }
 
-export const initialState: RootState = {
-  appName: 'Handouceur',
-  isDarkTheme: true,
+export const initialState: UserState = {
   isLoading: false,
   error: null,
   user: null,

@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { JourneyService } from '../journey.service';
+import { JourneyService } from './journey.service';
 import { JOURNEY_ACTIONS } from './journey.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class JourneyEffects {
   constructor(
     private actions: Actions,
@@ -41,7 +39,6 @@ export class JourneyEffects {
           map((journeys) =>
             JOURNEY_ACTIONS.loadAllJourneySuccess({ journeys })
           ),
-          // TO DO: Inform User if error occurs when loading
           catchError(({ error }) =>
             of(JOURNEY_ACTIONS.loadAllJourneyFailure({ error: error.message }))
           )

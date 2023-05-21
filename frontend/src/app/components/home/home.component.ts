@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { Journey } from 'src/app/models/journeys';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { getAllJourney } from '../journey/store/journey.selectors';
-import { getAdminStatus } from 'src/app/root-store/root.selectors';
-
+import { getAllJourney } from '../../store/journey/journey.selectors';
+import { getAdminStatus } from 'src/app/store/user/user.selectors';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

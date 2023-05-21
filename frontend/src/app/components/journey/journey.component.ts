@@ -2,8 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Journey } from 'src/app/models/journeys';
-import { getAdminStatus } from 'src/app/root-store/root.selectors';
-
+import { getAdminStatus } from 'src/app/store/user/user.selectors';
 @Component({
   selector: 'app-journey',
   templateUrl: './journey.component.html',

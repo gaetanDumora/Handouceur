@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 
 import { THEMES } from '../../constants/themes';
 import { Store } from '@ngrx/store';
-import { isDarkTheme } from 'src/app/root-store/root.selectors';
+import { isDarkTheme } from 'src/app/store/root/root.selectors';
 import { ThemeService } from 'src/app/shared/services/theme.service';
 import { BehaviorSubject } from 'rxjs';
 

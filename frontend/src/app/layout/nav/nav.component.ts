@@ -3,8 +3,9 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
 
 import { User } from 'src/app/models/user';
 import { Store } from '@ngrx/store';
-import { getUser, isDarkTheme } from 'src/app/root-store/root.selectors';
-import { ROOT_ACTIONS } from 'src/app/root-store/root.actions';
+import { isDarkTheme } from 'src/app/store/root/root.selectors';
+import { ROOT_ACTIONS } from 'src/app/store/root/root.actions';
+import { getUser } from 'src/app/store/user/user.selectors';
 
 @Component({
   selector: 'app-nav',

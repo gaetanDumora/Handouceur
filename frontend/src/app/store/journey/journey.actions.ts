@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Journey } from '../../../models/journeys';
+import { Journey } from '../../models/journeys';
 import { ErrorType } from 'src/app/models/error';
 
 export enum JourneyActionTypes {

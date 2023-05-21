@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 import { SharedModule } from './shared/shared.module';
-import { RootStoreModule } from './root-store/root-store.module';
 
 import { AppComponent } from './app.component';
 import { JourneyComponent } from './components/journey/journey.component';
@@ -25,7 +24,7 @@ import { AutocompleteComponent } from './shared/autocomplete/autocomplete.compon
 import { JourneyEditComponent } from './components/journey/journey-edit/journey-edit.component';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { CarouselComponent } from './components/carousel/carousel.component';
-import { JourneyModule } from './components/journey/journey.module';
+import { AppStoreModule } from './store/app-store.module';
 
 @NgModule({
   declarations: [
@@ -50,9 +49,8 @@ import { JourneyModule } from './components/journey/journey.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
-    RootStoreModule,
+    AppStoreModule,
     LeafletModule,
-    JourneyModule,
   ],
   providers: [
     {
