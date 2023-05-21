@@ -42,8 +42,10 @@ services:
     build:
       context: ./frontend
       target: builder
+    command: npm start
     ports:
       - 4200:4200
+      # - 8080:80
     depends_on:
       - backend
     environment:

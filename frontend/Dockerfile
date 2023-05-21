@@ -1,3 +1,4 @@
+### STAGE 1: Build ###
 FROM node:17 as builder
 
 WORKDIR /usr/src/app
@@ -8,21 +9,13 @@ RUN npm install -g @angular/cli
 RUN npm ci
 
 COPY . .
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+CMD ["npm", "run", "build"]
 
-# FROM builder as dev-envs
+### STAGE 2: Run ###
+FROM nginx:1.23-alpine AS ngi
 
-# RUN <<EOF
-# apt-get update
-# apt-get install -y --no-install-recommends git
-# EOF
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# RUN <<EOF
-# useradd -s /bin/bash -m vscode
-# groupadd docker
-# usermod -aG docker vscode
-# EOF
-# # install Docker tools (cli, buildx, compose)
-# COPY --from=gloursdocker/docker / /
+COPY --from=builder /usr/src/app/dist/angular-frontend /usr/share/nginx/html
 
-# CMD ["ng", "serve", "--host", "0.0.0.0"]
+EXPOSE 80
