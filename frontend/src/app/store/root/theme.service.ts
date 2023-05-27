@@ -29,7 +29,5 @@ export class ThemeService {
       }
       overlayContainerClasses.add(theme);
     }
-
-    return theme;
   }
 }

@@ -7,10 +7,10 @@ import {
   getError,
   getSelectedJourney,
   isLoading,
-} from '../../../store/journey/journey.selectors';
-import { JOURNEY_ACTIONS } from '../../../store/journey/journey.actions';
+} from '../../../../store/journey/journey.selectors';
+import { JOURNEY_ACTIONS } from '../../../../store/journey/journey.actions';
 import { MatTable } from '@angular/material/table';
-import { JourneyService } from '../../../store/journey/journey.service';
+import { JourneyService } from '../../../../store/journey/journey.service';
 import {
   AutonomyStatus,
   Journey,

@@ -11,7 +11,7 @@ import { ErrorType } from 'src/app/models/error';
 import { User } from 'src/app/models/user';
 import { Observable } from 'rxjs';
 import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
-import { AuthService } from 'src/app/shared/authentication/auth.service';
+import { AuthService } from 'src/app/store/user/auth.service';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { USER_ACTIONS } from 'src/app/store/user/user.actions';
 import {

@@ -1,13 +1,13 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
-import { DialogRegister } from './components/register/register.component';
-import { DialogLogin } from './components/login/login.component';
-import { HomeComponent } from './components/home/home.component';
+import { ContentLayoutComponent } from './features/home/components/content-layout/content-layout.component';
+import { DialogRegister } from './features/auth/components/register/register.component';
+import { DialogLogin } from './features/auth/components/login/login.component';
+import { JourneyListComponent } from './features/journey/components/journey-list/journey-list.component';
 import { AdminGuard, AuthGuard } from './shared/authentication/auth.guard';
-import { ProfileComponent } from './components/profile/profile.component';
-import { AdminComponent } from './components/admin/admin.component';
-import { JourneyEditComponent } from './components/journey/journey-edit/journey-edit.component';
+import { ProfileComponent } from './features/user/components/profile/profile.component';
+import { JourneyEditComponent } from './features/journey/components/journey-edit/journey-edit.component';
+import { AdminComponent } from './features/user/components/admin/admin.component';
 
 const routes: Routes = [
   {
@@ -26,7 +26,7 @@ const routes: Routes = [
       },
       {
         path: 'home',
-        component: HomeComponent,
+        component: JourneyListComponent,
         children: [
           {
             path: 'register',

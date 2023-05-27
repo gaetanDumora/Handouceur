@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 
-import { THEMES } from '../../constants/themes';
+import { THEMES } from '../../../../constants/themes';
 import { Store } from '@ngrx/store';
 import { isDarkTheme } from 'src/app/store/root/root.selectors';
-import { ThemeService } from 'src/app/shared/services/theme.service';
+import { ThemeService } from 'src/app/store/root/theme.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({

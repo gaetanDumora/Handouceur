@@ -3,7 +3,7 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 
 import { ROOT_ACTIONS } from './root.actions';
 import { map, switchMap } from 'rxjs';
-import { ThemeService } from 'src/app/shared/services/theme.service';
+import { ThemeService } from './theme.service';
 
 @Injectable()
 export class RootEffect {
