@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  UntypedFormGroup,
+  FormControl,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -9,23 +14,45 @@ import {
   isLoading,
 } from '../../../store/journey/journey.selectors';
 import { JOURNEY_ACTIONS } from '../../../store/journey/journey.actions';
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableModule } from '@angular/material/table';
 import { JourneyService } from '../../../store/journey/journey.service';
 import {
   AutonomyStatus,
   Journey,
   SuggestedLocationResult,
 } from 'src/app/models/journeys';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AutocompleteComponent } from 'src/app/shared/autocomplete/autocomplete.component';
-
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 @Component({
   selector: 'app-journey-edit',
   templateUrl: './journey-edit.component.html',
   styleUrls: ['./journey-edit.component.scss'],
   standalone: true,
-  imports: [SharedModule, AutocompleteComponent],
+  imports: [
+    CommonModule,
+    AutocompleteComponent,
+    MatInputModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatTableModule,
+    MatOptionModule,
+    MatSnackBarModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    MatSelectModule,
+  ],
 })
 export class JourneyEditComponent implements OnInit {
   id = this.route.snapshot.paramMap.get('id');

@@ -9,7 +9,9 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { Journey } from 'src/app/models/journeys';
 import { environment } from 'src/environment/environment';
-import { SharedModule } from '../shared.module';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 interface Slide {
   id: number;
@@ -21,7 +23,7 @@ interface Slide {
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
   standalone: true,
-  imports: [SharedModule],
+  imports: [CommonModule, MatIconModule, NgxSkeletonLoaderModule],
 })
 export class CarouselComponent implements AfterViewInit, OnInit {
   @Input() journey: Journey;

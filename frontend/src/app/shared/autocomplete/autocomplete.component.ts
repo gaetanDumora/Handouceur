@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -8,16 +9,26 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { debounceTime } from 'rxjs';
-import { SharedModule } from '../shared.module';
 
 @Component({
   selector: 'app-autocomplete',
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss'],
   standalone: true,
-  imports: [SharedModule],
+  imports: [
+    CommonModule,
+    MatAutocompleteModule,
+    MatIconModule,
+    MatInputModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteComponent implements OnInit, OnChanges {

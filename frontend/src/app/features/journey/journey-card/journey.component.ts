@@ -3,15 +3,29 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Journey } from 'src/app/models/journeys';
 import { CarouselComponent } from 'src/app/shared/carousel/carousel.component';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { getAdminStatus } from 'src/app/store/user/user.selectors';
 import { MapComponent } from '../journey-map/map.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-journey',
   templateUrl: './journey.component.html',
   styleUrls: ['./journey.component.scss'],
   standalone: true,
-  imports: [SharedModule, CarouselComponent, MapComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    CarouselComponent,
+    MapComponent,
+    MatCardModule,
+    MatIconModule,
+    MatChipsModule,
+    MatButtonModule,
+  ],
 })
 export class JourneyComponent {
   @Input() journey: Journey;

@@ -3,21 +3,39 @@ import {
   FormControl,
   FormGroup,
   FormGroupDirective,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../../store/user/auth.service';
 import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { getError, isLoading } from 'src/app/store/user/user.selectors';
 import { BehaviorSubject } from 'rxjs';
 import { USER_ACTIONS } from 'src/app/store/user/user.actions';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatButtonModule,
+    RouterModule,
+  ],
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
@@ -122,6 +140,7 @@ export class RegisterComponent implements OnInit {
 
 @Component({
   template: '',
+  standalone: true,
 })
 export class DialogRegister {
   constructor(

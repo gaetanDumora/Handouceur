@@ -8,6 +8,7 @@ import { DialogRegister } from './features/auth/register/register.component';
 import { ProfileComponent } from './features/user/profile/profile.component';
 import { AdminComponent } from './features/user/admin/admin.component';
 import { JourneyEditComponent } from './features/journey/journey-edit/journey-edit.component';
+import { DialogService } from './shared/dialog/dialog.service';
 
 const routes: Routes = [
   {

@@ -3,9 +3,10 @@ import {
   FormControl,
   FormGroup,
   FormGroupDirective,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ErrorType } from 'src/app/models/error';
 import { User } from 'src/app/models/user';
@@ -14,16 +15,36 @@ import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
 import { AuthService } from 'src/app/store/user/auth.service';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { USER_ACTIONS } from 'src/app/store/user/user.actions';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatChipsModule } from '@angular/material/chips';
+
 import {
   getError,
   getUser,
   isLoading,
 } from 'src/app/store/user/user.selectors';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatChipsModule,
+  ],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -93,6 +114,7 @@ export class LoginComponent implements OnInit {
 
 @Component({
   template: '',
+  standalone: true,
 })
 export class DialogLogin {
   constructor(
