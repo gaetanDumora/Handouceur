@@ -15,7 +15,7 @@ export class TokenInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const user = JSON.parse(localStorage.getItem('user') as string);
+    const { user } = JSON.parse(localStorage.getItem('user') as string);
     if (user) {
       const {
         user: { accessToken },
