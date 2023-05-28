@@ -5,7 +5,7 @@ import {
   FormGroupDirective,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../../../../store/user/auth.service';
+import { AuthService } from '../../../store/user/auth.service';
 import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';

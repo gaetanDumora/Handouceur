@@ -7,21 +7,25 @@ import {
   getError,
   getSelectedJourney,
   isLoading,
-} from '../../../../store/journey/journey.selectors';
-import { JOURNEY_ACTIONS } from '../../../../store/journey/journey.actions';
+} from '../../../store/journey/journey.selectors';
+import { JOURNEY_ACTIONS } from '../../../store/journey/journey.actions';
 import { MatTable } from '@angular/material/table';
-import { JourneyService } from '../../../../store/journey/journey.service';
+import { JourneyService } from '../../../store/journey/journey.service';
 import {
   AutonomyStatus,
   Journey,
   SuggestedLocationResult,
 } from 'src/app/models/journeys';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { AutocompleteComponent } from 'src/app/shared/autocomplete/autocomplete.component';
 
 @Component({
   selector: 'app-journey-edit',
   templateUrl: './journey-edit.component.html',
   styleUrls: ['./journey-edit.component.scss'],
+  standalone: true,
+  imports: [SharedModule, AutocompleteComponent],
 })
 export class JourneyEditComponent implements OnInit {
   id = this.route.snapshot.paramMap.get('id');

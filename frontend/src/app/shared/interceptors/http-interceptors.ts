@@ -17,13 +17,10 @@ export class TokenInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const { user } = JSON.parse(localStorage.getItem('user') as string);
     if (user) {
-      const {
-        user: { accessToken },
-      } = user;
       return next.handle(
         req.clone({
           setHeaders: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${user.accessToken}`,
           },
         })
       );

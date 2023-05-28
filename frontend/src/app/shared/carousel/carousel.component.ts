@@ -9,6 +9,7 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { Journey } from 'src/app/models/journeys';
 import { environment } from 'src/environment/environment';
+import { SharedModule } from '../shared.module';
 
 interface Slide {
   id: number;
@@ -19,6 +20,8 @@ interface Slide {
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
+  standalone: true,
+  imports: [SharedModule],
 })
 export class CarouselComponent implements AfterViewInit, OnInit {
   @Input() journey: Journey;

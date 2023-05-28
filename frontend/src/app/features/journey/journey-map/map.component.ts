@@ -38,6 +38,7 @@ import {
       }
     `,
   ],
+  standalone: true,
 })
 export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
   @Output() map$: EventEmitter<Map> = new EventEmitter();
