@@ -1,12 +1,10 @@
-import { NgModule, isDevMode } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { ContentLayoutComponent } from './features/layout/content-layout/content-layout.component';
+import { Routes } from '@angular/router';
 import { DialogLogin } from './features/auth/login/login.component';
 import { JourneyListComponent } from './features/journey/journey-list/journey-list.component';
 import { AdminGuard, AuthGuard } from './shared/authentication/auth.guard';
 import { DialogRegister } from './features/auth/register/register.component';
 
-const routes: Routes = [
+export const APP_ROUTES: Routes = [
   {
     path: 'admin',
     loadComponent: () =>
@@ -46,11 +44,5 @@ const routes: Routes = [
     canActivate: [AdminGuard],
   },
 
-  // { path: '**', component: PageNotFoundComponent }, TO DO
+  // { path: '**', component: PageNotFoundComponent }, TODO create component to handle this case
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: false })],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}
