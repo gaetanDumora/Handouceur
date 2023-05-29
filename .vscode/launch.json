@@ -8,8 +8,7 @@
             "protocol": "inspector",
             "port": 9229,
             "restart": true,
-            "localRoot": "${workspaceFolder}/backend/src",
-            "remoteRoot": "/usr/src/app/src",
+            "remoteRoot": "/usr/src/app",
             "sourceMaps": true,
             "skipFiles": [
                 "/usr/src/app/node_modules/**/*.js",
