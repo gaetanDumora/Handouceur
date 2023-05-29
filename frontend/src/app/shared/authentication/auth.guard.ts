@@ -9,7 +9,7 @@ import {
 import { Observable, map } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { getAdminStatus, getUser } from 'src/app/store/user/user.selectors';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/types/user';
 
 @Injectable({
   providedIn: 'root',

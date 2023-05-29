@@ -8,8 +8,8 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { ErrorType } from 'src/app/models/error';
-import { User } from 'src/app/models/user';
+import { ErrorType } from 'src/app/types/error';
+import { User } from 'src/app/types/user';
 import { Observable } from 'rxjs';
 import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
 import { AuthService } from 'src/app/store/user/auth.service';

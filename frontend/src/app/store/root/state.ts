@@ -1,4 +1,4 @@
-import { ErrorType } from 'src/app/models/error';
+import { ErrorType } from 'src/app/types/error';
 
 export const ROOT_FEATURE_KEY = 'root';
 

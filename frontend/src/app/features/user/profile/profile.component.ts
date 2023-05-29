@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/types/user';
 import { Store } from '@ngrx/store';
 import { getUser } from 'src/app/store/user/user.selectors';
 import { Observable } from 'rxjs';

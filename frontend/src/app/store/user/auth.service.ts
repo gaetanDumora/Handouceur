@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environment/environment';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/types/user';
 
 @Injectable({
   providedIn: 'root',

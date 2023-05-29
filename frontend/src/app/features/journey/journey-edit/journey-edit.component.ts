@@ -20,7 +20,7 @@ import {
   AutonomyStatus,
   Journey,
   SuggestedLocationResult,
-} from 'src/app/models/journeys';
+} from 'src/app/types/journeys';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AutocompleteComponent } from 'src/app/shared/autocomplete/autocomplete.component';
 import { CommonModule } from '@angular/common';

@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Journey } from '../../models/journeys';
-import { ErrorType } from 'src/app/models/error';
+import { Journey } from '../../types/journeys';
+import { ErrorType } from 'src/app/types/error';
 
 export enum JourneyActionTypes {
   LOAD_SELECTED_JOURNEY = 'Load Selected Journey',

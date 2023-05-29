@@ -1,6 +1,6 @@
 import { props, createActionGroup, emptyProps } from '@ngrx/store';
-import { ErrorType } from 'src/app/models/error';
-import { User, Credentials, RegisterInputs } from 'src/app/models/user';
+import { ErrorType } from 'src/app/types/error';
+import { User, Credentials, RegisterInputs } from 'src/app/types/user';
 
 export enum ActionTypes {
   USER_SUBMIT_CREDENTIALS = 'Submit Credentials',

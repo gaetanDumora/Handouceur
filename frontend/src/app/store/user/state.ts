@@ -1,5 +1,5 @@
-import { ErrorType } from 'src/app/models/error';
-import { User } from 'src/app/models/user';
+import { ErrorType } from 'src/app/types/error';
+import { User } from 'src/app/types/user';
 
 export const USER_FEATURE_KEY = 'user';
 

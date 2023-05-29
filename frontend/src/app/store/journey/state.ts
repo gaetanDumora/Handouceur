@@ -1,5 +1,5 @@
-import { ErrorType } from 'src/app/models/error';
-import { Journey } from 'src/app/models/journeys';
+import { ErrorType } from 'src/app/types/error';
+import { Journey } from 'src/app/types/journeys';
 
 export const JOURNEY_FEATURE_KEY = 'journeys';
 

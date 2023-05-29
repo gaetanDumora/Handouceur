@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Journey } from 'src/app/models/journeys';
+import { Journey } from 'src/app/types/journeys';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { getAllJourney } from '../../../store/journey/journey.selectors';

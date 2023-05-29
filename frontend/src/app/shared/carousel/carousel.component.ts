@@ -7,7 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Journey } from 'src/app/models/journeys';
+import { Journey } from 'src/app/types/journeys';
 import { environment } from 'src/environment/environment';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { CommonModule } from '@angular/common';

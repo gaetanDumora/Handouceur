@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { Journey, SuggestedLocations } from 'src/app/models/journeys';
+import { Journey, SuggestedLocations } from 'src/app/types/journeys';
 import { environment } from 'src/environment/environment';
 
 @Injectable({
