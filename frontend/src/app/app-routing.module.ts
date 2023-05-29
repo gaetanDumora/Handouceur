@@ -5,10 +5,6 @@ import { DialogLogin } from './features/auth/login/login.component';
 import { JourneyListComponent } from './features/journey/journey-list/journey-list.component';
 import { AdminGuard, AuthGuard } from './shared/authentication/auth.guard';
 import { DialogRegister } from './features/auth/register/register.component';
-import { ProfileComponent } from './features/user/profile/profile.component';
-import { AdminComponent } from './features/user/admin/admin.component';
-import { JourneyEditComponent } from './features/journey/journey-edit/journey-edit.component';
-import { DialogService } from './shared/dialog/dialog.service';
 
 const routes: Routes = [
   {
