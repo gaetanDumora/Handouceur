@@ -13,7 +13,7 @@ import { environment } from './environment/environment';
 import { tokenInterceptor } from './app/shared/interceptors/http-interceptors';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { provideRouter } from '@angular/router';
-import { APP_ROUTES } from './app/app-routes';
+import { APP_ROUTES } from './app/app.routes';
 
 if (environment.production) {
   enableProdMode();
