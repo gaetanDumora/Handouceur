@@ -5,14 +5,14 @@
     >
       <mat-menu #appMenu="matMenu" class="d-block nowrap">
         <ng-template matMenuContent>
-          <button mat-menu-item routerLink="home" routerLinkActive="active">
-            <span> Home</span>
+          <button mat-menu-item routerLink="journey" routerLinkActive="active">
+            <span>Séjours</span>
           </button>
           <button mat-menu-item routerLink="about" routerLinkActive="active">
-            <span>About us</span>
+            <span>Qui sommes nous</span>
           </button>
           <button mat-menu-item routerLink="contact" routerLinkActive="active">
-            <span>Contact</span>
+            <span>Contactez nous</span>
           </button>
           <button
             *ngIf="(user | async)?.admin"
@@ -40,14 +40,14 @@
       />
 
       <span class="d-none d-md-block">
-        <button mat-button routerLink="home" routerLinkActive="active">
-          <span class="p-3"> <b>Home</b> </span>
+        <button mat-button routerLink="journey">
+          <span class="p-3"> <b>Séjours</b> </span>
         </button>
-        <button mat-button routerLink="about" routerLinkActive="active">
-          <span class="p-3"><b>About us</b></span>
+        <button mat-button routerLink="about">
+          <span class="p-3"><b>Qui sommes nous</b></span>
         </button>
-        <button mat-button routerLink="contact" routerLinkActive="active">
-          <span class="p-3"><b>Contact</b> </span>
+        <button mat-button routerLink="contact">
+          <span class="p-3"><b>Contactez nous</b> </span>
         </button>
         <button *ngIf="(user | async)?.admin" routerLink="admin" mat-button>
           <span class="p-3"><b>Admin</b> </span>
@@ -65,7 +65,7 @@
         </ng-container>
 
         <ng-template #elseTemplate>
-          <button mat-button routerLink="home/register">
+          <button mat-button routerLink="journey/register">
             <mat-icon>person_outline</mat-icon>
           </button>
         </ng-template>

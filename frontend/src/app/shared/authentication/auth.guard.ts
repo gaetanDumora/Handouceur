@@ -27,7 +27,7 @@ export class AdminGuard implements CanActivate {
     return this.store.select(getAdminStatus).pipe(
       map((isAdmin) => {
         if (!isAdmin) {
-          this.router.navigate(['home/login']);
+          this.router.navigate(['journey/login']);
         }
         return true;
       })
@@ -52,7 +52,7 @@ export class AuthGuard implements CanActivate {
     return this.store.select(getUser).pipe(
       map((user) => {
         if (!user?.accessToken) {
-          this.router.navigate(['home/login']);
+          this.router.navigate(['journey/login']);
         }
         return true;
       })

@@ -199,6 +199,6 @@ export class JourneyEditComponent implements OnInit {
   }
 
   private redirectHome() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/journey']);
   }
 }
