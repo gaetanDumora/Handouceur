@@ -3,6 +3,11 @@ import { DialogLogin } from './features/auth/login/login.component';
 import { JourneyListComponent } from './features/journey/journey-list/journey-list.component';
 import { AdminGuard, AuthGuard } from './shared/authentication/auth.guard';
 import { DialogRegister } from './features/auth/register/register.component';
+import { provideState } from '@ngrx/store';
+import { JOURNEY_FEATURE_KEY } from './store/journey/state';
+import { journeyReducer } from './store/journey/journey.reducer';
+import { provideEffects } from '@ngrx/effects';
+import { JourneyEffects } from './store/journey/journey.effects';
 
 export const APP_ROUTES: Routes = [
   {
@@ -24,6 +29,10 @@ export const APP_ROUTES: Routes = [
   {
     path: 'home',
     component: JourneyListComponent,
+    providers: [
+      // provideState(JOURNEY_FEATURE_KEY, journeyReducer),
+      // provideEffects([JourneyEffects]),
+    ],
     children: [
       {
         path: 'register',
