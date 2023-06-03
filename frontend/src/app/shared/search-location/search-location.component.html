@@ -1,0 +1,33 @@
+<mat-form-field class="flex w-100">
+  <input
+    matInput
+    type="text"
+    [matAutocomplete]="auto"
+    matAutocompletePosition="below"
+    [formControl]="inputControl"
+    placeholder="Address"
+  />
+  <mat-icon matPrefix>home</mat-icon>
+  <mat-error *ngIf="inputControl.hasError('required')">
+    This field is required
+  </mat-error>
+</mat-form-field>
+<mat-autocomplete
+  #auto="matAutocomplete"
+  autoActiveFirstOption="true"
+  (optionSelected)="handleSelectedOption($event.option.value)"
+>
+  <mat-option *ngIf="isSearching; else optionsTemplate" disabled="true">
+    <em>Searching...</em>
+  </mat-option>
+
+  <ng-template #optionsTemplate>
+    <mat-option *ngFor="let option of suggestions | async" [value]="option">
+      {{ option.formatted }}
+    </mat-option>
+  </ng-template>
+
+  <mat-option *ngIf="!isSearching && noResults" value="" disabled="true">
+    <b>No results found</b>
+  </mat-option>
+</mat-autocomplete>
