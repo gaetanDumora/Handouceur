@@ -1,91 +1,119 @@
-<div class="flex-column">
-  <div class="d-flex justify-content-center font-weight-light">
-    <form
-      [formGroup]="registerForm"
-      #formDirective="ngForm"
-      (ngSubmit)="onSubmit(registerForm, formDirective)"
-    >
-      <div class="text-center">
-        <p>
-          <mat-form-field>
-            <mat-icon matPrefix>email</mat-icon>
-            <input
-              type="email"
-              matInput
-              placeholder="Email *"
-              formControlName="email"
-              (focusout)="checkEmailExist()"
-            />
-          </mat-form-field>
-          <mat-error *ngIf="checkValidation('email')">
-            {{ getErrorEmail() }}
-          </mat-error>
-        </p>
+<div class="flex col-12 text-center font-weight-light">
+  <form
+    [formGroup]="registerForm"
+    #formDirective="ngForm"
+    (ngSubmit)="onSubmit(registerForm, formDirective)"
+  >
+    <div class="d-flex align-items-center flex-column mt-4">
+      <mat-form-field>
+        <mat-icon matPrefix>email</mat-icon>
+        <input
+          type="email"
+          matInput
+          placeholder="Email *"
+          formControlName="email"
+          (focusout)="checkEmailExist()"
+        />
+        <mat-error *ngIf="checkValidation('email')">
+          {{ getErrorEmail() }}
+        </mat-error>
+      </mat-form-field>
 
-        <p>
-          <mat-form-field>
-            <mat-icon matPrefix>person_outline</mat-icon>
-            <input
-              type="text"
-              matInput
-              placeholder="Firstname *"
-              formControlName="firstName"
-            />
-          </mat-form-field>
+      <mat-form-field>
+        <mat-icon matPrefix (click)="togglePasswordVisibility()">
+          {{ showPassword ? 'visibility_off' : 'visibility' }}
+        </mat-icon>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          autocomplete="false"
+          matInput
+          placeholder="Mot de passe *"
+          formControlName="password"
+        />
+        <mat-error *ngIf="checkValidation('password')">
+          {{ getErrorPassword() }}
+        </mat-error>
+      </mat-form-field>
+
+      <div class="row">
+        <mat-form-field class="col">
+          <mat-icon matPrefix>text_fields</mat-icon>
+          <input
+            type="text"
+            matInput
+            placeholder="Prénom *"
+            formControlName="firstName"
+          />
           <mat-error *ngIf="checkValidation('firstName')">
             {{ getErrorUsername() }}
           </mat-error>
-        </p>
+        </mat-form-field>
 
-        <p>
-          <mat-form-field>
-            <mat-icon matPrefix (click)="togglePasswordVisibility()">
-              {{ showPassword ? 'visibility_off' : 'visibility' }}
-            </mat-icon>
-            <input
-              [type]="showPassword ? 'text' : 'password'"
-              autocomplete="false"
-              matInput
-              placeholder="Password *"
-              formControlName="password"
-            />
-          </mat-form-field>
-          <mat-error *ngIf="checkValidation('password')">
-            {{ getErrorPassword() }}
+        <mat-form-field class="col">
+          <mat-icon matPrefix>text_fields</mat-icon>
+          <input
+            type="text"
+            matInput
+            placeholder="Nom *"
+            formControlName="lastName"
+          />
+          <mat-error *ngIf="checkValidation('lastName')">
+            {{ getErrorUsername() }}
           </mat-error>
-        </p>
+        </mat-form-field>
       </div>
 
-      <div class="row row-cols-1 p-3">
+      <app-search-location
+        #autocomplete
+        (onSelectedValue)="onSelectedValue($event)"
+      ></app-search-location>
+
+      <div class="mb-2">
+        <input
+          hidden="true"
+          type="file"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+          #fileUpload
+        />
+        <p>Ajouter une photo de profil ?</p>
         <button
-          type="submit"
-          [disabled]="registerForm.invalid"
-          mat-raised-button
+          type="button"
+          color="none"
+          mat-fab
+          aria-label="button with a peson icon"
+          (click)="fileUpload.click()"
         >
-          Register
+          <img [src]="profileImg" alt="Profile image" />
         </button>
       </div>
-      <mat-progress-bar
-        *ngIf="isLoading | async"
-        color="warn"
-        mode="query"
-      ></mat-progress-bar>
-      <div
-        *ngIf="(isSubmitted | async) && !(error | async)"
-        class="d-flex justify-content-around p-2"
-      >
-        <p>User created, please login.</p>
-      </div>
-    </form>
-  </div>
-  <hr />
-  <div class="font-weight-light justify-content-center text-center">
-    <p>Already an account ?</p>
-    <p>Login:</p>
-    <p>
-      <button mat-icon-button matDialogClose="true" routerLink="journey/login">
-        <mat-icon>person_outline</mat-icon>
+    </div>
+
+    <div class="p-3">
+      <button type="submit" [disabled]="registerForm.invalid" mat-raised-button>
+        Créer mon compte
       </button>
-    </p>
-  </div>
+    </div>
+    <mat-progress-bar
+      *ngIf="isLoading | async"
+      color="warn"
+      mode="query"
+    ></mat-progress-bar>
+    <div
+      *ngIf="(isSubmitted | async) && !(error | async)"
+      class="d-flex justify-content-around p-2"
+    >
+      <p>User created, please login.</p>
+    </div>
+  </form>
+</div>
+<hr />
+<div class="font-weight-light justify-content-center text-center">
+  <p>Already an account ?</p>
+  <p>Login:</p>
+  <p>
+    <button mat-icon-button matDialogClose="true" routerLink="journey/login">
+      <mat-icon>person_outline</mat-icon>
+    </button>
+  </p>
 </div>

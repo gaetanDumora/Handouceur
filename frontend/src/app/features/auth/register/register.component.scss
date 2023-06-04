@@ -1,0 +1,16 @@
+app-search-location,
+mat-form-field {
+  width: 400px;
+}
+
+mat-error {
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
