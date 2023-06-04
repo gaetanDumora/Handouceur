@@ -29,17 +29,23 @@ export class AuthService {
     firstName,
     lastName,
     password,
+    address,
+    avatar,
   }: {
     email: string;
     firstName: string;
     lastName: string;
     password: string;
+    address?: string;
+    avatar?: string;
   }) {
     return this.http.post(this.baseURL + '/registerUser', {
       email,
       firstName,
       lastName,
       password,
+      address,
+      avatar,
     });
   }
 

@@ -12,7 +12,7 @@ import { ErrorType } from 'src/app/types/error';
 import { User } from 'src/app/types/user';
 import { Observable } from 'rxjs';
 import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
-import { AuthService } from 'src/app/store/user/auth.service';
+import { AuthService } from 'src/app/store/user/user.service';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { USER_ACTIONS } from 'src/app/store/user/user.actions';
 import { MatInputModule } from '@angular/material/input';
