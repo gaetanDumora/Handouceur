@@ -9,7 +9,7 @@ import { MultipartFile } from '@fastify/multipart';
 const HTTP_SUCCESS_CODES = [200, 201, 204];
 const S3_BUCKET_URL = process.env.AWS_S3_BUCKET_URL;
 
-type S3FolderNames = 'journey_images/' | 'user_avatar/';
+type S3FolderNames = 'journey_images/' | 'user_images/';
 
 const client = new S3Client({
   region: process.env.AWS_S3_LOCATION,
@@ -48,7 +48,7 @@ const S3Storage = async (part: MultipartFile, folderName: S3FolderNames) => {
     client: client,
     params: {
       Bucket: S3_BUCKET_URL,
-      Key: folderName + part.filename,
+      Key: folderName + part.fieldname,
       Body: part.file,
     },
   });
