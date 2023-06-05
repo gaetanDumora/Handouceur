@@ -40,7 +40,7 @@ export const APP_ROUTES: Routes = [
         path: 'register',
         loadComponent: () =>
           import('./features/auth/register/register.component').then(
-            (mod) => mod.DialogRegister
+            (mod) => mod.RegisterComponent
           ),
       },
       {

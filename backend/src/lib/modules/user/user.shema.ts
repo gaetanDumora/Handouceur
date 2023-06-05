@@ -53,6 +53,10 @@ const loginSchemaResponse = z.object({
   accessToken: z.string(),
 });
 
+const uploadImageResponse = z.object({
+  uploadSuccess: z.boolean(),
+});
+
 export type CreateUserInput = z.infer<typeof createUserSchema>;
 
 export type LoginInput = z.infer<typeof loginSchema>;
@@ -66,6 +70,7 @@ export const { schemas: userShemas, $ref } = buildJsonSchemas(
     loginSchema,
     loginSchemaResponse,
     isUserSchema,
+    uploadImageResponse,
   },
   { $id: 'userShemas' } // id must be uniq to regester multiple schema with server.addSchema
 );

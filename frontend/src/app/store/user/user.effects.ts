@@ -10,9 +10,16 @@ export class UserEffects {
   submitCredentials = createEffect(() =>
     this.actions.pipe(
       ofType(USER_ACTIONS.submitCredentials),
-      switchMap(({ email, firstName, lastName, password }) => {
+      switchMap(({ email, firstName, lastName, password, address, avatar }) => {
         return this.authService
-          .registerUser({ email, firstName, lastName, password })
+          .registerUser({
+            email,
+            firstName,
+            lastName,
+            password,
+            address,
+            avatar,
+          })
           .pipe(
             map(() => USER_ACTIONS.submitCredentialsSuccess({ user: null })),
             catchError(({ error }) =>
@@ -54,5 +61,18 @@ export class UserEffects {
     { dispatch: false }
   );
 
+  uploadImages = createEffect(() =>
+    this.actions.pipe(
+      ofType(USER_ACTIONS.uploadImages),
+      switchMap(({ image }) => {
+        return this.authService.uploadFiles(image).pipe(
+          map(() => USER_ACTIONS.uploadImagesSuccess()),
+          catchError(({ error }) =>
+            of(USER_ACTIONS.uploadImagesFailure({ error: error.message }))
+          )
+        );
+      })
+    )
+  );
   constructor(private actions: Actions, private authService: AuthService) {}
 }

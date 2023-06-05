@@ -4,6 +4,7 @@ import {
   registerUserHandler,
   loginHandler,
   getUsersHandler,
+  uploadFileHandler,
 } from './user.controllers.js';
 import { $ref } from './user.shema.js';
 
@@ -21,17 +22,28 @@ async function userRoutes(server: FastifyInstance) {
     registerUserHandler
   ),
     server.post(
-      '/login',
+      '/image/upload',
       {
         schema: {
-          body: $ref('loginSchema'),
           response: {
-            201: $ref('loginSchemaResponse'),
+            200: $ref('uploadImageResponse'),
           },
         },
       },
-      loginHandler
-    ),
+      uploadFileHandler
+    );
+  server.post(
+    '/login',
+    {
+      schema: {
+        body: $ref('loginSchema'),
+        response: {
+          201: $ref('loginSchemaResponse'),
+        },
+      },
+    },
+    loginHandler
+  ),
     server.get(
       '/isUser',
       {

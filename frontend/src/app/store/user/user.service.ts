@@ -53,6 +53,11 @@ export class AuthService {
     return this.http.post<User>(this.baseURL + '/login', { email, password });
   }
 
+  uploadFiles(file: FormData) {
+    return this.http
+      .post(`${this.baseURL}/image/upload`, file)
+      .pipe(catchError(this.handleError));
+  }
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
