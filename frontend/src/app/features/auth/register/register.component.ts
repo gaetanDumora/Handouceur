@@ -147,6 +147,9 @@ export class RegisterComponent implements OnInit {
     const [file]: File[] = Array.from(event.target?.files);
     if (file) {
       this.formData = new FormData();
+      const fileName = `${this.registerForm.get('lastName')?.value}_${
+        file.name
+      }`;
       const fileReader = new FileReader();
       fileReader.addEventListener(
         'load',
@@ -157,8 +160,8 @@ export class RegisterComponent implements OnInit {
       );
 
       fileReader.readAsDataURL(file);
-      this.registerForm.patchValue({ avatar: file.name });
-      this.formData?.append(file.name, file);
+      this.registerForm.patchValue({ avatar: fileName });
+      this.formData.append(fileName, file);
     }
   }
 
