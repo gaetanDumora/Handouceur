@@ -12,7 +12,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../../../store/user/user.service';
+import { UserService } from '../../../store/user/user.service';
 import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
 import { DialogService } from 'src/app/shared/components/dialog/dialog.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
   isSubmitted: BehaviorSubject<boolean>;
   private formData: FormData | null;
 
-  constructor(public authService: AuthService, private store: Store) {}
+  constructor(public userService: UserService, private store: Store) {}
 
   ngOnInit() {
     this.isSubmitted = new BehaviorSubject(false);
@@ -86,7 +86,7 @@ export class RegisterComponent implements OnInit {
   checkEmailExist() {
     const emailField = this.registerForm.get('email');
     if (emailField?.status === 'VALID') {
-      this.authService.isUser(emailField.value).subscribe({
+      this.userService.isUser(emailField.value).subscribe({
         next: ({ exist }) => {
           if (exist) {
             emailField.setErrors({ exist });

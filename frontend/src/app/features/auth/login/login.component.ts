@@ -12,7 +12,6 @@ import { ErrorType } from 'src/app/types/error';
 import { User } from 'src/app/types/user';
 import { Observable } from 'rxjs';
 import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
-import { AuthService } from 'src/app/store/user/user.service';
 import { DialogService } from 'src/app/shared/components/dialog/dialog.service';
 import { USER_ACTIONS } from 'src/app/store/user/user.actions';
 import { MatInputModule } from '@angular/material/input';
@@ -52,7 +51,7 @@ export class LoginComponent implements OnInit {
   user: Observable<User | null>;
   isLoading: Observable<boolean>;
 
-  constructor(private store: Store, public authService: AuthService) {}
+  constructor(private store: Store) {}
 
   ngOnInit() {
     this.isLoading = this.store.select(isLoading);

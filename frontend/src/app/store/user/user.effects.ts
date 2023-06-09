@@ -3,7 +3,8 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 
 import { USER_ACTIONS } from './user.actions';
 import { map, of, catchError, switchMap } from 'rxjs';
-import { AuthService } from 'src/app/store/user/user.service';
+import { AwsService } from 'src/app/shared/aws.service';
+import { UserService } from './user.service';
 
 @Injectable()
 export class UserEffects {
@@ -11,7 +12,7 @@ export class UserEffects {
     this.actions.pipe(
       ofType(USER_ACTIONS.submitCredentials),
       switchMap(({ email, firstName, lastName, password, address, avatar }) => {
-        return this.authService
+        return this.userService
           .registerUser({
             email,
             firstName,
@@ -38,7 +39,7 @@ export class UserEffects {
     this.actions.pipe(
       ofType(USER_ACTIONS.loginUser),
       switchMap((credentials) => {
-        return this.authService.login(credentials).pipe(
+        return this.userService.login(credentials).pipe(
           map((user) => USER_ACTIONS.submitCredentialsSuccess({ user })),
           catchError(({ error }) =>
             of(
@@ -65,7 +66,7 @@ export class UserEffects {
     this.actions.pipe(
       ofType(USER_ACTIONS.uploadImages),
       switchMap(({ image }) => {
-        return this.authService.uploadFiles(image).pipe(
+        return this.awsService.uploadFiles(image).pipe(
           map(() => USER_ACTIONS.uploadImagesSuccess()),
           catchError(({ error }) =>
             of(USER_ACTIONS.uploadImagesFailure({ error: error.message }))
@@ -74,5 +75,9 @@ export class UserEffects {
       })
     )
   );
-  constructor(private actions: Actions, private authService: AuthService) {}
+  constructor(
+    private actions: Actions,
+    private userService: UserService,
+    private awsService: AwsService
+  ) {}
 }
