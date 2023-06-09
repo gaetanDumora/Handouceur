@@ -14,7 +14,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../../store/user/user.service';
 import { ERROR_MESSAGES, REGEX } from 'src/app/constants/forms';
-import { DialogService } from 'src/app/shared/dialog/dialog.service';
+import { DialogService } from 'src/app/shared/components/dialog/dialog.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { getError, isLoading } from 'src/app/store/user/user.selectors';
@@ -24,10 +24,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { SearchLocationComponent } from 'src/app/shared/search-location/search-location.component';
+import { SearchLocationComponent } from 'src/app/shared/components/search-location/search-location.component';
 
 @Component({
   selector: 'app-register',

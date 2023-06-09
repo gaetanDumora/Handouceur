@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Journey } from 'src/app/types/journeys';
-import { CarouselComponent } from 'src/app/shared/carousel/carousel.component';
+import { CarouselComponent } from 'src/app/shared/components/carousel/carousel.component';
 import { getAdminStatus } from 'src/app/store/user/user.selectors';
 import { MapComponent } from '../journey-map/map.component';
 import { MatCardModule } from '@angular/material/card';

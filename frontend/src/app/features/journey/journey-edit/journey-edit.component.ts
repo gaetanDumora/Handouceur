@@ -22,7 +22,7 @@ import {
   SuggestedLocationResult,
 } from 'src/app/types/journeys';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { AutocompleteComponent } from 'src/app/shared/autocomplete/autocomplete.component';
+import { AutocompleteComponent } from 'src/app/shared/components/autocomplete/autocomplete.component';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
