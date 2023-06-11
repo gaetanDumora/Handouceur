@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -28,6 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { SearchLocationComponent } from 'src/app/shared/components/search-location/search-location.component';
+import { StorageFolders } from 'src/app/types/storage';
 
 @Component({
   selector: 'app-register',
@@ -48,8 +43,7 @@ import { SearchLocationComponent } from 'src/app/shared/components/search-locati
 })
 export class RegisterComponent implements OnInit {
   @ViewChild('autocomplete', { read: ElementRef }) autocomplete: ElementRef;
-  profileImg: string | ArrayBuffer | null =
-    'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg';
+  profileImg: string | ArrayBuffer | null;
   registerForm: FormGroup;
   showPassword: boolean = false;
   error = this.store.select(getError);
@@ -161,7 +155,7 @@ export class RegisterComponent implements OnInit {
 
       fileReader.readAsDataURL(file);
       this.registerForm.patchValue({ avatar: fileName });
-      this.formData.append(fileName, file);
+      this.formData.append(StorageFolders.user + fileName, file);
     }
   }
 

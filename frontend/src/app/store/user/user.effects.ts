@@ -3,7 +3,7 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 
 import { USER_ACTIONS } from './user.actions';
 import { map, of, catchError, switchMap } from 'rxjs';
-import { AwsService } from 'src/app/shared/aws.service';
+import { StorageService } from 'src/app/shared/storage.service';
 import { UserService } from './user.service';
 
 @Injectable()
@@ -66,7 +66,7 @@ export class UserEffects {
     this.actions.pipe(
       ofType(USER_ACTIONS.uploadImages),
       switchMap(({ image }) => {
-        return this.awsService.uploadFiles(image).pipe(
+        return this.storageService.uploadFiles(image).pipe(
           map(() => USER_ACTIONS.uploadImagesSuccess()),
           catchError(({ error }) =>
             of(USER_ACTIONS.uploadImagesFailure({ error: error.message }))
@@ -78,6 +78,6 @@ export class UserEffects {
   constructor(
     private actions: Actions,
     private userService: UserService,
-    private awsService: AwsService
+    private storageService: StorageService
   ) {}
 }
