@@ -1,9 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { uploadFiles } from './storage.service.js';
-import { Multipart } from '@fastify/multipart';
-// <{
-//     Body: { files: Multipart; folderName: StorageFolderPaths };
-//   }>
+
 export async function uploadFileHandler(
   request: FastifyRequest,
   reply: FastifyReply
