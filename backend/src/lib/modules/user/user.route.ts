@@ -4,7 +4,6 @@ import {
   registerUserHandler,
   loginHandler,
   getUsersHandler,
-  uploadFileHandler,
 } from './user.controllers.js';
 import { $ref } from './user.shema.js';
 
@@ -20,18 +19,7 @@ async function userRoutes(server: FastifyInstance) {
       },
     },
     registerUserHandler
-  ),
-    server.post(
-      '/image/upload',
-      {
-        schema: {
-          response: {
-            200: $ref('uploadImageResponse'),
-          },
-        },
-      },
-      uploadFileHandler
-    );
+  );
   server.post(
     '/login',
     {
@@ -43,23 +31,23 @@ async function userRoutes(server: FastifyInstance) {
       },
     },
     loginHandler
-  ),
-    server.get(
-      '/isUser',
-      {
-        schema: {
-          querystring: {
-            type: 'object',
-            properties: {
-              email: {
-                type: 'string',
-              },
+  );
+  server.get(
+    '/isUser',
+    {
+      schema: {
+        querystring: {
+          type: 'object',
+          properties: {
+            email: {
+              type: 'string',
             },
           },
         },
       },
-      isUserHandler
-    );
+    },
+    isUserHandler
+  );
   server.get(
     '/',
     {

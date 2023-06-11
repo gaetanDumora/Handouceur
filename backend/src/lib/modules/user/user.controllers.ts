@@ -2,7 +2,6 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { CreateUserInput, LoginInput } from './user.shema.js';
 import { createUser, findUserByEmail, getUsers } from './user.service.js';
 import { verifyPassword } from '../../utils/hash.js';
-import { uploadFiles } from '../../utils/s3.js';
 
 export async function registerUserHandler(
   request: FastifyRequest<{ Body: CreateUserInput }>,
@@ -15,25 +14,6 @@ export async function registerUserHandler(
     return reply.code(201).send(user);
   } catch (error) {
     request.log.info(error);
-    return reply.code(500).send(error);
-  }
-}
-export async function uploadFileHandler(
-  request: FastifyRequest,
-  reply: FastifyReply
-) {
-  if (!request.isMultipart()) {
-    return reply
-      .code(400)
-      .send({ error: 'request must be type of multipart/form-data' });
-  }
-  try {
-    const files = request.files();
-    const { uploadSuccess } = await uploadFiles(files, 'user_images/');
-    request.log.info({ uploadSuccess }, 'S3 upload files');
-    return reply.code(200).send({ uploadSuccess });
-  } catch (error) {
-    request.log.error(error);
     return reply.code(500).send(error);
   }
 }
