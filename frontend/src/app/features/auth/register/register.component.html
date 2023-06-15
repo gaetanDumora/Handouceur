@@ -84,7 +84,9 @@
           aria-label="button with a peson icon"
           (click)="fileUpload.click()"
         >
-          <ng-container *ngIf="!profileImg; else elseTemplate">
+          <ng-container
+            *ngIf="(isSubmitted | async) || !profileImg; else elseTemplate"
+          >
             <mat-icon>person_outline</mat-icon>
           </ng-container>
           <ng-template #elseTemplate>

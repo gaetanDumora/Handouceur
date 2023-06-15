@@ -182,7 +182,7 @@ export class RegisterComponent implements OnInit {
       })
     );
 
-    this.isSubmitted.next(formDirective.submitted);
+    this.isSubmitted.next(true);
     this.autocomplete.nativeElement.firstChild.querySelector('input').value =
       '';
     formDirective.resetForm();
