@@ -11,10 +11,12 @@ export async function uploadFileHandler(
       .send({ error: 'request must be type of multipart/form-data' });
   }
   try {
-    const files = request.files();
-    const { isUploadCompleted } = await uploadFiles(files);
-    request.log.info({ isUploadCompleted });
-    return reply.code(200).send({ isUploadCompleted });
+    const parts = request.parts();
+    const { uploadedFiles } = await uploadFiles(parts);
+    if (uploadedFiles.length) {
+    }
+    request.log.info({ uploadedFiles });
+    return reply.code(200).send({ uploadedFiles });
   } catch (error) {
     request.log.error(error);
     return reply.code(500).send(error);

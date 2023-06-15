@@ -1,5 +1,5 @@
 import { Upload } from '@aws-sdk/lib-storage';
-import { MultipartFile } from '@fastify/multipart';
+import { MultipartFile, MultipartValue } from '@fastify/multipart';
 import { HTTP_SUCCESS_CODES, S3_BUCKET_URL, awsS3Client } from '../../utils/s3';
 
 const createUploadCommand = async (part: MultipartFile) => {
@@ -18,16 +18,17 @@ const createUploadCommand = async (part: MultipartFile) => {
 };
 
 export const uploadFiles = async (
-  files: AsyncIterableIterator<MultipartFile>
+  parts: AsyncIterableIterator<MultipartFile | MultipartValue>
 ) => {
-  const S3ResponseCode = [];
-  for await (const file of files) {
-    const { $metadata } = await createUploadCommand(file);
-    S3ResponseCode.push($metadata.httpStatusCode);
+  const uploadedFiles = [];
+  for await (const part of parts) {
+    if (part.type === 'file') {
+      const { $metadata } = await createUploadCommand(part);
+      const statusCode = $metadata.httpStatusCode;
+      if (statusCode && HTTP_SUCCESS_CODES.includes(statusCode)) {
+        uploadedFiles.push(part.fieldname);
+      }
+    }
   }
-  return {
-    isUploadCompleted: S3ResponseCode.every((httpCode) =>
-      HTTP_SUCCESS_CODES.includes(httpCode as number)
-    ),
-  };
+  return { uploadedFiles };
 };

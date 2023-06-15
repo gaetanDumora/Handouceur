@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { buildJsonSchemas } from 'fastify-zod';
 
 const uploadImageResponse = z.object({
-  isUploadCompleted: z.boolean(),
+  uploadedFiles: z.array(z.string()),
 });
 
 export const { schemas: storageShemas, $ref } = buildJsonSchemas(
