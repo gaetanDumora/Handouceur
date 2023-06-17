@@ -54,27 +54,51 @@
         </button>
       </span>
 
-      <span class="pill">
-        <ng-container *ngIf="user | async; else elseTemplate">
-          <button mat-button routerLink="profile">
-            <mat-icon color="warn">account_circle</mat-icon>
-            <span class="d-none d-sm-inline">{{
-              (user | async)?.firstName
-            }}</span>
-          </button>
-        </ng-container>
+      <div class="pill">
+        <div>
+          <button
+            type="button"
+            color="none"
+            mat-mini-fab
+            routerLink="{{ (user | async) ? 'profile' : 'journey/register' }}"
+          >
+            <ng-container *ngIf="user | async; else iconTemplate">
+              <img [src]="profileImg | async" alt="Profile image" />
+            </ng-container>
 
-        <ng-template #elseTemplate>
-          <button mat-button routerLink="journey/register">
-            <mat-icon>person_outline</mat-icon>
+            <ng-template #iconTemplate>
+              <mat-icon class="align-middle">person_outline</mat-icon>
+            </ng-template>
           </button>
-        </ng-template>
-
-        <button mat-button (click)="changeTheme()">
-          <mat-icon *ngIf="!(isDarkTheme | async)">lightbulbe_outline</mat-icon>
-          <mat-icon *ngIf="isDarkTheme | async">bedtime</mat-icon>
-        </button>
-      </span>
+        </div>
+        <div>
+          <ng-container *ngIf="user | async; else loginTemplate">
+            <span class="d-none d-sm-inline"
+              >{{ (user | async)?.firstName }}
+              {{ (user | async)?.lastName }}</span
+            >
+          </ng-container>
+          <ng-template #loginTemplate> Login </ng-template>
+        </div>
+        <div>
+          <button
+            type="button"
+            color="none"
+            mat-mini-fab
+            (click)="changeTheme()"
+          >
+            <ng-container
+              class="align-middle"
+              *ngIf="!(isDarkTheme | async); else bedTimeTemplate"
+            >
+              <mat-icon class="align-middle">lightbulbe_outline</mat-icon>
+            </ng-container>
+            <ng-template #bedTimeTemplate>
+              <mat-icon class="align-middle">bedtime</mat-icon>
+            </ng-template>
+          </button>
+        </div>
+      </div>
     </div>
   </mat-toolbar>
 </div>
