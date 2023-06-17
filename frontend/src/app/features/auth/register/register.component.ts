@@ -154,8 +154,9 @@ export class RegisterComponent implements OnInit {
       );
 
       fileReader.readAsDataURL(file);
-      this.registerForm.patchValue({ avatar: fileName });
-      this.formData.append(StorageFolders.user + fileName, file);
+      const avatar = StorageFolders.user + fileName;
+      this.registerForm.patchValue({ avatar });
+      this.formData.append(avatar, file);
     }
   }
 
