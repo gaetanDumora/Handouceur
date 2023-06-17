@@ -75,6 +75,20 @@ export class UserEffects {
       })
     )
   );
+
+  downloadImages = createEffect(() =>
+    this.actions.pipe(
+      ofType(USER_ACTIONS.downloadImage),
+      switchMap(({ key }) => {
+        return this.storageService.downloadFile(key).pipe(
+          map(() => USER_ACTIONS.downloadImageSuccess()),
+          catchError(({ error }) =>
+            of(USER_ACTIONS.downloadImageFailure({ error: error.message }))
+          )
+        );
+      })
+    )
+  );
   constructor(
     private actions: Actions,
     private userService: UserService,

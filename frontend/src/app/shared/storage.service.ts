@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { environment } from 'src/environment/environment';
@@ -23,9 +27,10 @@ export class StorageService {
       .pipe(catchError(this.handleError));
   }
 
-  downloadFile(key: string, folderName: StorageFolderPaths) {
+  downloadFile(key: string) {
+    const params = new HttpParams().set('key', key);
     return this.http
-      .get(`${this.baseURL}/${folderName + key}`)
+      .get(this.baseURL, { params })
       .pipe(catchError(this.handleError));
   }
 
