@@ -1,6 +1,7 @@
 import { Upload } from '@aws-sdk/lib-storage';
 import { MultipartFile, MultipartValue } from '@fastify/multipart';
 import { HTTP_SUCCESS_CODES, S3_BUCKET_URL, awsS3Client } from '../../utils/s3';
+import { GetObjectCommand } from '@aws-sdk/client-s3';
 
 const createUploadCommand = async (part: MultipartFile) => {
   const command = new Upload({
@@ -31,4 +32,16 @@ export const uploadFiles = async (
     }
   }
   return { uploadedFiles };
+};
+
+export const getFile = async (key: string) => {
+  const command = new GetObjectCommand({
+    Bucket: S3_BUCKET_URL,
+    Key: key,
+  });
+  const { Body } = await awsS3Client.send(command);
+  if (!Body) {
+    throw new Error(`File ${key} not found `);
+  }
+  return Body;
 };
