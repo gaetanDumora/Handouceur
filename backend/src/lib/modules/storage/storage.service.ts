@@ -1,7 +1,7 @@
 import { Upload } from '@aws-sdk/lib-storage';
 import { MultipartFile, MultipartValue } from '@fastify/multipart';
 import { HTTP_SUCCESS_CODES, S3_BUCKET_URL, awsS3Client } from '../../utils/s3';
-import { GetObjectCommand } from '@aws-sdk/client-s3';
+import { DeleteObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
 
 const createUploadCommand = async (part: MultipartFile) => {
   const command = new Upload({
@@ -15,6 +15,14 @@ const createUploadCommand = async (part: MultipartFile) => {
     },
   });
   const response = await command.done();
+  return response;
+};
+const deleteObjectFromS3 = async (key: string) => {
+  const command = new DeleteObjectCommand({
+    Bucket: S3_BUCKET_URL,
+    Key: key,
+  });
+  const response = await awsS3Client.send(command);
   return response;
 };
 
@@ -44,4 +52,15 @@ export const getFile = async (key: string) => {
     throw new Error(`File ${key} not found `);
   }
   return Body;
+};
+
+export const deleteFiles = async (fileKeys: string[]) => {
+  const results: number[] = [];
+  for (const file of fileKeys) {
+    const { $metadata } = await deleteObjectFromS3(file);
+    results.push($metadata.httpStatusCode!);
+  }
+  return {
+    deleteSuccess: results.every((val) => HTTP_SUCCESS_CODES.includes(val)),
+  };
 };

@@ -3,25 +3,11 @@ import { $ref } from './journey.schema';
 import {
   getAllJourneyHandler,
   getJourneyByIdHandler,
-  deleteFileHandler,
   upsertJourneyHandler,
   deleteJourneyHandler,
 } from './journey.controllers';
 
 async function journeyRoutes(server: FastifyInstance) {
-  server.post(
-    '/image/delete',
-    {
-      preHandler: [server.verifyJwtToken, server.verifyAdmin],
-      schema: {
-        body: $ref('deleteImageInput'),
-        response: {
-          200: $ref('deleteImageResponse'),
-        },
-      },
-    },
-    deleteFileHandler
-  );
   server.post(
     '/upsert',
     {

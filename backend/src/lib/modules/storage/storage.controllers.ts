@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { getFile, uploadFiles } from './storage.service.js';
+import { deleteFiles, getFile, uploadFiles } from './storage.service.js';
 import { StorageFolderPaths } from '../../utils/s3.js';
 
 export async function uploadFileHandler(
@@ -33,6 +33,20 @@ export async function downloadFileHandler(
     const path = `${folder}/${key}`;
     const image = await getFile(path);
     return reply.code(200).send(image);
+  } catch (error) {
+    request.log.error(error);
+    return reply.code(500).send(error);
+  }
+}
+export async function deleteFileHandler(
+  request: FastifyRequest<{ Body: { files: string[] } }>,
+  reply: FastifyReply
+) {
+  const { files } = request.body;
+  try {
+    const { deleteSuccess } = await deleteFiles(files);
+    request.log.info({ deleteSuccess });
+    return reply.code(200).send({ deleteSuccess });
   } catch (error) {
     request.log.error(error);
     return reply.code(500).send(error);
