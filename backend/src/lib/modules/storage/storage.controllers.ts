@@ -31,7 +31,6 @@ export async function downloadFileHandler(
   reply: FastifyReply
 ) {
   try {
-    debugger;
     const { folder, key } = request.params;
     const path = `${folder}/${key}`;
     const image = await getFile(path);
