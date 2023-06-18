@@ -14,8 +14,6 @@ export async function uploadFileHandler(
   try {
     const parts = request.parts();
     const { uploadedFiles } = await uploadFiles(parts);
-    if (uploadedFiles.length) {
-    }
     request.log.info({ uploadedFiles });
     return reply.code(200).send({ uploadedFiles });
   } catch (error) {
