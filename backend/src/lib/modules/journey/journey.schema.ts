@@ -58,13 +58,6 @@ const deleteJourneyResponse = z.object({
   id: z.number(),
 });
 
-const deleteImageInput = z.object({
-  filesToDelete: z.array(z.string()),
-});
-const deleteImageResponse = z.object({
-  deleteSuccess: z.boolean(),
-});
-
 export type GetJourneyInput = z.infer<typeof getJourneyInput>;
 export type GetJourneySchemaResponse = z.infer<typeof getJourneySchemaResponse>;
 export type GetAllJourneySchemaResponse = z.infer<
@@ -79,8 +72,6 @@ export const { schemas: journeySchemas, $ref } = buildJsonSchemas(
     getJourneySchemaResponse,
     getAllJourneySchemaResponse,
     upsertJourneyInput,
-    deleteImageInput,
-    deleteImageResponse,
     deleteJourneyInput,
     deleteJourneyResponse,
   },

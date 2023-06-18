@@ -6,7 +6,6 @@ import {
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { environment } from 'src/environment/environment';
-import { StorageFolderPaths } from '../types/storage';
 
 @Injectable({
   providedIn: 'root',

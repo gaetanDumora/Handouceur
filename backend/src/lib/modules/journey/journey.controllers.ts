@@ -6,25 +6,6 @@ import {
   upsertJourney,
 } from './journey.service';
 import { UpsertJourneyInput, DeleteJourneyInput } from './journey.schema';
-import { deleteFiles } from '../../utils/s3';
-
-export async function deleteFileHandler(
-  request: FastifyRequest<{ Body: { filesToDelete: string[] } }>,
-  reply: FastifyReply
-) {
-  const { filesToDelete } = request.body;
-  try {
-    const { deleteSuccess } = await deleteFiles(
-      filesToDelete,
-      'journey_images/'
-    );
-    request.log.info({ deleteSuccess }, 'S3 delete files');
-    return reply.code(200).send({ deleteSuccess });
-  } catch (error) {
-    request.log.error(error);
-    return reply.code(500).send(error);
-  }
-}
 
 export async function getAllJourneyHandler(
   request: FastifyRequest,

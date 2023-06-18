@@ -109,7 +109,7 @@ export class JourneyEffects {
     this.actions.pipe(
       ofType(JOURNEY_ACTIONS.deleteImages),
       switchMap(({ images }) => {
-        return this.journeyService.deleteFiles(images).pipe(
+        return this.storageService.deleteFiles(images).pipe(
           map(() => JOURNEY_ACTIONS.deleteImagesSuccess()),
           catchError(({ error }) =>
             of(JOURNEY_ACTIONS.deleteImagesFailure({ error: error.message }))
