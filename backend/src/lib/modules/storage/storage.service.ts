@@ -17,7 +17,7 @@ const createUploadCommand = async (part: MultipartFile) => {
   const response = await command.done();
   return response;
 };
-const deleteObjectFromS3 = async (key: string) => {
+const createDeleteCommand = async (key: string) => {
   const command = new DeleteObjectCommand({
     Bucket: S3_BUCKET_URL,
     Key: key,
@@ -57,7 +57,7 @@ export const getFile = async (key: string) => {
 export const deleteFiles = async (fileKeys: string[]) => {
   const results: number[] = [];
   for (const file of fileKeys) {
-    const { $metadata } = await deleteObjectFromS3(file);
+    const { $metadata } = await createDeleteCommand(file);
     results.push($metadata.httpStatusCode!);
   }
   return {
