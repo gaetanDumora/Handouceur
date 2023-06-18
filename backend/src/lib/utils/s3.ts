@@ -1,11 +1,4 @@
-import {
-  S3Client,
-  GetObjectCommand,
-  DeleteObjectCommand,
-  CreateMultipartUploadCommand,
-} from '@aws-sdk/client-s3';
-import { Upload } from '@aws-sdk/lib-storage';
-import { MultipartFile } from '@fastify/multipart';
+import { S3Client } from '@aws-sdk/client-s3';
 
 export const HTTP_SUCCESS_CODES = [200, 201, 204];
 export const S3_BUCKET_URL = process.env.AWS_S3_BUCKET_URL;
