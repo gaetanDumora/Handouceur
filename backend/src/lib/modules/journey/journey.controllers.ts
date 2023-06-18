@@ -6,21 +6,7 @@ import {
   upsertJourney,
 } from './journey.service';
 import { UpsertJourneyInput, DeleteJourneyInput } from './journey.schema';
-import { getObjectFromS3, deleteFiles, uploadFiles } from '../../utils/s3';
-
-export async function downloadFileHandler(
-  request: FastifyRequest<{ Params: { key: string } }>,
-  reply: FastifyReply
-) {
-  try {
-    const { key } = request.params;
-    const image = await getObjectFromS3(key, 'journey_images/');
-    return reply.code(200).send(image);
-  } catch (error) {
-    request.log.error(error);
-    return reply.code(500).send(error);
-  }
-}
+import { deleteFiles } from '../../utils/s3';
 
 export async function deleteFileHandler(
   request: FastifyRequest<{ Body: { filesToDelete: string[] } }>,
@@ -34,26 +20,6 @@ export async function deleteFileHandler(
     );
     request.log.info({ deleteSuccess }, 'S3 delete files');
     return reply.code(200).send({ deleteSuccess });
-  } catch (error) {
-    request.log.error(error);
-    return reply.code(500).send(error);
-  }
-}
-
-export async function uploadFileHandler(
-  request: FastifyRequest,
-  reply: FastifyReply
-) {
-  if (!request.isMultipart()) {
-    return reply
-      .code(400)
-      .send({ error: 'request must be type of multipart/form-data' });
-  }
-  try {
-    const files = request.files();
-    const { uploadSuccess } = await uploadFiles(files, 'journey_images/');
-    request.log.info({ uploadSuccess }, 'S3 upload files');
-    return reply.code(200).send({ uploadSuccess });
   } catch (error) {
     request.log.error(error);
     return reply.code(500).send(error);

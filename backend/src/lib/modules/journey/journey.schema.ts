@@ -58,9 +58,6 @@ const deleteJourneyResponse = z.object({
   id: z.number(),
 });
 
-const uploadImageResponse = z.object({
-  uploadSuccess: z.boolean(),
-});
 const deleteImageInput = z.object({
   filesToDelete: z.array(z.string()),
 });
@@ -82,7 +79,6 @@ export const { schemas: journeySchemas, $ref } = buildJsonSchemas(
     getJourneySchemaResponse,
     getAllJourneySchemaResponse,
     upsertJourneyInput,
-    uploadImageResponse,
     deleteImageInput,
     deleteImageResponse,
     deleteJourneyInput,

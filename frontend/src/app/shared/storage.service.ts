@@ -21,9 +21,9 @@ export class StorageService {
       .pipe(catchError(this.handleError));
   }
 
-  deleteFiles(files: string[], folderName: StorageFolderPaths) {
+  deleteFiles(files: string[]) {
     return this.http
-      .post(`${this.baseURL}/delete`, { files, folderName })
+      .post(`${this.baseURL}/delete`, { files })
       .pipe(catchError(this.handleError));
   }
 
