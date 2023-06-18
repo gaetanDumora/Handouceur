@@ -32,6 +32,7 @@ import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { StorageFolders } from 'src/app/types/storage';
 @Component({
   selector: 'app-journey-edit',
   templateUrl: './journey-edit.component.html',
@@ -139,13 +140,17 @@ export class JourneyEditComponent implements OnInit {
   onFileSelected(event: any) {
     const existingFileNames = this.editForm.get('images')?.value ?? [];
     const selectedFiles: File[] = Array.from(event.target?.files);
-    const selectedFilesNames = selectedFiles.map((f) => f.name);
+    const selectedFilesNames = selectedFiles.map(
+      (f) => StorageFolders.journey + f.name
+    );
 
     const images = [...existingFileNames, ...selectedFilesNames];
     this.editForm.patchValue({ images });
     this.dataSource.next([...this.dataSource?.value, ...selectedFilesNames]);
 
-    selectedFiles.forEach((file) => this.formData.append(file.name, file));
+    selectedFiles.forEach((file) =>
+      this.formData.append(StorageFolders.journey + file.name, file)
+    );
     this.formdataLength = selectedFiles.length;
   }
 
@@ -168,6 +173,7 @@ export class JourneyEditComponent implements OnInit {
         JOURNEY_ACTIONS.uploadImages({ images: this.formData })
       );
       this.formData = new FormData();
+      this.formdataLength = 0;
     }
     if (this.deletedFromDataSource.size) {
       this.store.dispatch(
