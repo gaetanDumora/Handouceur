@@ -3,12 +3,14 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { JourneyService } from './journey.service';
 import { JOURNEY_ACTIONS } from './journey.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
+import { StorageService } from 'src/app/shared/storage.service';
 
 @Injectable()
 export class JourneyEffects {
   constructor(
     private actions: Actions,
-    private journeyService: JourneyService
+    private journeyService: JourneyService,
+    private storageService: StorageService
   ) {}
 
   getSelectedJourney = createEffect(() =>
@@ -79,7 +81,7 @@ export class JourneyEffects {
     this.actions.pipe(
       ofType(JOURNEY_ACTIONS.uploadImages),
       switchMap(({ images }) => {
-        return this.journeyService.uploadFiles(images).pipe(
+        return this.storageService.uploadFiles(images).pipe(
           map(() => JOURNEY_ACTIONS.uploadImagesSuccess()),
           catchError(({ error }) =>
             of(JOURNEY_ACTIONS.uploadImagesFailure({ error: error.message }))
@@ -93,7 +95,7 @@ export class JourneyEffects {
     this.actions.pipe(
       ofType(JOURNEY_ACTIONS.downloadImage),
       switchMap(({ key }) => {
-        return this.journeyService.downloadFile(key).pipe(
+        return this.storageService.downloadFile(key).pipe(
           map(() => JOURNEY_ACTIONS.downloadImageSuccess()),
           catchError(({ error }) =>
             of(JOURNEY_ACTIONS.downloadImageFailure({ error: error.message }))

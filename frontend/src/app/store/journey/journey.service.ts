@@ -38,21 +38,9 @@ export class JourneyService {
       .pipe(catchError(this.handleError));
   }
 
-  uploadFiles(files: FormData) {
-    return this.http
-      .post(`${this.baseURL}/image/upload`, files)
-      .pipe(catchError(this.handleError));
-  }
-
   deleteFiles(files: string[]) {
     return this.http
       .post(`${this.baseURL}/image/delete`, { filesToDelete: files })
-      .pipe(catchError(this.handleError));
-  }
-
-  downloadFile(key: string) {
-    return this.http
-      .get(`${this.baseURL}/image/${key}`)
       .pipe(catchError(this.handleError));
   }
 
