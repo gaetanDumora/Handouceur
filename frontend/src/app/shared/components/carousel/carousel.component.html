@@ -1,6 +1,11 @@
 <!-- carousel -->
 <div class="carousel">
-  <ng-container>
+  <ngx-skeleton-loader
+    *ngIf="!(isImageLoaded | async)"
+    class="slide"
+    [theme]="{ height: '281px' }"
+  ></ngx-skeleton-loader>
+  <ng-container *ngIf="slides; else noSlidesTemplate">
     <img
       #img
       mat-card-image
@@ -9,13 +14,10 @@
       [alt]="journey.title"
       [src]="currentSlide.key"
     />
-
-    <ngx-skeleton-loader
-      *ngIf="!(isImageLoaded | async)"
-      class="slide"
-      [theme]="{ height: '281px' }"
-    ></ngx-skeleton-loader>
   </ng-container>
+  <ng-template #noSlidesTemplate>
+    <img mat-card-image loading="lazy" class="slide" [src]="fallbackImageUrl" />
+  </ng-template>
 
   <!-- controls -->
   <div *ngIf="journey.images && journey.images.length > 1">
