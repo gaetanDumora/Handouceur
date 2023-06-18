@@ -73,7 +73,7 @@
         </div>
         <div>
           <ng-container *ngIf="user | async; else loginTemplate">
-            <span class="d-none d-sm-inline"
+            <span
               >{{ (user | async)?.firstName }}
               {{ (user | async)?.lastName }}</span
             >
