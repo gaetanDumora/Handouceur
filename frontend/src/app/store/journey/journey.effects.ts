@@ -56,7 +56,7 @@ export class JourneyEffects {
         return this.journeyService.postJourney(journey).pipe(
           map((journey) => JOURNEY_ACTIONS.upsertJourneySuccess({ journey })),
           catchError(({ error }) =>
-            of(JOURNEY_ACTIONS.upsertJourneyFailure({ error: error.message }))
+            of(JOURNEY_ACTIONS.upsertJourneyFailure({ error: error?.message }))
           )
         );
       })
