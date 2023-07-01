@@ -9,7 +9,7 @@ import {
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from './environment/environment';
-import { tokenInterceptor } from './app/shared/http-interceptors';
+import { httpInterceptors } from './app/shared/http-interceptors';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { provideRouter } from '@angular/router';
 import { APP_ROUTES } from './app/app.routes';
@@ -32,7 +32,7 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(APP_ROUTES),
-    provideHttpClient(withInterceptors([tokenInterceptor])),
+    provideHttpClient(withInterceptors(httpInterceptors)),
     provideStore(
       {
         [JOURNEY_FEATURE_KEY]: journeyReducer,
