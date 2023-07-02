@@ -49,6 +49,8 @@ export const userReducer = createReducer<UserState, Action>(
   on(USER_ACTIONS.logoutUser, (state) => {
     return {
       ...state,
+      error: null,
+      isLoading: false,
       user: null,
     };
   })

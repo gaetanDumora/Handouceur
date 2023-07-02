@@ -50,7 +50,10 @@ export async function loginHandler(
       });
       if (correctPassword) {
         const { salt, password, ...rest } = user;
-        return { accessToken: request.server.jwt.sign(rest), ...rest };
+        return {
+          accessToken: request.server.jwt.sign(rest, { expiresIn: '2 days' }),
+          ...rest,
+        };
       }
       reply.code(401).send({ message: 'Invalid email adress or password' });
     }
