@@ -11,6 +11,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { isDarkTheme } from 'src/app/store/root/root.selectors';
 @Component({
   selector: 'app-journey',
   templateUrl: './journey.component.html',
@@ -30,8 +31,10 @@ import { MatButtonModule } from '@angular/material/button';
 export class JourneyComponent {
   @Input() journey: Journey;
   isAdmin: Observable<boolean | undefined>;
+  isDarkThem: Observable<boolean | undefined>;
 
   constructor(private store: Store) {
     this.isAdmin = this.store.select(getAdminStatus);
+    this.isDarkThem = this.store.select(isDarkTheme);
   }
 }

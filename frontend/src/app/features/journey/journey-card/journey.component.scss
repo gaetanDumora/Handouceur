@@ -38,9 +38,16 @@
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  background-color: mat.get-color-from-palette($angular-light-primary);
-  color: rgb(73, 73, 73);
   font-size: small;
   font-weight: bold;
   opacity: 85%;
+}
+
+.light {
+  background-color: mat.get-color-from-palette($angular-light-primary);
+  color: rgb(73, 73, 73);
+}
+.dark {
+  background-color: mat.get-color-from-palette($angular-dark-primary);
+  color: rgb(255, 255, 255);
 }

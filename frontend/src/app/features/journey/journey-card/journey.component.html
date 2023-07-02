@@ -36,7 +36,9 @@
 
     <mat-card-content class="description-wrapper">
       <div>
-        <span class="chips">Description</span>
+        <span [ngClass]="[(isDarkThem | async) ? 'chips light' : 'chips dark']"
+          >Description</span
+        >
         <div class="map p-2">
           <app-map
             [mapId]="journey.id"
@@ -50,7 +52,10 @@
 
       <div class="row mt-1 m-0">
         <div class="col p-0">
-          <span class="chips">Loisirs & Activités</span>
+          <span
+            [ngClass]="[(isDarkThem | async) ? 'chips light' : 'chips dark']"
+            >Loisirs & Activités</span
+          >
           <p class="p-2">
             {{ journey.recreation }}
           </p>
@@ -58,13 +63,20 @@
       </div>
       <div class="row m-0">
         <div class="col p-0">
-          <span class="chips"> Hébergement</span>
+          <span
+            [ngClass]="[(isDarkThem | async) ? 'chips light' : 'chips dark']"
+          >
+            Hébergement</span
+          >
           <p class="p-2">
             {{ journey.hosting }}
           </p>
         </div>
         <div class="col p-0 ml-1">
-          <span class="chips">Transport</span>
+          <span
+            [ngClass]="[(isDarkThem | async) ? 'chips light' : 'chips dark']"
+            >Transport</span
+          >
           <p class="p-2">{{ journey.transport }}</p>
         </div>
       </div>
