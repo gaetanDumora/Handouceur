@@ -1,8 +1,6 @@
 <div class="sticky-top">
-  <mat-toolbar color="primary" class="shadow d-flex flex-wrap">
-    <div
-      class="container-fluid d-flex justify-content-between align-items-center font-weight-bold"
-    >
+  <mat-toolbar color="primary" class="shadow">
+    <div class="container-fluid d-flex align-items-center font-weight-bold">
       <mat-menu #appMenu="matMenu" class="d-block nowrap">
         <ng-template matMenuContent>
           <button mat-menu-item routerLink="journey" routerLinkActive="active">
@@ -39,7 +37,7 @@
         class="branding spacer d-none d-sm-inline"
       />
 
-      <span class="d-none d-md-block">
+      <div class="d-none d-md-block">
         <button mat-button routerLink="journey">
           <span class="p-3"> <b>Séjours</b> </span>
         </button>
@@ -52,7 +50,7 @@
         <button *ngIf="(user | async)?.admin" routerLink="admin" mat-button>
           <span class="p-3"><b>Admin</b> </span>
         </button>
-      </span>
+      </div>
 
       <div class="pill">
         <div>
@@ -80,7 +78,9 @@
           </ng-container>
           <ng-template #loginTemplate> Login </ng-template>
         </div>
+        <div class="separator"></div>
         <div>
+          <span>Theme</span>
           <button
             type="button"
             color="none"

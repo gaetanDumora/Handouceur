@@ -3,9 +3,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  column-gap: 5px;
   font-size: small;
   border-color: gainsboro;
-  border-width: 1px;
+  border-width: 2px;
   border-style: solid;
   border-radius: 20px;
 
@@ -17,5 +18,14 @@
   }
   button {
     box-shadow: none;
+  }
+  .separator {
+    width: 59px;
+    border-bottom: 2px solid gainsboro;
+    transform: rotate(-45deg);
+    transform-origin: left;
+    align-self: flex-end;
+    margin-bottom: -2px;
+    border-radius: 20px;
   }
 }
