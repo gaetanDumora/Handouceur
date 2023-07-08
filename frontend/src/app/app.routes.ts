@@ -3,6 +3,20 @@ import { AdminGuard, AuthGuard } from './shared/auth.guard';
 
 export const APP_ROUTES: Routes = [
   {
+    path: 'register',
+    loadComponent: () =>
+      import('./features/auth/register/register.component').then(
+        (mod) => mod.RegisterComponent
+      ),
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./features/auth/login/login.component').then(
+        (mod) => mod.DialogLogin
+      ),
+  },
+  {
     path: 'admin',
     loadComponent: () =>
       import('./features/user/admin/admin.component').then(
@@ -35,20 +49,6 @@ export const APP_ROUTES: Routes = [
             (mod) => mod.JourneyEditComponent
           ),
         canActivate: [AdminGuard],
-      },
-      {
-        path: 'register',
-        loadComponent: () =>
-          import('./features/auth/register/register.component').then(
-            (mod) => mod.RegisterComponent
-          ),
-      },
-      {
-        path: 'login',
-        loadComponent: () =>
-          import('./features/auth/login/login.component').then(
-            (mod) => mod.DialogLogin
-          ),
       },
     ],
   },

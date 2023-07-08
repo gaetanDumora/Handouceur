@@ -58,7 +58,7 @@
             type="button"
             color="none"
             mat-mini-fab
-            routerLink="{{ (user | async) ? 'profile' : 'journey/register' }}"
+            routerLink="{{ (user | async) ? 'profile' : 'register' }}"
           >
             <ng-container *ngIf="user | async; else iconTemplate">
               <img [src]="profileImg | async" alt="Profile image" />
@@ -76,7 +76,7 @@
               {{ (user | async)?.lastName }}</span
             >
           </ng-container>
-          <ng-template #loginTemplate> Login </ng-template>
+          <ng-template #loginTemplate>Profile</ng-template>
         </div>
         <div class="separator"></div>
         <div style="margin-left: -25px">

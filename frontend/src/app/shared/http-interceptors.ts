@@ -30,7 +30,7 @@ const errorInterceptor = (request: HttpRequest<any>, next: HttpHandlerFn) => {
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {
         store.dispatch(USER_ACTIONS.logoutUser());
-        router.navigate(['journey', 'login']);
+        router.navigate(['login']);
       }
 
       return throwError(() => error);
