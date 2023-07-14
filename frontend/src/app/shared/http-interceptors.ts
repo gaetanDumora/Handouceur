@@ -27,14 +27,29 @@ const errorInterceptor = (request: HttpRequest<any>, next: HttpHandlerFn) => {
   const router = inject(Router);
   const store = inject(Store);
   return next(request).pipe(
-    catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
-        store.dispatch(USER_ACTIONS.logoutUser());
-        router.navigate(['login']);
-      }
+    catchError(
+      ({
+        error,
+      }: {
+        // Fastify error object
+        error: {
+          code: string;
+          error: string;
+          message: string;
+          statusCode: number;
+        };
+      }) => {
+        if (
+          error.statusCode === 401 &&
+          error.code === 'FST_JWT_AUTHORIZATION_TOKEN_EXPIRED'
+        ) {
+          store.dispatch(USER_ACTIONS.logoutUser());
+          router.navigate(['register', 'login']);
+        }
 
-      return throwError(() => error);
-    })
+        return throwError(() => error);
+      }
+    )
   );
 };
 

@@ -14,7 +14,7 @@ async function verifyJwtToken(
         await request.jwtVerify();
       } catch (error) {
         request.log.error({ error });
-        reply.send(error);
+        reply.status(401).send(error);
       }
     }
   );
