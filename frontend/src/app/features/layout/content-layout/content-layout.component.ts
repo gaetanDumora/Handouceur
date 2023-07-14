@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 
-import { THEMES } from '../../../constants/themes';
+import { NavItems, THEMES } from '../../../constants/themes';
 import { Store } from '@ngrx/store';
 import { isDarkTheme } from 'src/app/store/root/root.selectors';
 import { ThemeService } from 'src/app/store/root/theme.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { FooterComponent } from '../footer/footer.component';
 import { NavComponent } from '../nav/nav.component';
+import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -16,11 +18,19 @@ import { CommonModule } from '@angular/common';
   templateUrl: './content-layout.component.html',
   styleUrls: ['./content-layout.component.scss'],
   standalone: true,
-  imports: [FooterComponent, NavComponent, RouterModule, CommonModule],
+  imports: [
+    FooterComponent,
+    NavComponent,
+    RouterModule,
+    CommonModule,
+    MatSidenavModule,
+    MatButtonModule,
+  ],
 })
 export class ContentLayoutComponent implements OnInit {
+  @ViewChild('drawer') drawer: MatDrawer;
+  sideNavItems: Observable<NavItems>;
   currentTheme: BehaviorSubject<string>;
-
   constructor(private store: Store, private themeService: ThemeService) {}
 
   ngOnInit() {
@@ -35,5 +45,10 @@ export class ContentLayoutComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+
+  toogleSideNav(event: Observable<NavItems>) {
+    this.sideNavItems = event;
+    this.drawer.toggle();
   }
 }

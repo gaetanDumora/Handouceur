@@ -1,11 +1,29 @@
 <div [class]="currentTheme | async">
   <div class="mat-app-background">
-    <app-nav></app-nav>
-
-    <div class="p-2">
-      <router-outlet></router-outlet>
-    </div>
-
-    <app-footer></app-footer>
+    <!-- App headers -->
+    <app-nav (onSideNav)="toogleSideNav($event)"></app-nav>
+    <!-- Side Bar navigation -->
+    <mat-drawer-container autosize>
+      <mat-drawer #drawer mode="over">
+        <div class="d-flex flex-column p-4 align-items-start">
+          <button
+            *ngFor="let item of sideNavItems | async"
+            class="mt-4 text-left"
+            mat-button
+            [routerLink]="item.routerLink"
+          >
+            <span
+              ><b>{{ item.name }}</b>
+            </span>
+          </button>
+        </div>
+      </mat-drawer>
+      <!-- App content -->
+      <div class="p-2">
+        <router-outlet></router-outlet>
+      </div>
+      <!-- App footer -->
+      <app-footer></app-footer>
+    </mat-drawer-container>
   </div>
 </div>
