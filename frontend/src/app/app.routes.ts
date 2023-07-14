@@ -8,14 +8,17 @@ export const APP_ROUTES: Routes = [
       import('./features/auth/register/register.component').then(
         (mod) => mod.RegisterComponent
       ),
+    children: [
+      {
+        path: 'login',
+        loadComponent: () =>
+          import('./features/auth/login/login.component').then(
+            (mod) => mod.DialogLogin
+          ),
+      },
+    ],
   },
-  {
-    path: 'login',
-    loadComponent: () =>
-      import('./features/auth/login/login.component').then(
-        (mod) => mod.DialogLogin
-      ),
-  },
+
   {
     path: 'admin',
     loadComponent: () =>

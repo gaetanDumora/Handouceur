@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ErrorType } from 'src/app/types/error';
 import { User } from 'src/app/types/user';
@@ -115,11 +115,7 @@ export class LoginComponent implements OnInit {
   standalone: true,
 })
 export class DialogLogin {
-  constructor(
-    private dialog: DialogService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
+  constructor(private dialog: DialogService, private router: Router) {
     this.openDialog();
   }
   openDialog(): void {
@@ -128,7 +124,7 @@ export class DialogLogin {
         title: 'Login',
       })
       .subscribe(() => {
-        this.router.navigate(['../'], { relativeTo: this.route });
+        this.router.navigate(['journey']);
       });
   }
 }
