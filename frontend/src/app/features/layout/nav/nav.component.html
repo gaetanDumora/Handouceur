@@ -4,38 +4,16 @@
       class="container-fluid d-flex justify-content-between align-items-center font-weight-bold"
     >
       <div class="mr-4">
-        <mat-menu #appMenu="matMenu">
-          <ng-template matMenuContent>
-            <button
-              mat-menu-item
-              routerLink="journey"
-              routerLinkActive="active"
-            >
-              <span>Séjours</span>
-            </button>
-            <button mat-menu-item routerLink="about" routerLinkActive="active">
-              <span>Qui sommes nous</span>
-            </button>
-            <button
-              mat-menu-item
-              routerLink="contact"
-              routerLinkActive="active"
-            >
-              <span>Contactez nous</span>
-            </button>
-            <button
-              *ngIf="(user | async)?.admin"
-              routerLink="admin"
-              mat-menu-item
-            >
-              <span>Admin </span>
-            </button>
-          </ng-template>
-        </mat-menu>
-        <button class="d-lg-none" mat-icon-button [matMenuTriggerFor]="appMenu">
+        <button
+          mat-icon-button
+          class="d-lg-none"
+          type="button"
+          (click)="onSideNav.emit(navItems)"
+        >
           <mat-icon>menu</mat-icon>
         </button>
       </div>
+
       <img
         src="../../../assets/logo-removebg.png"
         width="200"
@@ -45,17 +23,14 @@
       />
 
       <div class="d-none d-md-none d-lg-block">
-        <button mat-button routerLink="journey">
-          <span class="ml-4"> <b>Séjours</b> </span>
-        </button>
-        <button mat-button routerLink="about">
-          <span class="ml-4"><b>Qui sommes nous</b></span>
-        </button>
-        <button mat-button routerLink="contact">
-          <span class="ml-4"><b>Contactez nous</b> </span>
-        </button>
-        <button *ngIf="(user | async)?.admin" routerLink="admin" mat-button>
-          <span class="ml-4"><b>Admin</b> </span>
+        <button
+          *ngFor="let item of navItems | async"
+          mat-button
+          [routerLink]="item.routerLink"
+        >
+          <span class="ml-4">
+            <b>{{ item.name }}</b>
+          </span>
         </button>
       </div>
 
@@ -66,7 +41,7 @@
           mat-mini-fab
           routerLink="{{ (user | async) ? 'profile' : 'register' }}"
         >
-          <ng-container *ngIf="user | async; else iconTemplate">
+          <ng-container *ngIf="profileImg | async; else iconTemplate">
             <img [src]="profileImg | async" alt="Profile image" />
           </ng-container>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { isDarkTheme } from 'src/app/store/root/root.selectors';
@@ -10,8 +10,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from 'src/environment/environment';
+import { THEMES, NAV_ITEMS, NavItems } from 'src/app/constants/themes';
 
 @Component({
   selector: 'app-nav',
@@ -28,22 +29,44 @@ import { environment } from 'src/environment/environment';
   ],
 })
 export class NavComponent implements OnInit {
+  @Output() onSideNav = new EventEmitter<Observable<NavItems>>();
   isDarkTheme = this.store.select(isDarkTheme);
+  darkTheme: boolean;
   user = this.store.select(getUser);
-  hasChanged = false;
-  profileImg: Observable<string>;
+  profileImg: Observable<string | null>;
+  navItems: Observable<NavItems>;
+
   constructor(private store: Store) {}
+
   ngOnInit(): void {
-    this.user.subscribe((attr) => {
-      if (attr?.avatar) {
-        this.profileImg = of(`${environment.apiUrl}/storage/${attr.avatar}`);
-      }
-    });
+    this.profileImg = this.user.pipe(
+      map((user) => {
+        if (!user?.avatar) {
+          return null;
+        }
+        return `${environment.apiUrl}/storage/${user.avatar}`;
+      })
+    );
+    this.navItems = this.user.pipe(
+      map((user) => {
+        const defaultNavItems = [
+          { name: NAV_ITEMS.JOURNEY, routerLink: 'journey' },
+          { name: NAV_ITEMS.ABOUT, routerLink: 'about' },
+          { name: NAV_ITEMS.CONTACT, routerLink: 'contact' },
+        ];
+        if (user?.admin) {
+          defaultNavItems.push({ name: NAV_ITEMS.ADMIN, routerLink: 'admin' });
+        }
+        return defaultNavItems;
+      })
+    );
   }
   changeTheme() {
+    this.isDarkTheme.subscribe((darkTheme) => (this.darkTheme = darkTheme));
     this.store.dispatch(
-      ROOT_ACTIONS.setDarkTheme({ isDarkTheme: this.hasChanged })
+      ROOT_ACTIONS.setTheme({
+        theme: this.darkTheme ? THEMES.DARK : THEMES.LIGHT,
+      })
     );
-    this.hasChanged = !this.hasChanged;
   }
 }

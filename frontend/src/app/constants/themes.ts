@@ -4,3 +4,11 @@ export const THEMES = {
 };
 
 export const DARK_THEME = 'dark_theme';
+
+export const NAV_ITEMS = {
+  ADMIN: 'Admin',
+  JOURNEY: 'Séjours',
+  ABOUT: 'Handouceur',
+  CONTACT: 'Nous contacter',
+};
+export type NavItems = { name: string; routerLink: string }[];
