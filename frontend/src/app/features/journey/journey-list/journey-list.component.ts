@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { getAllJourney } from '../../../store/journey/journey.selectors';
 import { getAdminStatus } from 'src/app/store/user/user.selectors';
+import { isDarkTheme } from 'src/app/store/root/root.selectors';
 import { JourneyComponent } from '../journey-card/journey.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -25,9 +26,11 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class JourneyListComponent {
   journeys: Observable<Journey[] | []>;
-  isAdmin: Observable<Boolean | undefined>;
+  isAdmin: Observable<boolean | undefined>;
+  isDarkTheme: Observable<boolean | undefined>;
   constructor(private store: Store) {
     this.isAdmin = this.store.select(getAdminStatus);
     this.journeys = this.store.select(getAllJourney);
+    this.isDarkTheme = this.store.select(isDarkTheme);
   }
 }

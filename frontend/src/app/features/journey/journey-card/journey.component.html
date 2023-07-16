@@ -36,14 +36,14 @@
 
     <mat-card-content class="description-wrapper">
       <div>
-        <span [ngClass]="[(isDarkTheme | async) ? 'chips light' : 'chips dark']"
+        <span [ngClass]="[isDarkTheme ? 'chips light' : 'chips dark']"
           >Description</span
         >
         <div class="map p-2">
           <app-map
             [mapId]="journey.id"
             [coordinates]="journey.coordinates"
-            [isDarktheme]="isDarkTheme | async"
+            [isDarktheme]="isDarkTheme"
           ></app-map>
         </div>
         <p class="p-2">
@@ -53,8 +53,7 @@
 
       <div class="row mt-1 m-0">
         <div class="col p-0">
-          <span
-            [ngClass]="[(isDarkTheme | async) ? 'chips light' : 'chips dark']"
+          <span [ngClass]="[isDarkTheme ? 'chips light' : 'chips dark']"
             >Loisirs & Activités</span
           >
           <p class="p-2">
@@ -64,9 +63,7 @@
       </div>
       <div class="row m-0">
         <div class="col p-0">
-          <span
-            [ngClass]="[(isDarkTheme | async) ? 'chips light' : 'chips dark']"
-          >
+          <span [ngClass]="[isDarkTheme ? 'chips light' : 'chips dark']">
             Hébergement</span
           >
           <p class="p-2">
@@ -74,8 +71,7 @@
           </p>
         </div>
         <div class="col p-0 ml-1">
-          <span
-            [ngClass]="[(isDarkTheme | async) ? 'chips light' : 'chips dark']"
+          <span [ngClass]="[isDarkTheme ? 'chips light' : 'chips dark']"
             >Transport</span
           >
           <p class="p-2">{{ journey.transport }}</p>
@@ -88,7 +84,7 @@
 
       <button
         style="width: 8em"
-        *ngIf="isAdmin | async"
+        *ngIf="isAdmin"
         mat-raised-button
         routerLink="edit/{{ journey.id }}"
       >

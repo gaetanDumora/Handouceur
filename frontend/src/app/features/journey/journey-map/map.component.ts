@@ -40,9 +40,7 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.isDarktheme);
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
     const [latitude, longitude] = this.coordinates;

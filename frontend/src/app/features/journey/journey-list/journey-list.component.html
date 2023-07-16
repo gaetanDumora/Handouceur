@@ -1,6 +1,10 @@
-<div class="d-flex flex-wrap justify-content-around">
+<div class="background d-flex flex-wrap justify-content-around">
   <div *ngFor="let journey of journeys | async">
-    <app-journey [journey]="journey"></app-journey>
+    <app-journey
+      [isAdmin]="isAdmin | async"
+      [isDarkTheme]="isDarkTheme | async"
+      [journey]="journey"
+    ></app-journey>
   </div>
   <div style="left: 0" class="p-2 position-absolute">
     <button *ngIf="isAdmin | async" mat-fab routerLink="edit/new" color="warn">
