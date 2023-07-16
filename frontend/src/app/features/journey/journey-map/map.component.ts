@@ -16,7 +16,7 @@ import { Map, MapOptions, tileLayer, latLng, marker, icon, map } from 'leaflet';
 export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() coordinates: [number, number];
   @Input() mapId: number;
-  @Input() isDarktheme: boolean | null | undefined;
+  @Input() isDarkTheme: boolean | null | undefined;
 
   public map: Map;
 
