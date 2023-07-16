@@ -31,10 +31,10 @@ import { isDarkTheme } from 'src/app/store/root/root.selectors';
 export class JourneyComponent {
   @Input() journey: Journey;
   isAdmin: Observable<boolean | undefined>;
-  isDarkThem: Observable<boolean | undefined>;
+  isDarkTheme: Observable<boolean | undefined>;
 
   constructor(private store: Store) {
     this.isAdmin = this.store.select(getAdminStatus);
-    this.isDarkThem = this.store.select(isDarkTheme);
+    this.isDarkTheme = this.store.select(isDarkTheme);
   }
 }

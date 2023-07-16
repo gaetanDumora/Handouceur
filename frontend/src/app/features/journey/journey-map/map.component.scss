@@ -1,0 +1,11 @@
+.mapCircle {
+  height: 130px;
+  width: 130px;
+  border-radius: 50%;
+  border: solid 1px grey;
+}
+
+.darkMapCircle.leaflet-container {
+  @extend .mapCircle;
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}

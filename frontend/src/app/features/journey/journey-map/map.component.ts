@@ -20,24 +20,12 @@ import {
   icon,
   map,
 } from 'leaflet';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-map',
-  template: `<div
-    [id]="mapId"
-    class="mapCircle"
-    (leafletMapZoomEnd)="onMapZoomEnd($event)"
-  ></div>`,
-  styles: [
-    `
-      .mapCircle {
-        height: 130px;
-        width: 130px;
-        border-radius: 50%;
-        border: solid 1px grey;
-      }
-    `,
-  ],
+  templateUrl: './map.component.html',
+  styleUrls: ['./map.component.scss'],
   standalone: true,
 })
 export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
@@ -45,13 +33,16 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
   @Output() zoom$: EventEmitter<number> = new EventEmitter();
   @Input() coordinates: [number, number];
   @Input() mapId: number;
+  @Input() isDarktheme: boolean | null | undefined;
 
   public map: Map;
   public zoom: number;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.isDarktheme);
+  }
 
   ngAfterViewInit() {
     const [latitude, longitude] = this.coordinates;
