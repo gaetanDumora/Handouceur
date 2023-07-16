@@ -25,7 +25,7 @@
     "@ngrx/effects": "^15.2.1",
     "@ngrx/store": "^15.2.1",
     "@ngrx/store-devtools": "^15.2.1",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^5.2.0",
     "leaflet": "^1.9.3",
     "ngrx-store-localstorage": "^15.0.0",
     "ngx-skeleton-loader": "^7.0.0",
@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.0.4",
-    "@angular/cli": "~15.0.4",
+    "@angular/cli": "^15.2.9",
     "@angular/compiler-cli": "^15.0.0",
     "@ngrx/schematics": "^15.4.0",
     "@types/jasmine": "~4.3.0",
