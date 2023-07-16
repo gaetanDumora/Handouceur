@@ -1,16 +1,25 @@
-<div class="background d-flex flex-wrap justify-content-around">
-  <div *ngFor="let journey of journeys | async">
-    <app-journey
-      [isAdmin]="isAdmin | async"
-      [isDarkTheme]="isDarkTheme | async"
-      [journey]="journey"
-    ></app-journey>
-  </div>
-  <div style="left: 0" class="p-2 position-absolute">
-    <button *ngIf="isAdmin | async" mat-fab routerLink="edit/new" color="warn">
-      <mat-icon>add</mat-icon>
-    </button>
+<div class="container">
+  <div class="background row justify-content-lg-around">
+    <div
+      class="d-sm-flex justify-content-sm-center col align-self-center"
+      *ngFor="let journey of journeys | async"
+    >
+      <app-journey
+        [isAdmin]="isAdmin | async"
+        [isDarkTheme]="isDarkTheme | async"
+        [journey]="journey"
+      ></app-journey>
+    </div>
+    <div style="left: 0" class="p-2 position-absolute">
+      <button
+        *ngIf="isAdmin | async"
+        mat-fab
+        routerLink="edit/new"
+        color="warn"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
   </div>
 </div>
-
 <router-outlet></router-outlet>
