@@ -38,16 +38,18 @@
       <span [ngClass]="[isDarkTheme ? 'chips light' : 'chips dark']"
         >Description</span
       >
-      <div class="map p-2">
-        <app-map
-          [mapId]="journey.id"
-          [coordinates]="journey.coordinates"
-          [isDarkTheme]="isDarkTheme"
-        ></app-map>
+      <div class="p-2">
+        <div class="map">
+          <app-map
+            [mapId]="journey.id"
+            [coordinates]="journey.coordinates"
+            [isDarkTheme]="isDarkTheme"
+          ></app-map>
+        </div>
+        <p>
+          {{ journey.description }}
+        </p>
       </div>
-      <p>
-        {{ journey.description }}
-      </p>
     </div>
 
     <div class="row mt-1 m-0">
