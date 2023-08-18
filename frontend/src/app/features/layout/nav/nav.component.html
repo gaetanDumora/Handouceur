@@ -51,7 +51,7 @@
         </button>
 
         <ng-container *ngIf="user | async">
-          <span
+          <span class="d-none d-sm-block"
             >{{ (user | async)?.firstName }}
             {{ (user | async)?.lastName }}</span
           >

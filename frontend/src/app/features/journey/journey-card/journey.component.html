@@ -1,95 +1,93 @@
-<div class="journey">
-  <mat-card>
-    <mat-card-header class="row justify-content-center text-center">
-      <mat-card-title>
-        {{ journey.title || 'TITRE' | uppercase }}
-      </mat-card-title>
-      <mat-card-subtitle>{{
-        journey.subtitle || 'sous-titre'
-      }}</mat-card-subtitle>
-    </mat-card-header>
+<mat-card class="journey">
+  <mat-card-header class="row justify-content-center text-center">
+    <mat-card-title>
+      {{ journey.title || 'TITRE' | uppercase }}
+    </mat-card-title>
+    <mat-card-subtitle>{{
+      journey.subtitle || 'sous-titre'
+    }}</mat-card-subtitle>
+  </mat-card-header>
 
-    <app-carousel [journey]="journey"></app-carousel>
+  <app-carousel [journey]="journey"></app-carousel>
 
-    <div class="position-absolute" style="margin-top: 75px">
-      <mat-chip-row color="primary" highlighted
-        ><mat-icon>accessible_forward</mat-icon>
-        {{ journey.groupSize }}
-      </mat-chip-row>
-      <mat-chip-row color="primary" highlighted
-        ><mat-icon>group</mat-icon>
-        {{ journey.companions }}
-      </mat-chip-row>
+  <div class="position-absolute" style="margin-top: 75px">
+    <mat-chip-row color="primary" highlighted
+      ><mat-icon>accessible_forward</mat-icon>
+      {{ journey.groupSize }}
+    </mat-chip-row>
+    <mat-chip-row color="primary" highlighted
+      ><mat-icon>group</mat-icon>
+      {{ journey.companions }}
+    </mat-chip-row>
+  </div>
+
+  <div class="position-absolute" style="margin-top: 320px">
+    <mat-chip-row color="primary" highlighted
+      >Du {{ journey.startDate | date }}</mat-chip-row
+    >
+    <mat-chip-row color="primary" highlighted
+      >Au {{ journey.endDate | date }}</mat-chip-row
+    >
+    <mat-chip-row color="primary" highlighted
+      >{{ journey.price | number }} €</mat-chip-row
+    >
+  </div>
+
+  <mat-card-content class="description-wrapper">
+    <div>
+      <span [ngClass]="[isDarkTheme ? 'chips light' : 'chips dark']"
+        >Description</span
+      >
+      <div class="map p-2">
+        <app-map
+          [mapId]="journey.id"
+          [coordinates]="journey.coordinates"
+          [isDarkTheme]="isDarkTheme"
+        ></app-map>
+      </div>
+      <p>
+        {{ journey.description }}
+      </p>
     </div>
 
-    <div class="position-absolute" style="margin-top: 320px">
-      <mat-chip-row color="primary" highlighted
-        >Du {{ journey.startDate | date }}</mat-chip-row
-      >
-      <mat-chip-row color="primary" highlighted
-        >Au {{ journey.endDate | date }}</mat-chip-row
-      >
-      <mat-chip-row color="primary" highlighted
-        >{{ journey.price | number }} €</mat-chip-row
-      >
-    </div>
-
-    <mat-card-content class="description-wrapper">
-      <div>
+    <div class="row mt-1 m-0">
+      <div class="col p-0">
         <span [ngClass]="[isDarkTheme ? 'chips light' : 'chips dark']"
-          >Description</span
+          >Loisirs & Activités</span
         >
-        <div class="map p-2">
-          <app-map
-            [mapId]="journey.id"
-            [coordinates]="journey.coordinates"
-            [isDarktheme]="isDarkTheme"
-          ></app-map>
-        </div>
         <p class="p-2">
-          {{ journey.description }}
+          {{ journey.recreation }}
         </p>
       </div>
-
-      <div class="row mt-1 m-0">
-        <div class="col p-0">
-          <span [ngClass]="[isDarkTheme ? 'chips light' : 'chips dark']"
-            >Loisirs & Activités</span
-          >
-          <p class="p-2">
-            {{ journey.recreation }}
-          </p>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span [ngClass]="[isDarkTheme ? 'chips light' : 'chips dark']">
+          Hébergement</span
+        >
+        <p class="p-2">
+          {{ journey.hosting }}
+        </p>
       </div>
-      <div class="row m-0">
-        <div class="col p-0">
-          <span [ngClass]="[isDarkTheme ? 'chips light' : 'chips dark']">
-            Hébergement</span
-          >
-          <p class="p-2">
-            {{ journey.hosting }}
-          </p>
-        </div>
-        <div class="col p-0 ml-1">
-          <span [ngClass]="[isDarkTheme ? 'chips light' : 'chips dark']"
-            >Transport</span
-          >
-          <p class="p-2">{{ journey.transport }}</p>
-        </div>
+      <div class="col">
+        <span [ngClass]="[isDarkTheme ? 'chips light' : 'chips dark']"
+          >Transport</span
+        >
+        <p class="p-2">{{ journey.transport }}</p>
       </div>
-    </mat-card-content>
+    </div>
+  </mat-card-content>
 
-    <mat-card-actions class="flex justify-content-around">
-      <button style="width: 8em" mat-raised-button>Réservation</button>
+  <mat-card-actions class="flex justify-content-around">
+    <button style="width: 8em" mat-raised-button>Réservation</button>
 
-      <button
-        style="width: 8em"
-        *ngIf="isAdmin"
-        mat-raised-button
-        routerLink="edit/{{ journey.id }}"
-      >
-        Editer
-      </button>
-    </mat-card-actions>
-  </mat-card>
-</div>
+    <button
+      style="width: 8em"
+      *ngIf="isAdmin"
+      mat-raised-button
+      routerLink="edit/{{ journey.id }}"
+    >
+      Editer
+    </button>
+  </mat-card-actions>
+</mat-card>
