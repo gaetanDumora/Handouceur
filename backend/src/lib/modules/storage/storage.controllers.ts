@@ -32,6 +32,11 @@ export async function downloadFileHandler(
     const { folder, key } = request.params;
     const path = `${folder}/${key}`;
     const image = await getFile(path);
+    reply.headers({
+      'content-type': 'image/png',
+      'cache-control': 'max-age=604800, must-revalidate', // 7 days
+    });
+    console.log(reply.getHeaders());
     return reply.code(200).send(image);
   } catch (error) {
     request.log.error(error);

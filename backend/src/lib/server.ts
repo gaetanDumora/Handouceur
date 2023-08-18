@@ -34,10 +34,7 @@ export const startServer = fp(async function (server: FastifyInstance) {
     server.log.info({ request }, 'incoming request');
   });
   server.addHook('onResponse', async (request, reply) => {
-    server.log.info({ request, reply }, 'request completed');
-  });
-  server.addHook('onSend', async (request, reply) => {
-    reply.header('Cache-Control', 'no-store');
+    server.log.info({ reply }, 'request completed');
   });
   server.setErrorHandler((err, request, reply) => {
     if (reply.statusCode >= 500) {
