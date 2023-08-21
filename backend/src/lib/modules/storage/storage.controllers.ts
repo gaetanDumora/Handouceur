@@ -36,7 +36,6 @@ export async function downloadFileHandler(
       'content-type': 'image/png',
       'cache-control': 'max-age=604800, must-revalidate', // 7 days
     });
-    console.log(reply.getHeaders());
     return reply.code(200).send(image);
   } catch (error) {
     request.log.error(error);
