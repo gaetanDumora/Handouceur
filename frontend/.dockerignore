@@ -1,1 +1,13 @@
-node_modules
+**/node_modules/
+**/.git
+**/README.md
+**/LICENSE
+**/.vscode
+**/npm-debug.log
+**/coverage
+**/.env
+**/.editorconfig
+**/.aws
+**/build
+**/dist
+**Dockerfile

@@ -14,7 +14,7 @@
     "db:up": "npx knex migrate:latest",
     "db:down": "npx knex migrate:rollback",
     "db:schema": "npx prisma generate",
-    "start:docker": "npm run build && node --inspect=0.0.0.0 build/app.js"
+    "start:docker": "npm run db:up && npm run build && node --inspect=0.0.0.0 build/app.js"
   },
   "prisma": {
     "seed": "node --loader ts-node/esm prisma/seed.ts"

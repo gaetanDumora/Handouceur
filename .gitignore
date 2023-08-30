@@ -1,5 +1,5 @@
 # data
-data
+db
 
 # dependencies
 node_modules
@@ -7,6 +7,7 @@ certificats
 
 # build
 build
+dist
 
 # misc
 .DS_Store
